@@ -74,9 +74,9 @@ inject_plist() {
 }
 
 echo "==> Injecting backend config into Info.plist"
-inject_plist PratoClerkPublishableKey "${CLERK_PUBLISHABLE_KEY:-}"
-inject_plist PratoConvexDeploymentURL "${CONVEX_DEPLOYMENT_URL:-}"
-inject_plist PratoConvexHttpURL "${CONVEX_HTTP_URL:-}"
+inject_plist PalmierClerkPublishableKey "${CLERK_PUBLISHABLE_KEY:-}"
+inject_plist PalmierConvexDeploymentURL "${CONVEX_DEPLOYMENT_URL:-}"
+inject_plist PalmierConvexHttpURL "${CONVEX_HTTP_URL:-}"
 cp "$RESOURCES/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 cp -R "$SPARKLE_FW" "$APP/Contents/Frameworks/Sparkle.framework"
 

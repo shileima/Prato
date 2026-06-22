@@ -90,7 +90,7 @@ enum BundledFonts {
         guard let resourceURL = Bundle.main.resourceURL else { return nil }
         let candidates = [
             resourceURL.appendingPathComponent("Fonts"),
-            resourceURL.appendingPathComponent("PratoPro_PratoPro.bundle/Fonts"),
+            resourceURL.appendingPathComponent("PalmierPro_PalmierPro.bundle/Fonts"),
         ]
         return candidates.first { FileManager.default.fileExists(atPath: $0.path) }
     }

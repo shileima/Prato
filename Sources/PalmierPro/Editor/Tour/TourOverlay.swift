@@ -274,7 +274,7 @@ private enum TourAssets {
         guard let root = Bundle.main.resourceURL else { return nil }
         let candidates = [
             root.appendingPathComponent("Images/\(name).\(ext)"),
-            root.appendingPathComponent("PratoPro_PratoPro.bundle/Images/\(name).\(ext)"),
+            root.appendingPathComponent("PalmierPro_PalmierPro.bundle/Images/\(name).\(ext)"),
         ]
         for url in candidates where FileManager.default.fileExists(atPath: url.path) {
             return NSImage(contentsOf: url)

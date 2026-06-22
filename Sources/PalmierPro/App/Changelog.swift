@@ -52,7 +52,7 @@ final class ChangelogStore {
         guard let root = Bundle.main.resourceURL else { return nil }
         let candidates = [
             root.appendingPathComponent("Changelog/changelog.json"),
-            root.appendingPathComponent("PratoPro_PratoPro.bundle/Changelog/changelog.json"),
+            root.appendingPathComponent("PalmierPro_PalmierPro.bundle/Changelog/changelog.json"),
         ]
         for url in candidates where FileManager.default.fileExists(atPath: url.path) {
             guard let data = try? Data(contentsOf: url) else { continue }

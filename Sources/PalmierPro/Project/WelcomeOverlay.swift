@@ -114,7 +114,7 @@ struct WelcomeOverlay: View {
         guard let root = Bundle.main.resourceURL else { return nil }
         let candidates = [
             root.appendingPathComponent("Images/welcome-butterfly.jpg"),
-            root.appendingPathComponent("PratoPro_PratoPro.bundle/Images/welcome-butterfly.jpg"),
+            root.appendingPathComponent("PalmierPro_PalmierPro.bundle/Images/welcome-butterfly.jpg"),
         ]
         for url in candidates where FileManager.default.fileExists(atPath: url.path) {
             return NSImage(contentsOf: url)
