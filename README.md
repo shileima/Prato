@@ -10,7 +10,8 @@
 
 - **完整中文界面** — 菜单、面板、对话框全面汉化
 - **自定义模型 API** — 兼容 OpenAI 格式，支持接入 Claude、Gemini、DeepSeek 等任意大模型
-- **AI 视频生成** — 支持 Veo、Kling、Seedance 等主流视频生成模型（需订阅）
+- **直连图片生成** — 无需订阅，接入任意 OpenAI 兼容图片 API（支持 gemini-2.5-flash-image、Seedream 等）
+- **直连视频生成** — 无需订阅，接入 MiniMax Hailuo、OpenAI Sora 等视频生成模型
 - **AI 字幕** — 自动转写并生成字幕轨道
 - **AI 音乐** — 根据时间线风格生成背景音乐
 - **MCP 服务器** — 可通过 Claude Desktop、Cursor、Claude Code 等客户端直接编辑时间线
@@ -68,13 +69,37 @@ CUSTOM_API_MODEL="gpt-4o" \
 
 ---
 
+## 配置直连生成 API
+
+无需 Palmier 订阅，通过自己的 API Key 直接生成图片和视频。
+
+**设置路径：** 设置 → 智能体 → 直连生成 API
+
+| 字段 | 说明 |
+|------|------|
+| 启用开关 | 开启后自动注入直连模型 |
+| 图片生成模型 | 如 `gemini-2.5-flash-image`、`seedream-4.5` |
+| 视频生成模型 | 如 `MiniMax-Hailuo-2.3`、`sora-2` |
+
+API 地址和 Key 复用上方"自定义模型 API"的配置（同一代理）。
+
+**视频生成参数：**
+
+| 模型 | 支持时长 | 分辨率 |
+|------|---------|--------|
+| MiniMax-Hailuo-2.3 | 6s / 10s | 1080P / 720P |
+| sora-2 | 4s / 8s | — |
+
+---
+
 ## 与原版对比
 
 | | 原版 Palmier Pro | Prato |
 |-|-----------------|-------|
 | 界面语言 | 英文 | 简体中文 |
 | 智能体模型 | Anthropic / Palmier 云端 | 任意 OpenAI 兼容 API |
-| AI 视频/音频生成 | 需 Palmier 订阅 | 需 Palmier 订阅 |
+| AI 图片生成 | 需 Palmier 订阅 | **支持直连 API**（无需订阅）|
+| AI 视频生成 | 需 Palmier 订阅 | **支持直连 API**（无需订阅）|
 | 开源协议 | GPL v3 | GPL v3 |
 
 ---

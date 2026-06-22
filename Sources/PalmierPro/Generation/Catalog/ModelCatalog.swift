@@ -48,7 +48,10 @@ final class ModelCatalog {
         guard !didConfigure else { return }
         didConfigure = true
 
-        guard let client = AccountService.shared.convex else { return }
+        guard let client = AccountService.shared.convex else {
+            refreshDirectModels()
+            return
+        }
 
         subscription = client
             .subscribe(to: "models:list", yielding: [CatalogEntry].self)
@@ -62,8 +65,51 @@ final class ModelCatalog {
                 },
                 receiveValue: { [weak self] entries in
                     self?.apply(entries)
+                    self?.refreshDirectModels()
                 }
             )
+
+        refreshDirectModels()
+    }
+
+    func refreshDirectModels() {
+        image.removeAll { $0.id.hasPrefix("direct:") }
+        video.removeAll { $0.id.hasPrefix("direct:") }
+        byId = byId.filter { !$0.key.hasPrefix("direct:") }
+
+        guard DirectGenerationConfig.isConfigured else { return }
+
+        // Inject direct image model
+        let imgModelId = DirectGenerationConfig.imageModel
+        if !imgModelId.isEmpty,
+           let direct = ImageModelConfig.direct(
+               modelId: "direct:\(imgModelId)",
+               displayName: "\(imgModelId) (Direct)") {
+            image.insert(direct, at: 0)
+            byId[direct.id] = .image(direct)
+        }
+
+        // Inject direct video model
+        let vidModelId = DirectGenerationConfig.videoModel
+        if !vidModelId.isEmpty,
+           let directVid = VideoModelConfig.direct(
+               modelId: "direct:\(vidModelId)",
+               displayName: "\(vidModelId) (Direct)",
+               durations: Self.durationsFor(vidModelId),
+               resolutions: ["1080P", "720P"]) {
+            video.insert(directVid, at: 0)
+            byId[directVid.id] = .video(directVid)
+        }
+
+        isLoaded = true
+    }
+
+    private static func durationsFor(_ model: String) -> [Int] {
+        switch model {
+        case _ where model.contains("Hailuo"): return [6, 10]
+        case _ where model.contains("sora"):   return [4, 8]
+        default:                               return [5, 10]
+        }
     }
 
     private func apply(_ entries: [CatalogEntry]) {

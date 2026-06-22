@@ -300,6 +300,27 @@ final class GenerationService {
         Log.generation.notice("run \(runId) start model=\(genInput.model) placeholders=\(placeholders.count)")
         defer { Log.generation.notice("run \(runId) settled") }
 
+        // Direct API path — bypasses Prato when custom generation is configured
+        if case .image(let imageParams) = params,
+           let client = DirectGenerationConfig.makeImageClient() {
+            await runDirectImageJob(
+                client: client, params: imageParams,
+                placeholders: placeholders, editor: editor,
+                onComplete: onComplete, onFailure: onFailure
+            )
+            return
+        }
+
+        if case .video(let videoParams) = params,
+           let client = DirectGenerationConfig.makeVideoClient() {
+            await runDirectVideoJob(
+                client: client, params: videoParams,
+                placeholders: placeholders, editor: editor,
+                onComplete: onComplete, onFailure: onFailure
+            )
+            return
+        }
+
         let jobId: String
         do {
             jobId = try await GenerationBackend.submit(
@@ -359,6 +380,155 @@ final class GenerationService {
                 continue
             }
         }
+    }
+
+    private func runDirectImageJob(
+        client: DirectImageGenerationClient,
+        params: ImageGenerationParams,
+        placeholders: [MediaAsset],
+        editor: EditorViewModel,
+        onComplete: (@MainActor (MediaAsset) -> Void)?,
+        onFailure: (@MainActor () -> Void)?
+    ) async {
+        do {
+            let urls = try await client.generate(
+                prompt: params.prompt,
+                count: params.numImages,
+                aspectRatio: params.aspectRatio
+            )
+            var finalized: [MediaAsset] = []
+            for (i, placeholder) in placeholders.enumerated() {
+                guard i < urls.count else {
+                    placeholder.generationStatus = .failed("No URL for placeholder")
+                    continue
+                }
+                if await downloadAndFinalize(asset: placeholder, remoteURL: urls[i], editor: editor) {
+                    onComplete?(placeholder)
+                    finalized.append(placeholder)
+                }
+            }
+            if let first = finalized.first {
+                AppNotifications.generationComplete(
+                    assetId: first.id,
+                    projectURL: editor.projectURL,
+                    assetName: first.name,
+                    assetType: first.type,
+                    count: finalized.count
+                )
+            } else {
+                onFailure?()
+            }
+        } catch {
+            let message = error.localizedDescription
+            Log.generation.error("direct image generation failed: \(message)")
+            for placeholder in placeholders {
+                placeholder.generationStatus = .failed(message)
+            }
+            onFailure?()
+        }
+    }
+
+    private func runDirectVideoJob(
+        client: DirectVideoGenerationClient,
+        params: VideoGenerationParams,
+        placeholders: [MediaAsset],
+        editor: EditorViewModel,
+        onComplete: (@MainActor (MediaAsset) -> Void)?,
+        onFailure: (@MainActor () -> Void)?
+    ) async {
+        // Pick resolution based on aspect ratio
+        let resolution: String? = {
+            switch params.aspectRatio {
+            case "16:9": return "1080P"
+            case "9:16": return "720P"
+            default:     return "1080P"
+            }
+        }()
+
+        let taskId: String
+        do {
+            taskId = try await client.submitTask(
+                prompt: params.prompt,
+                duration: params.duration > 0 ? params.duration : 6,
+                resolution: resolution,
+                firstFrameURL: params.startFrameURL
+            )
+            Log.generation.notice("direct video submitted taskId=\(taskId)")
+        } catch {
+            let message = error.localizedDescription
+            Log.generation.error("direct video submit failed: \(message)")
+            for placeholder in placeholders {
+                placeholder.generationStatus = .failed(message)
+            }
+            onFailure?()
+            return
+        }
+
+        // Poll every 5 seconds until completed / failed (max ~10 minutes)
+        let maxAttempts = 120
+        for attempt in 0..<maxAttempts {
+            if attempt > 0 { try? await Task.sleep(nanoseconds: 5_000_000_000) }
+            let status: DirectVideoTaskStatus
+            do {
+                status = try await client.pollTask(taskId: taskId)
+            } catch {
+                Log.generation.warning("direct video poll error: \(error.localizedDescription)")
+                continue
+            }
+
+            // Update progress on placeholder
+            let pct = status.progress
+            Log.generation.notice("direct video poll taskId=\(taskId) status=\(status.status) progress=\(pct)")
+
+            switch status.status {
+            case "completed":
+                guard let videoURL = status.videoURL else {
+                    for placeholder in placeholders {
+                        placeholder.generationStatus = .failed("No video URL in response")
+                    }
+                    onFailure?()
+                    return
+                }
+                var finalized: [MediaAsset] = []
+                for placeholder in placeholders {
+                    if await downloadAndFinalize(asset: placeholder, remoteURL: videoURL, editor: editor) {
+                        onComplete?(placeholder)
+                        finalized.append(placeholder)
+                    }
+                }
+                if let first = finalized.first {
+                    AppNotifications.generationComplete(
+                        assetId: first.id,
+                        projectURL: editor.projectURL,
+                        assetName: first.name,
+                        assetType: first.type,
+                        count: finalized.count
+                    )
+                } else {
+                    onFailure?()
+                }
+                return
+
+            case "failed":
+                let message = status.errorMessage ?? "Video generation failed"
+                Log.generation.error("direct video failed taskId=\(taskId): \(message)")
+                for placeholder in placeholders {
+                    placeholder.generationStatus = .failed(message)
+                }
+                onFailure?()
+                return
+
+            default:
+                // pending / in_progress — keep polling
+                continue
+            }
+        }
+
+        // Timed out
+        for placeholder in placeholders {
+            placeholder.generationStatus = .failed("Video generation timed out")
+        }
+        onFailure?()
     }
 
     private func finalizeSuccess(

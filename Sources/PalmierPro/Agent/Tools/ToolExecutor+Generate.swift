@@ -3,11 +3,16 @@ import Foundation
 extension ToolExecutor {
     func generate(_ editor: EditorViewModel, _ args: [String: Any], type: ClipType) throws -> ToolResult {
         let prompt = try args.requireString("prompt")
-        guard AccountService.shared.isSignedIn else {
-            throw ToolError("Generation requires signing in to Prato. Tell the user to sign in.")
+        // Image and video generation are allowed via direct API (no Prato account needed)
+        let usingDirectAPI = DirectGenerationConfig.isConfigured &&
+            (type == .image || type == .video)
+        guard AccountService.shared.isSignedIn || usingDirectAPI else {
+            throw ToolError("Generation requires signing in to Prato or configuring a direct API in Settings → Agent → 直连生成 API. Tell the user to sign in or configure the direct API.")
         }
-        guard AccountService.shared.hasCredits else {
-            throw ToolError("Out of credits. Tell the user to add credits or subscribe to keep generating.")
+        if !usingDirectAPI {
+            guard AccountService.shared.hasCredits else {
+                throw ToolError("Out of credits. Tell the user to add credits or subscribe to keep generating.")
+            }
         }
         switch type {
         case .video:

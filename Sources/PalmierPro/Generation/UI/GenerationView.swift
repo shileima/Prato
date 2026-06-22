@@ -436,7 +436,7 @@ struct GenerationView: View {
         }
     }
 
-    private var aiAllowed: Bool { account.aiAllowed }
+    private var aiAllowed: Bool { account.aiAllowed || DirectGenerationConfig.isConfigured }
 
     private var catalogLoadingView: some View {
         VStack(spacing: AppTheme.Spacing.md) {

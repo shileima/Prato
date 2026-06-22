@@ -18,6 +18,12 @@ struct AgentPane: View {
     @State private var customTestStatus: CustomTestStatus = .idle
     @FocusState private var customKeyFocused: Bool
 
+    // Direct generation state
+    @State private var directGenEnabled: Bool = false
+    @State private var directImageModel: String = ""
+    @State private var directVideoModel: String = ""
+    @State private var directGenTestStatus: CustomTestStatus = .idle
+
     private let consoleURL = URL(string: "https://console.anthropic.com/settings/keys")!
 
     enum CustomTestStatus {
@@ -27,6 +33,8 @@ struct AgentPane: View {
     var body: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             customAPISection
+            Divider().overlay(AppTheme.Border.subtleColor)
+            directGenSection
             Divider().overlay(AppTheme.Border.subtleColor)
             apiKeySection
             Divider().overlay(AppTheme.Border.subtleColor)
@@ -185,6 +193,133 @@ struct AgentPane: View {
         .disabled(!customEnabled)
     }
 
+    // MARK: - Direct Generation Section
+
+    private var directGenSection: some View {
+        VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
+            // Header row — always interactive so the Toggle can be clicked
+            HStack {
+                VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+                    Text("直连生成 API")
+                        .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                        .foregroundStyle(AppTheme.Text.primaryColor)
+                    Text("绕过 Prato，通过自定义 API 直接生成图片。复用上方的 API 地址和 Key。")
+                        .font(.system(size: AppTheme.FontSize.sm))
+                        .foregroundStyle(AppTheme.Text.tertiaryColor)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer()
+                Toggle("", isOn: $directGenEnabled)
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .onChange(of: directGenEnabled) { _, _ in applyDirectGenSettings() }
+            }
+
+            // Fields — disabled when toggle is off
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+                VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+                    Text("图片生成模型")
+                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .foregroundStyle(AppTheme.Text.tertiaryColor)
+                    TextField("dall-e-3", text: $directImageModel)
+                        .textFieldStyle(.plain)
+                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .foregroundStyle(AppTheme.Text.primaryColor)
+                        .padding(.horizontal, AppTheme.Spacing.md)
+                        .padding(.vertical, AppTheme.Spacing.smMd)
+                        .background(
+                            RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
+                                .fill(Color.black.opacity(AppTheme.Opacity.muted))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
+                                .strokeBorder(AppTheme.Border.subtleColor, lineWidth: AppTheme.BorderWidth.thin)
+                        )
+                        .onSubmit { applyDirectGenSettings() }
+                }
+
+                VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+                    Text("视频生成模型")
+                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .foregroundStyle(AppTheme.Text.tertiaryColor)
+                    TextField("MiniMax-Hailuo-2.3", text: $directVideoModel)
+                        .textFieldStyle(.plain)
+                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .foregroundStyle(AppTheme.Text.primaryColor)
+                        .padding(.horizontal, AppTheme.Spacing.md)
+                        .padding(.vertical, AppTheme.Spacing.smMd)
+                        .background(
+                            RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
+                                .fill(Color.black.opacity(AppTheme.Opacity.muted))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
+                                .strokeBorder(AppTheme.Border.subtleColor, lineWidth: AppTheme.BorderWidth.thin)
+                        )
+                        .onSubmit { applyDirectGenSettings() }
+                }
+
+                HStack(spacing: AppTheme.Spacing.sm) {
+                    Button(action: { applyDirectGenSettings(); testDirectGenAPI() }) {
+                        HStack(spacing: AppTheme.Spacing.xs) {
+                            if case .testing = directGenTestStatus { ProgressView().controlSize(.mini) }
+                            Text("测试生成")
+                        }
+                    }
+                    .buttonStyle(.capsule(.secondary, size: .regular))
+                    .controlSize(.large)
+                    .disabled({ if case .testing = directGenTestStatus { return true }; return false }())
+
+                    switch directGenTestStatus {
+                    case .idle: EmptyView()
+                    case .testing: EmptyView()
+                    case .success(let msg):
+                        Label(msg, systemImage: "checkmark.circle.fill")
+                            .font(.system(size: AppTheme.FontSize.sm))
+                            .foregroundStyle(.green)
+                    case .failure(let msg):
+                        Label(msg, systemImage: "xmark.circle.fill")
+                            .font(.system(size: AppTheme.FontSize.sm))
+                            .foregroundStyle(.red)
+                            .lineLimit(2)
+                    }
+                    Spacer()
+                }
+            }
+            .opacity(directGenEnabled ? 1 : 0.5)
+            .disabled(!directGenEnabled)
+        }
+    }
+
+    private func applyDirectGenSettings() {
+        DirectGenerationConfig.isEnabled = directGenEnabled
+        DirectGenerationConfig.imageModel = directImageModel.trimmingCharacters(in: .whitespaces)
+        DirectGenerationConfig.videoModel = directVideoModel.trimmingCharacters(in: .whitespaces)
+    }
+
+    private func testDirectGenAPI() {
+        applyDirectGenSettings()
+        guard DirectGenerationConfig.isConfigured else {
+            directGenTestStatus = .failure("请先在上方配置 API 地址和 Key，并启用直连生成")
+            return
+        }
+        guard let client = DirectGenerationConfig.makeImageClient() else {
+            directGenTestStatus = .failure("配置不完整")
+            return
+        }
+        directGenTestStatus = .testing
+        Task {
+            do {
+                // Use a minimal 1-image request with a simple prompt to test connectivity
+                _ = try await client.generate(prompt: "a simple test image", count: 1, aspectRatio: "1:1")
+                directGenTestStatus = .success("连接成功，图片生成可用")
+            } catch {
+                directGenTestStatus = .failure(error.localizedDescription)
+            }
+        }
+    }
+
     // MARK: - Anthropic API Section
 
     private var apiKeySection: some View {
@@ -286,6 +421,10 @@ struct AgentPane: View {
         let cKey = CustomAPIKeychain.loadAPIKey() ?? ""
         customHasKey = !cKey.isEmpty
         customMaskedKey = mask(cKey)
+
+        directGenEnabled = DirectGenerationConfig.isEnabled
+        directImageModel = DirectGenerationConfig.imageModel
+        directVideoModel = DirectGenerationConfig.videoModel
     }
 
     private func save() {
