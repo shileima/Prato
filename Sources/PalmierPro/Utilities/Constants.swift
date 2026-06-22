@@ -7,9 +7,9 @@ enum LayoutPreset: String, CaseIterable {
 
     var label: String {
         switch self {
-        case .default: "Default"
-        case .media: "Media"
-        case .vertical: "Vertical"
+        case .default: "默认"
+        case .media: "媒体"
+        case .vertical: "垂直"
         }
     }
 
@@ -102,9 +102,9 @@ enum Trim {
 }
 
 enum Project {
-    static let fileExtension = "palmier"
+    static let fileExtension = "prato"
     static let registryFilename = "project-registry.json"
-    static let typeIdentifier = "io.palmier.project"
+    static let typeIdentifier = "io.prato.project"
     static let defaultProjectName = "Untitled Project"
     static let timelineFilename = "project.json"
     static let manifestFilename = "media.json"
@@ -114,7 +114,7 @@ enum Project {
 
     static let storageDirectory: URL = {
         let url = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/Palmier Pro", isDirectory: true)
+            .appendingPathComponent("Documents/Prato", isDirectory: true)
         try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
         return url
     }()

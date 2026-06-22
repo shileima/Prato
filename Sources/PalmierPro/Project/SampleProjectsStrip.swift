@@ -20,7 +20,7 @@ struct SampleProjectsStrip: View {
                 withAnimation(.easeInOut(duration: AppTheme.Anim.transition)) { isExpanded.toggle() }
             } label: {
                 HStack(spacing: AppTheme.Spacing.xs) {
-                    Text("Sample Project")
+                    Text("示例项目")
                         .font(.system(size: AppTheme.FontSize.md, weight: .semibold))
                     Image(systemName: "chevron.right")
                         .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
@@ -141,7 +141,7 @@ private struct SampleCard: View {
                 VStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: "arrow.clockwise")
                         .font(.system(size: AppTheme.FontSize.lg, weight: .semibold))
-                    Text("Retry")
+                    Text("重试")
                         .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
                 }
                 .foregroundStyle(AppTheme.Text.primaryColor)

@@ -11,10 +11,10 @@ struct StoragePane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
             HStack(alignment: .top, spacing: AppTheme.Spacing.md) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-                    Text("Cache")
+                    Text("缓存")
                         .font(.system(size: AppTheme.FontSize.md))
                         .foregroundStyle(AppTheme.Text.primaryColor)
-                    Text("Saved playback previews, waveforms, and filmstrip thumbnails. Safe to clear; they'll rebuild as needed.")
+                    Text("已保存的播放预览、波形和缩略图，可安全清除，会在需要时自动重建。")
                         .font(.system(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
@@ -53,10 +53,10 @@ struct StoragePane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             HStack(alignment: .top, spacing: AppTheme.Spacing.md) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-                    Text("Media search")
+                    Text("媒体搜索")
                         .font(.system(size: AppTheme.FontSize.md))
                         .foregroundStyle(AppTheme.Text.primaryColor)
-                    Text("Indexes media on import so you can search it. Runs on-device.")
+                    Text("导入时建立索引以支持搜索，在本地运行。")
                         .font(.system(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
@@ -72,7 +72,7 @@ struct StoragePane: View {
             }
 
             HStack(spacing: AppTheme.Spacing.sm) {
-                Text("Index")
+                Text("索引")
                     .font(.system(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(ByteCountFormatter.string(fromByteCount: indexBytes, countStyle: .file))
@@ -86,7 +86,7 @@ struct StoragePane: View {
 
             if modelBytes > 0 {
                 HStack(spacing: AppTheme.Spacing.sm) {
-                    Text("Model")
+                    Text("模型")
                         .font(.system(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     Text("\(SearchIndexConfig.manifest.model) · \(ByteCountFormatter.string(fromByteCount: modelBytes, countStyle: .file))")

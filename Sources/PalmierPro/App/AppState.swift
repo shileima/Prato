@@ -125,7 +125,7 @@ final class AppState {
         panel.allowedContentTypes = [Self.projectContentType]
         panel.nameFieldStringValue = Project.defaultProjectName
         panel.directoryURL = Project.storageDirectory
-        panel.title = "New Project"
+        panel.title = "新建项目"
         panel.begin { response in
             guard response == .OK, let url = panel.url else { return }
             let doc = VideoProject()
@@ -175,7 +175,7 @@ final class AppState {
         panel.canChooseDirectories = false
         panel.treatsFilePackagesAsDirectories = false
         panel.allowsMultipleSelection = false
-        panel.title = "Open Project"
+        panel.title = "打开项目"
         panel.begin { response in
             guard response == .OK, let url = panel.url else { return }
             AppState.shared.openProject(at: url)

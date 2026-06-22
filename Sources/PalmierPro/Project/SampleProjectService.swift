@@ -46,7 +46,7 @@ final class SampleProjectService {
 
     // MARK: - Materialization
 
-    /// Builds a new `.palmier` package for `slug` and returns its URL. Reports
+    /// Builds a new `.prato` package for `slug` and returns its URL. Reports
     /// download progress (0...1) on the main actor. Cleans up a partial package
     /// if anything fails.
     func materialize(slug: String, onProgress: @escaping (Double) -> Void) async throws -> URL {
@@ -165,7 +165,7 @@ final class SampleProjectService {
         let base = (try? FileManager.default.url(
             for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true
         )) ?? FileManager.default.temporaryDirectory
-        return base.appendingPathComponent("PalmierPro/Samples", isDirectory: true)
+        return base.appendingPathComponent("PratoPro/Samples", isDirectory: true)
     }
 
     private static func safeName(_ name: String) -> String {

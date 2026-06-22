@@ -88,7 +88,7 @@ enum BundledFonts {
         guard let resourceURL = Bundle.main.resourceURL else { return nil }
         #if DEBUG
         // `swift run`: SwiftPM writes the resource bundle beside the binary.
-        let url = resourceURL.appendingPathComponent("PalmierPro_PalmierPro.bundle/Fonts")
+        let url = resourceURL.appendingPathComponent("PratoPro_PratoPro.bundle/Fonts")
         #else
         // .app release: bundle.sh flattens Fonts/ into Contents/Resources/.
         let url = resourceURL.appendingPathComponent("Fonts")

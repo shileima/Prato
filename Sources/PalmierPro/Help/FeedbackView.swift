@@ -108,7 +108,7 @@ struct FeedbackView: View {
     private var emailField: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             fieldLabel("Email (optional)")
-            TextField("", text: $email, prompt: Text("you@example.com — so we can reply"))
+            TextField("", text: $email, prompt: Text("邮箱（可选）"))
                 .textFieldStyle(.plain)
                 .font(.system(size: AppTheme.FontSize.md))
                 .foregroundStyle(AppTheme.Text.primaryColor)
@@ -127,7 +127,7 @@ struct FeedbackView: View {
 
     private var mayContactRow: some View {
         Toggle(isOn: $mayContact) {
-            Text("We may email you for follow-up questions")
+            Text("我们可能会通过邮件跟进")
                 .font(.system(size: AppTheme.FontSize.md))
                 .foregroundStyle(hasReplyEmail ? AppTheme.Text.secondaryColor : AppTheme.Text.tertiaryColor)
         }
@@ -139,7 +139,7 @@ struct FeedbackView: View {
     private var screenshotRow: some View {
         HStack(alignment: .center, spacing: AppTheme.Spacing.mdLg) {
             Toggle(isOn: $includeScreenshot) {
-                Text("Include screenshot")
+                Text("附带截图")
                     .font(.system(size: AppTheme.FontSize.md))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
             }
@@ -215,7 +215,7 @@ struct FeedbackView: View {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Image(systemName: "checkmark.circle.fill")
                     .foregroundStyle(AppTheme.Accent.primary)
-                Text("Thanks for the feedback.")
+                Text("感谢您的反馈！")
                     .font(.system(size: AppTheme.FontSize.md, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
             }

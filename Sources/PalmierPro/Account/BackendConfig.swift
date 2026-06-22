@@ -1,9 +1,9 @@
 import Foundation
 
 enum BackendConfig {
-    static let clerkPublishableKey: String? = string("PalmierClerkPublishableKey")
-    static let convexDeploymentURL: URL? = string("PalmierConvexDeploymentURL").flatMap { URL(string: $0) }
-    static let convexHttpURL: URL? = string("PalmierConvexHttpURL").flatMap { URL(string: $0) }
+    static let clerkPublishableKey: String? = string("PratoClerkPublishableKey")
+    static let convexDeploymentURL: URL? = string("PratoConvexDeploymentURL").flatMap { URL(string: $0) }
+    static let convexHttpURL: URL? = string("PratoConvexHttpURL").flatMap { URL(string: $0) }
 
     static var isConfigured: Bool {
         clerkPublishableKey != nil && convexDeploymentURL != nil

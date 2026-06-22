@@ -215,7 +215,7 @@ final class VideoProject: NSDocument {
         let window = NSWindow(contentViewController: hostingController)
         window.setContentSize(AppTheme.Window.projectDefault)
         window.minSize = AppTheme.Window.projectMin
-        window.setFrameAutosaveName("PalmierProWindow")
+        window.setFrameAutosaveName("PratoProWindow")
         window.appearance = NSAppearance(named: .darkAqua)
         window.titleVisibility = .visible
         window.titlebarAppearsTransparent = true

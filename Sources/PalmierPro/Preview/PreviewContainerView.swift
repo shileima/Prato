@@ -434,12 +434,12 @@ struct PreviewContainerView: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: AppTheme.FontSize.display))
                     .foregroundStyle(AppTheme.Status.errorColor)
-                Text(isUnprocessable ? "Couldn't Prepare Media" : "Media Offline")
+                Text(isUnprocessable ? "无法准备媒体" : "媒体离线")
                     .font(.system(size: AppTheme.FontSize.lg, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Text(isUnprocessable
-                    ? "Palmier loaded this clip's source file but couldn't prepare it for playback. The file may be corrupt or in an unsupported format."
-                    : "Palmier couldn't load this clip's source file. It may be missing, on an ejected drive, or unreadable.")
+                    ? "Prato loaded this clip's source file but couldn't prepare it for playback. The file may be corrupt or in an unsupported format."
+                    : "Prato couldn't load this clip's source file. It may be missing, on an ejected drive, or unreadable.")
                     .font(.system(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .multilineTextAlignment(.center)

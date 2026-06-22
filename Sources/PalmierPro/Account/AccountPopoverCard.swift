@@ -191,21 +191,21 @@ struct AccountPopoverCard: View {
 
     private var footerRow: some View {
         VStack(spacing: AppTheme.Spacing.xxs) {
-            footerButton(label: "Settings", systemImage: "gearshape") {
+            footerButton(label: "设置", systemImage: "gearshape") {
                 SettingsWindowController.shared.show()
                 dismiss()
             }
-            footerButton(label: "Feedback", systemImage: "bubble.left.and.bubble.right") {
+            footerButton(label: "反馈", systemImage: "bubble.left.and.bubble.right") {
                 FeedbackWindowController.shared.show()
                 dismiss()
             }
             if account.isSignedIn {
-                footerButton(label: "Sign out", systemImage: "rectangle.portrait.and.arrow.right") {
+                footerButton(label: "退出登录", systemImage: "rectangle.portrait.and.arrow.right") {
                     Task { await account.signOut() }
                     dismiss()
                 }
             } else {
-                footerButton(label: "Sign in", systemImage: "person.crop.circle") {
+                footerButton(label: "登录", systemImage: "person.crop.circle") {
                     Task { await account.signInWithGoogle() }
                     dismiss()
                 }

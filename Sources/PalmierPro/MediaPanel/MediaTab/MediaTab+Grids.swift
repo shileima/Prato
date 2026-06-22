@@ -190,7 +190,7 @@ extension MediaTab {
                     LazyVStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
                         if !rootAssets.isEmpty {
                             groupedSection(
-                                title: "Library",
+                                title: "媒体库",
                                 folderId: nil,
                                 assets: rootAssets,
                                 tileWidth: dims.tileWidth,
@@ -306,7 +306,7 @@ extension MediaTab {
                     .frame(height: 0.5)
 
                 if assets.isEmpty {
-                    Text("Empty")
+                    Text("空")
                         .font(.system(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                         .padding(.vertical, AppTheme.Spacing.sm)

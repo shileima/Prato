@@ -7,7 +7,7 @@ struct AccountPane: View {
     var body: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             if account.isLoading {
-                Text("Loading…")
+                Text("加载中…")
                     .font(.system(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             } else if account.isSignedIn {
@@ -42,7 +42,7 @@ struct AccountPane: View {
     @ViewBuilder
     private var unpaidSection: some View {
         section(title: "Subscription") {
-            Text("Subscribe to use AI generation.")
+            Text("订阅后即可使用 AI 生成功能。")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .fixedSize(horizontal: false, vertical: true)
@@ -72,7 +72,7 @@ struct AccountPane: View {
                     Spacer(minLength: 0)
                 }
 
-                Text("Credits cover AI generation and chat.")
+                Text("积分用于 AI 生成和对话。")
                     .font(.system(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .fixedSize(horizontal: false, vertical: true)
@@ -95,7 +95,7 @@ struct AccountPane: View {
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .strikethrough()
                 }
-                Text("/ month")
+                Text("/ 月")
                     .font(.system(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
@@ -244,7 +244,7 @@ struct AccountPane: View {
 
     @ViewBuilder
     private var signedOutBody: some View {
-        Text("Sign in to subscribe and use AI generation.")
+        Text("登录并订阅以使用 AI 生成功能。")
             .font(.system(size: AppTheme.FontSize.sm))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
             .fixedSize(horizontal: false, vertical: true)

@@ -44,7 +44,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 0) {
             header
             SampleProjectsStrip()
-            Text("My Projects")
+            Text("我的项目")
                 .font(.system(size: AppTheme.FontSize.md, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .padding(.horizontal, AppTheme.Spacing.xlXxl)
@@ -119,7 +119,7 @@ private struct NewProjectCard: View {
             .frame(height: 60)
             .allowsHitTesting(false)
 
-            Text("Untitled")
+            Text("未命名")
                 .font(.system(size: AppTheme.FontSize.smMd, weight: .regular))
                 .foregroundStyle(.white)
                 .lineLimit(1)
@@ -156,9 +156,9 @@ private struct WelcomeTitle: View {
 
     private var title: String {
         if let first = account.account?.user.firstName {
-            return "Welcome to Palmier Pro, \(first)"
+            return "Welcome to Prato, \(first)"
         }
-        return "Welcome to Palmier Pro"
+        return "Welcome to Prato"
     }
 }
 
@@ -174,18 +174,18 @@ private struct HomeSidebar: View {
             VStack(alignment: .leading, spacing: 2) {
                 if !account.isSignedIn && !account.isMisconfigured {
                     SidebarRowButton(
-                        label: "Sign in with Google",
+                        label: "使用 Google 登录",
                         systemImage: "person.crop.circle",
                         action: { Task { await account.signInWithGoogle() } }
                     )
                 }
                 SidebarRowButton(
-                    label: "New Project",
+                    label: "新建项目",
                     systemImage: "plus",
                     action: { AppState.shared.createNewProject() }
                 )
                 SidebarRowButton(
-                    label: "Open Project",
+                    label: "打开项目",
                     systemImage: "folder",
                     action: { AppState.shared.openProjectFromPanel() }
                 )
@@ -196,7 +196,7 @@ private struct HomeSidebar: View {
             Spacer(minLength: 0)
 
             SidebarRowButton(
-                label: "Settings",
+                label: "设置",
                 systemImage: "gearshape",
                 action: { SettingsWindowController.shared.show() }
             )
@@ -218,8 +218,8 @@ final class HomeWindowController: NSWindowController {
         let window = NSWindow(contentViewController: hostingController)
         window.setContentSize(AppTheme.Window.homeDefault)
         window.minSize = AppTheme.Window.homeMin
-        window.title = "Palmier Pro"
-        window.setFrameAutosaveName("PalmierProHome-v2")
+        window.title = "Prato"
+        window.setFrameAutosaveName("PratoProHome-v2")
         window.appearance = NSAppearance(named: .darkAqua)
         window.backgroundColor = AppTheme.Background.base.withAlphaComponent(0.4)
         window.isOpaque = false

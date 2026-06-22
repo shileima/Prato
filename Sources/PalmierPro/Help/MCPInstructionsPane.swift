@@ -6,18 +6,18 @@ struct MCPInstructionsPane: View {
     private var mcpEndpoint: String { "\(serverURL)/mcp" }
 
     private var claudeCodeCommand: String {
-        "claude mcp add --transport http palmier-pro \(mcpEndpoint)"
+        "claude mcp add --transport http prato-pro \(mcpEndpoint)"
     }
 
     private var codexCommand: String {
-        "codex mcp add palmier-pro --url \(mcpEndpoint)"
+        "codex mcp add prato-pro --url \(mcpEndpoint)"
     }
 
     private var cursorJSONConfig: String {
         """
         {
           "mcpServers": {
-            "palmier-pro": {
+            "prato-pro": {
               "type": "http",
               "url": "\(mcpEndpoint)"
             }
@@ -30,7 +30,7 @@ struct MCPInstructionsPane: View {
         """
         {
           "mcpServers": {
-            "palmier-pro": {
+            "prato-pro": {
               "command": "npx",
               "args": [
                 "-y",
@@ -52,7 +52,7 @@ struct MCPInstructionsPane: View {
             let data = try? JSONSerialization.data(withJSONObject: config, options: [.sortedKeys]),
             let encoded = data.base64EncodedString().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else { return nil }
-        return URL(string: "cursor://anysphere.cursor-deeplink/mcp/install?name=palmier-pro&config=\(encoded)")
+        return URL(string: "cursor://anysphere.cursor-deeplink/mcp/install?name=prato-pro&config=\(encoded)")
     }
 
     var body: some View {
@@ -81,7 +81,7 @@ struct MCPInstructionsPane: View {
     private var overviewSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             sectionHeading("Overview")
-            Text("Palmier Pro exposes your open project as an MCP server. Connect any MCP clients to let it be your AI assistant.")
+            Text("Prato 将当前项目作为 MCP 服务器对外开放，可连接任意 MCP 客户端。")
                 .font(.system(size: AppTheme.FontSize.smMd))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .fixedSize(horizontal: false, vertical: true)
@@ -115,7 +115,7 @@ struct MCPInstructionsPane: View {
     private var cursorSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
             sectionHeading("Connect from Cursor", prominent: true)
-            installButton(label: "Install in Cursor", systemImage: "arrow.down.circle") {
+            installButton(label: "安装到 Cursor", systemImage: "arrow.down.circle") {
                 if let url = cursorDeepLink {
                     NSWorkspace.shared.open(url, configuration: .init(), completionHandler: nil)
                 }
@@ -130,7 +130,7 @@ struct MCPInstructionsPane: View {
     private var claudeDesktopSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
             sectionHeading("Connect from Claude Desktop", prominent: true)
-            installButton(label: "Install in Claude Desktop", systemImage: "arrow.down.circle") {
+            installButton(label: "安装到 Claude Desktop", systemImage: "arrow.down.circle") {
                 openClaudeDesktopBundle()
             }
             manualFallback(
@@ -142,7 +142,7 @@ struct MCPInstructionsPane: View {
 
     private func openClaudeDesktopBundle() {
         guard let resourceURL = Bundle.main.resourceURL else { return }
-        let url = resourceURL.appendingPathComponent("palmier-pro.mcpb")
+        let url = resourceURL.appendingPathComponent("prato-pro.mcpb")
         guard FileManager.default.fileExists(atPath: url.path) else { return }
         NSWorkspace.shared.open(url, configuration: .init(), completionHandler: nil)
     }
@@ -150,7 +150,7 @@ struct MCPInstructionsPane: View {
     private var claudeCodeSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             sectionHeading("Connect from Claude Code", prominent: true)
-            Text("Run this once in your terminal:")
+            Text("在终端运行一次：")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             CodeBlockView(content: claudeCodeCommand)
@@ -160,7 +160,7 @@ struct MCPInstructionsPane: View {
     private var codexSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             sectionHeading("Connect from Codex", prominent: true)
-            Text("Run this once in your terminal:")
+            Text("在终端运行一次：")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             CodeBlockView(content: codexCommand)
@@ -243,7 +243,7 @@ private struct ManualFallback: View {
                     Image(systemName: "chevron.right")
                         .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
                         .rotationEffect(.degrees(expanded ? 90 : 0))
-                    Text("Manual setup")
+                    Text("手动配置")
                         .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
                 }
                 .foregroundStyle(AppTheme.Text.tertiaryColor)

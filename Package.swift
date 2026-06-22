@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "PalmierPro",
+    defaultLocalization: "en",
     platforms: [.macOS(.v26)],
     products: [
         .executable(name: "PalmierPro", targets: ["PalmierPro"]),
@@ -45,6 +46,8 @@ let package = Package(
                 .copy("Resources/MCPB/palmier-pro.mcpb"),
                 .copy("Resources/Images"),
                 .copy("Resources/Changelog"),
+                .process("Resources/en.lproj"),
+                .process("Resources/zh-Hans.lproj"),
             ]
         ),
         .testTarget(

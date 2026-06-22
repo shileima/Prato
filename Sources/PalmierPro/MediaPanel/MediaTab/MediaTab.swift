@@ -266,10 +266,10 @@ struct MediaTab: View {
     private var actionsRow: some View {
         let showGenerate = !AccountService.shared.isMisconfigured
         return HStack(spacing: AppTheme.Spacing.xs) {
-            toolbarButton(title: "Import", systemImage: "plus", action: importMedia)
+            toolbarButton(title: "导入", systemImage: "plus", action: importMedia)
                 .tourAnchor(.importButton)
             if showGenerate {
-                toolbarButton(title: "Generate", systemImage: "sparkles", filled: true, accentStyle: AnyShapeStyle(AppTheme.aiGradient), action: toggleGenerationPanel)
+                toolbarButton(title: "生成", systemImage: "sparkles", filled: true, accentStyle: AnyShapeStyle(AppTheme.aiGradient), action: toggleGenerationPanel)
                     .tourAnchor(.generateButton)
             }
 
@@ -527,7 +527,7 @@ struct MediaTab: View {
                 }
                 .buttonStyle(.plain)
                 .focusable(false)
-                .help("Clear search")
+                .help("清除搜索")
             }
         }
         .padding(.leading, AppTheme.Spacing.smMd)
@@ -716,12 +716,12 @@ struct MediaTab: View {
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
             VStack(spacing: AppTheme.Spacing.xs) {
-                Text("No media yet")
+                Text("暂无媒体")
                     .font(.system(size: AppTheme.FontSize.title1, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
 
-                Text("Drop files here or import from disk")
+                Text("拖放文件至此或从磁盘导入")
                     .font(.system(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }

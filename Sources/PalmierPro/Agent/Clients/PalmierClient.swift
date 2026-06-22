@@ -1,7 +1,7 @@
 import Foundation
 import ClerkKit
 
-struct PalmierClient: AgentClient {
+struct PratoClient: AgentClient {
     let model: AnthropicModel
     var maxTokens: Int = 8192
 
@@ -30,15 +30,15 @@ struct PalmierClient: AgentClient {
         continuation: AsyncThrowingStream<AnthropicStreamEvent, Error>.Continuation
     ) async throws {
         guard let baseURL = BackendConfig.convexHttpURL else {
-            throw PalmierClientError.upstream("Backend not configured")
+            throw PratoClientError.upstream("Backend not configured")
         }
         let endpoint = baseURL.appendingPathComponent("v1/agent/stream")
 
         guard let session = await Clerk.shared.session, session.status == .active else {
-            throw PalmierClientError.unauthenticated
+            throw PratoClientError.unauthenticated
         }
         guard let jwt = try await session.getToken(), !jwt.isEmpty else {
-            throw PalmierClientError.unauthenticated
+            throw PratoClientError.unauthenticated
         }
 
         var request = URLRequest(url: endpoint)
@@ -57,14 +57,14 @@ struct PalmierClient: AgentClient {
         if let http = response as? HTTPURLResponse, http.statusCode >= 400 {
             var body = ""
             for try await line in bytes.lines { body += line + "\n" }
-            throw PalmierClientError.from(status: http.statusCode, body: body)
+            throw PratoClientError.from(status: http.statusCode, body: body)
         }
 
         try await AnthropicSSE.parse(bytes: bytes, continuation: continuation)
     }
 }
 
-enum PalmierClientError: LocalizedError {
+enum PratoClientError: LocalizedError {
     case unauthenticated
     case insufficientCredits(String)
     case upstream(String)
@@ -77,7 +77,7 @@ enum PalmierClientError: LocalizedError {
         }
     }
 
-    static func from(status: Int, body: String) -> PalmierClientError {
+    static func from(status: Int, body: String) -> PratoClientError {
         let parsed = parseErrorEnvelope(body)
         let message = parsed?.message ?? body.prefix(500).description
         switch parsed?.code {

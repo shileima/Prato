@@ -17,7 +17,7 @@ struct ProjectActivityView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             HStack {
-                Text("Project Activity")
+                Text("项目动态")
                     .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
@@ -30,7 +30,7 @@ struct ProjectActivityView: View {
             }
 
             if entries.isEmpty {
-                Text("No generations yet")
+                Text("暂无生成内容")
                     .font(.system(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .frame(maxWidth: .infinity, alignment: .leading)

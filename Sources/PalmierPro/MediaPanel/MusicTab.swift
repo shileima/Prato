@@ -116,7 +116,7 @@ struct MusicTab: View {
     private var sourceSection: some View {
         InspectorSection("Source") {
             if model.map(supportsTextMode) == true {
-                InspectorRow(icon: "slider.horizontal.3", label: "Input") {
+                InspectorRow(icon: "slider.horizontal.3", label: "输入") {
                     Menu {
                         Button("Video to Music") { mode = .videoToMusic }
                         Button("Text to Music") { mode = .textToMusic }
@@ -127,7 +127,7 @@ struct MusicTab: View {
             if isTextMode {
                 InspectorRow(
                     icon: "clock",
-                    label: "Duration",
+                    label: "时长",
                     labelHelp: "Length of the generated music. It's placed at the playhead, or at the marked range start."
                 ) {
                     ScrubbableNumberField(
@@ -141,7 +141,7 @@ struct MusicTab: View {
             } else {
                 InspectorRow(
                     icon: "film",
-                    label: "Video",
+                    label: "视频",
                     labelHelp: "Uses the whole timeline by default. Mark a range on the timeline to score only that span."
                 ) { valueText(sourceSummary) }
             }
@@ -167,7 +167,7 @@ struct MusicTab: View {
 
     private var modelSection: some View {
         InspectorSection("Model") {
-            InspectorRow(icon: "music.note", label: "Model") {
+            InspectorRow(icon: "music.note", label: "模型") {
                 Menu {
                     ForEach(models, id: \.id) { m in
                         Button(m.displayName) { selectedModelId = m.id }
@@ -257,17 +257,17 @@ struct MusicTab: View {
         Menu {
             Button {
                 musicTask("Score my timeline with music that matches the visuals. Use a video-to-music model on the full timeline span so the music follows the edit, and place it on an audio track.")
-            } label: { Label("Generate music for the timeline", systemImage: "music.note") }
+            } label: { Label("为时间线生成音乐", systemImage: "music.note") }
             Menu {
                 ForEach(["Cinematic", "Upbeat", "Ambient", "Tense", "Lo-fi"], id: \.self) { mood in
                     Button(mood) {
                         musicTask("Generate \(mood.lowercased()) music for my timeline and place it on an audio track aligned to the edit.")
                     }
                 }
-            } label: { Label("Mood", systemImage: "slider.horizontal.3") }
+            } label: { Label("风格", systemImage: "slider.horizontal.3") }
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
-                Text("Agent Mode")
+                Text("智能体模式")
                 Image(systemName: "chevron.down").font(.system(size: AppTheme.FontSize.xs))
             }
             .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
@@ -280,7 +280,7 @@ struct MusicTab: View {
             .overlay(RoundedRectangle(cornerRadius: AppTheme.Radius.sm).strokeBorder(AppTheme.aiGradient.opacity(AppTheme.Opacity.medium), lineWidth: AppTheme.BorderWidth.thin))
         }
         .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).focusable(false)
-        .help("Let Agent generate music for you. Choose a starter, or ask Agent in the chat.")
+        .help("让智能体为你生成音乐，选择预设或在对话中提问。")
     }
 
     private func musicTask(_ prompt: String) {

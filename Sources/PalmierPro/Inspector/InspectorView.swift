@@ -96,24 +96,24 @@ struct InspectorView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xl) {
                 if let url = editor.projectURL {
-                    metadataSection(title: "Project") {
+                    metadataSection(title: "项目") {
                         plainMetadataRow(
-                            label: "Name",
+                            label: "名称",
                             value: url.deletingPathExtension().lastPathComponent
                         )
                         plainMetadataRow(
-                            label: "Path",
+                            label: "路径",
                             value: url.path,
                             truncate: .middle
                         )
                     }
                 }
 
-                metadataSection(title: "Format") {
-                    plainMetadataRow(label: "Resolution", value: "\(editor.timeline.width) × \(editor.timeline.height)")
-                    plainMetadataRow(label: "Frame Rate", value: "\(editor.timeline.fps) fps")
-                    plainMetadataRow(label: "Aspect Ratio", value: formatAspectRatio(width: editor.timeline.width, height: editor.timeline.height))
-                    plainMetadataRow(label: "Duration", value: formatDuration(Double(editor.timeline.totalFrames) / Double(editor.timeline.fps)))
+                metadataSection(title: "格式") {
+                    plainMetadataRow(label: "分辨率", value: "\(editor.timeline.width) × \(editor.timeline.height)")
+                    plainMetadataRow(label: "帧率", value: "\(editor.timeline.fps) fps")
+                    plainMetadataRow(label: "宽高比", value: formatAspectRatio(width: editor.timeline.width, height: editor.timeline.height))
+                    plainMetadataRow(label: "时长", value: formatDuration(Double(editor.timeline.totalFrames) / Double(editor.timeline.fps)))
                 }
             }
             .padding(.horizontal, AppTheme.Spacing.lg)
@@ -320,7 +320,7 @@ struct InspectorView: View {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: on ? "diamond.fill" : "diamond")
                         .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
-                    Text("Keyframes")
+                    Text("关键帧")
                         .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
                 }
                 .foregroundStyle(on ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
@@ -345,12 +345,12 @@ struct InspectorView: View {
             HStack(alignment: .top, spacing: 0) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
                     // Match the kf panel's ruler+strip header height so Volume aligns with its lane.
-                    sectionTitleLabel(title: "Levels")
+                    sectionTitleLabel(title: "音量")
                         .frame(height: KeyframesMetrics.headerHeight, alignment: .bottomLeading)
                     volumeRow(audios: audios)
-                    fadeRow(label: "Fade In", clips: audios, edge: .left)
+                    fadeRow(label: "淡入", clips: audios, edge: .left)
                         .padding(.trailing, KeyframesMetrics.controlsColumnWidth + AppTheme.Spacing.sm)
-                    fadeRow(label: "Fade Out", clips: audios, edge: .right)
+                    fadeRow(label: "淡出", clips: audios, edge: .right)
                         .padding(.trailing, KeyframesMetrics.controlsColumnWidth + AppTheme.Spacing.sm)
                     if nonTextVisualClips.isEmpty {
                         speedSection(clips: audios)
@@ -368,10 +368,10 @@ struct InspectorView: View {
         } else {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
-                    sectionTitleLabel(title: "Levels")
+                    sectionTitleLabel(title: "音量")
                     volumeRow(audios: audios)
-                    fadeRow(label: "Fade In", clips: audios, edge: .left)
-                    fadeRow(label: "Fade Out", clips: audios, edge: .right)
+                    fadeRow(label: "淡入", clips: audios, edge: .left)
+                    fadeRow(label: "淡出", clips: audios, edge: .right)
                 }
                 if nonTextVisualClips.isEmpty {
                     speedSection(clips: audios)
@@ -385,7 +385,7 @@ struct InspectorView: View {
     @ViewBuilder
     private func volumeRow(audios: [Clip]) -> some View {
         let single = audios.count == 1 ? audios.first : nil
-        animatableRow(label: "Volume", clipId: single?.id, property: .volume) {
+        animatableRow(label: "音量", clipId: single?.id, property: .volume) {
             ScrubbableNumberField(
                 value: sharedClipValue(audios) { clip in
                     clip.liveVolumeKfDb(at: editor.activeFrame) ?? VolumeScale.dbFromLinear(clip.volume)
@@ -442,8 +442,8 @@ struct InspectorView: View {
     private func speedSection(clips: [Clip]) -> some View {
         if !clips.isEmpty {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
-                sectionTitleLabel(title: "Playback")
-                propertyRow(label: "Speed") {
+                sectionTitleLabel(title: "播放")
+                propertyRow(label: "速度") {
                     ScrubbableNumberField(
                         value: sharedClipValue(clips) { $0.speed },
                         range: 0.25...4.0,
@@ -488,16 +488,16 @@ struct InspectorView: View {
                 .frame(height: KeyframesMetrics.headerHeight, alignment: .leading)
             if transformExpanded {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
-                    animatableRow(label: "Position", clipId: single?.id, property: .position) {
+                    animatableRow(label: "位置", clipId: single?.id, property: .position) {
                         InspectorPositionFields(clips: clips)
                     }
-                    animatableRow(label: "Scale", clipId: single?.id, property: .scale) {
+                    animatableRow(label: "缩放", clipId: single?.id, property: .scale) {
                         scaleScrubField(clips: clips)
                     }
-                    animatableRow(label: "Rotation", clipId: single?.id, property: .rotation) {
+                    animatableRow(label: "旋转", clipId: single?.id, property: .rotation) {
                         rotationScrubField(clips: clips)
                     }
-                    animatableRow(label: "Opacity", clipId: single?.id, property: .opacity) {
+                    animatableRow(label: "透明度", clipId: single?.id, property: .opacity) {
                         opacityScrubField(clips: clips)
                     }
                     cropRow(single: single)
@@ -586,7 +586,7 @@ struct InspectorView: View {
 
     private func transformHeader(clips: [Clip]) -> some View {
         collapsibleHeader(
-            title: "Transform",
+            title: "变换",
             expanded: transformExpanded,
             onToggle: { transformExpanded.toggle() },
             resetHelp: transformExpanded ? "Reset transform" : nil,
@@ -737,7 +737,7 @@ struct InspectorView: View {
     private func flipRow(clips: [Clip]) -> some View {
         let activeH = clips.first?.transform.flipHorizontal ?? false
         let activeV = clips.first?.transform.flipVertical ?? false
-        propertyRow(label: "Flip") {
+        propertyRow(label: "翻转") {
             HStack(spacing: AppTheme.Spacing.xs) {
                 iconToggleButton(
                     systemName: "arrow.left.and.right",
@@ -791,7 +791,7 @@ struct InspectorView: View {
     private func cropRow(single: Clip?) -> some View {
         let editing = editor.cropEditingActive && single != nil
         let disabled = single == nil
-        propertyRow(label: "Crop") {
+        propertyRow(label: "裁剪") {
             HStack(spacing: AppTheme.Spacing.sm) {
                 iconToggleButton(
                     systemName: "crop",
@@ -890,21 +890,21 @@ struct InspectorView: View {
 
                 if let gen = asset.generationInput {
                     if GenerationReferencesStrip.hasResolvableReferences(gen, in: editor.mediaAssets) {
-                        metadataSection(title: "References") {
+                        metadataSection(title: "参考素材") {
                             GenerationReferencesStrip(generationInput: gen)
                         }
                     }
 
-                    metadataSection(title: "Generated") {
-                        plainMetadataRow(label: "Model", value: ModelRegistry.displayName(for: gen.model))
+                    metadataSection(title: "生成信息") {
+                        plainMetadataRow(label: "模型", value: ModelRegistry.displayName(for: gen.model))
                         if !gen.aspectRatio.isEmpty {
-                            plainMetadataRow(label: "Aspect Ratio", value: gen.aspectRatio)
+                            plainMetadataRow(label: "宽高比", value: gen.aspectRatio)
                         }
                         if let resolution = gen.resolution {
-                            plainMetadataRow(label: "Resolution", value: resolution)
+                            plainMetadataRow(label: "分辨率", value: resolution)
                         }
                         if gen.duration > 0 {
-                            plainMetadataRow(label: "Duration", value: "\(gen.duration)s")
+                            plainMetadataRow(label: "时长", value: "\(gen.duration)s")
                         }
                     }
 
@@ -921,19 +921,19 @@ struct InspectorView: View {
 
     @ViewBuilder
     private func fileSection(_ asset: MediaAsset) -> some View {
-        metadataSection(title: "File") {
-            plainMetadataRow(label: "Type", value: asset.type.trackLabel)
+        metadataSection(title: "文件") {
+            plainMetadataRow(label: "类型", value: asset.type.trackLabel)
             if asset.type != .audio, let width = asset.sourceWidth, let height = asset.sourceHeight {
                 plainMetadataRow(label: "Dimensions", value: "\(width) × \(height)")
             }
             if asset.duration > 0 && asset.type != .image {
-                plainMetadataRow(label: "Duration", value: formatDuration(asset.duration))
+                plainMetadataRow(label: "时长", value: formatDuration(asset.duration))
             }
             if let fileSize = fileSize(for: asset.url) {
-                plainMetadataRow(label: "Size", value: fileSize)
+                plainMetadataRow(label: "大小", value: fileSize)
             }
             plainMetadataRow(
-                label: "Path",
+                label: "路径",
                 value: asset.url.path,
                 truncate: .middle
             )
@@ -970,7 +970,7 @@ struct InspectorView: View {
     private func promptSection(prompt: String) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             HStack(spacing: AppTheme.Spacing.sm) {
-                Text("PROMPT")
+                Text("提示词")
                     .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
                     .tracking(AppTheme.Tracking.wide)
                     .foregroundStyle(AppTheme.Text.mutedColor)

@@ -31,7 +31,7 @@ struct TextTab: View {
 
     private var contentField: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-            InspectorRow(icon: "textformat", label: "Content")
+            InspectorRow(icon: "textformat", label: "内容")
             TextContentField(
                 text: Binding(
                     get: { clip.textContent ?? "" },
@@ -55,7 +55,7 @@ struct TextTab: View {
     }
 
     private var fontRow: some View {
-        InspectorRow(icon: "character", label: "Font") {
+        InspectorRow(icon: "character", label: "字体") {
             FontPickerField(
                 current: style.fontName,
                 onPreview: { name in
@@ -73,7 +73,7 @@ struct TextTab: View {
     }
 
     private var sizeSlider: some View {
-        InspectorRow(icon: "textformat.size", label: "Size") {
+        InspectorRow(icon: "textformat.size", label: "大小") {
             ScrubbableNumberField(
                 value: style.fontSize,
                 range: 12...300,
@@ -92,7 +92,7 @@ struct TextTab: View {
     }
 
     private var opacitySlider: some View {
-        InspectorRow(icon: "circle.lefthalf.filled", label: "Opacity") {
+        InspectorRow(icon: "circle.lefthalf.filled", label: "透明度") {
             ScrubbableNumberField(
                 value: clip.opacity,
                 range: 0...1,
@@ -110,7 +110,7 @@ struct TextTab: View {
     }
 
     private var colorRow: some View {
-        InspectorRow(icon: "paintpalette", label: "Color") {
+        InspectorRow(icon: "paintpalette", label: "颜色") {
             ColorField(
                 displayColor: style.color.swiftUIColor,
                 onUserChange: { new in
@@ -123,7 +123,7 @@ struct TextTab: View {
     }
 
     private var alignmentRow: some View {
-        InspectorRow(icon: "text.alignleft", label: "Alignment") {
+        InspectorRow(icon: "text.alignleft", label: "对齐") {
             Picker(
                 "",
                 selection: Binding(
@@ -147,7 +147,7 @@ struct TextTab: View {
     private var backgroundRow: some View {
         toggleColorRow(
             icon: "rectangle.fill",
-            label: "Background",
+            label: "背景",
             enabled: style.background.enabled,
             color: style.background.color.swiftUIColor,
             debounceKey: "backgroundColor",
@@ -159,7 +159,7 @@ struct TextTab: View {
     private var borderRow: some View {
         toggleColorRow(
             icon: "a.square",
-            label: "Border",
+            label: "边框",
             enabled: style.border.enabled,
             color: style.border.color.swiftUIColor,
             debounceKey: "borderColor",
@@ -207,7 +207,7 @@ struct TextTab: View {
     private var shadowRow: some View {
         toggleColorRow(
             icon: "square.on.square",
-            label: "Shadow",
+            label: "阴影",
             enabled: style.shadow.enabled,
             color: style.shadow.color.swiftUIColor,
             debounceKey: "shadowColor",
@@ -218,7 +218,7 @@ struct TextTab: View {
 
     @ViewBuilder
     private var positionSection: some View {
-        InspectorRow(icon: "arrow.up.and.down.and.arrow.left.and.right", label: "Position") {
+        InspectorRow(icon: "arrow.up.and.down.and.arrow.left.and.right", label: "位置") {
             InspectorPositionFields(clips: [clip])
         }
     }

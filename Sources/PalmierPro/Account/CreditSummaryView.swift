@@ -110,7 +110,7 @@ private struct CreditActionsPopover: View {
     private var freeActions: some View {
         sectionCaption("Upgrade to add credits")
         Button { openAccountSettings() } label: {
-            Text("Account settings").frame(maxWidth: .infinity)
+            Text("账户设置").frame(maxWidth: .infinity)
         }
         .buttonStyle(.capsule(.prominent))
         .controlSize(.small)
@@ -126,7 +126,7 @@ private struct CreditActionsPopover: View {
             isPresented = false
         } trailing: {
             Button { openAccountSettings() } label: {
-                Text("Account settings")
+                Text("账户设置")
             }
             .buttonStyle(.capsule(.secondary))
             .controlSize(.small)

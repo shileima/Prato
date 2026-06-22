@@ -22,11 +22,11 @@ struct WelcomeOverlay: View {
     private var card: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
-                Text("Welcome to Palmier Pro")
+                Text("欢迎使用 Prato")
                     .font(.system(size: AppTheme.FontSize.title2, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
-                Text("A video editor built for AI. Generate, and edit all in one place.")
+                Text("专为 AI 打造的视频编辑器，一站式生成与编辑。")
                     .font(.system(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .fixedSize(horizontal: false, vertical: true)
@@ -41,10 +41,10 @@ struct WelcomeOverlay: View {
                     if startingTutorial {
                         HStack(spacing: AppTheme.Spacing.xs) {
                             ProgressView().controlSize(.small)
-                            Text("Loading…")
+                            Text("加载中…")
                         }
                     } else {
-                        Text("Watch Tutorial")
+                        Text("观看教程")
                     }
                 }
                 .buttonStyle(.capsule(.secondary, size: .regular))
@@ -114,7 +114,7 @@ struct WelcomeOverlay: View {
         guard let root = Bundle.main.resourceURL else { return nil }
         let candidates = [
             root.appendingPathComponent("Images/welcome-butterfly.jpg"),
-            root.appendingPathComponent("PalmierPro_PalmierPro.bundle/Images/welcome-butterfly.jpg"),
+            root.appendingPathComponent("PratoPro_PratoPro.bundle/Images/welcome-butterfly.jpg"),
         ]
         for url in candidates where FileManager.default.fileExists(atPath: url.path) {
             return NSImage(contentsOf: url)

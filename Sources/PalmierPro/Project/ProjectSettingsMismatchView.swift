@@ -6,11 +6,11 @@ struct ProjectSettingsMismatchView: View {
 
     var body: some View {
         VStack(spacing: AppTheme.Spacing.xl) {
-            Text("Clip Settings Mismatch")
+            Text("片段设置不匹配")
                 .font(.system(size: AppTheme.FontSize.xl, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
 
-            Text("The clip you're adding has different settings than the current project.")
+            Text("所添加的片段与当前项目的设置不同。")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .multilineTextAlignment(.center)
@@ -18,7 +18,7 @@ struct ProjectSettingsMismatchView: View {
             Grid(alignment: .leading, horizontalSpacing: AppTheme.Spacing.xl, verticalSpacing: AppTheme.Spacing.sm) {
                 GridRow {
                     Text("")
-                    Text("Project")
+                    Text("项目")
                         .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     Text("Clip")

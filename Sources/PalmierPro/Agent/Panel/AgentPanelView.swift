@@ -5,37 +5,37 @@ struct AgentPanelView: View {
 
     private static let starterPrompts: [AgentStarterPrompt] = [
         AgentStarterPrompt(
-            title: "Generate an AI video",
+            title: "生成 AI 视频",
             systemImage: "sparkles",
             prompt: "Generate an AI video of "
         ),
         AgentStarterPrompt(
-            title: "Generate B-roll",
+            title: "生成补充素材",
             systemImage: "film",
             prompt: "Generate B-roll for my timeline. Inspect the current edit, identify sections that would benefit from cutaways, generate suitable B-roll, and place it where it supports the story."
         ),
         AgentStarterPrompt(
-            title: "Create a letterbox opening",
+            title: "创建电影开场",
             systemImage: "camera.aperture",
             prompt: "Create a cinematic opening for my timeline. Use the first visual clip, animate a subtle letterbox matte with top and bottom crop keyframes, starting from crop to uncrop,and keep the motion restrained and polished."
         ),
         AgentStarterPrompt(
-            title: "Add captions to my timeline",
+            title: "添加字幕",
             systemImage: "captions.bubble",
             prompt: "Add captions to my timeline. Transcribe spoken audio in timeline clips, build readable caption phrases on word boundaries, and place them as text clips aligned to the edit."
         ),
         AgentStarterPrompt(
-            title: "Create a voiceover",
+            title: "创建配音",
             systemImage: "waveform",
             prompt: "Create a voiceover for my timeline. Draft concise narration for the current edit, generate the voiceover, and add it to an audio track aligned with the timeline."
         ),
         AgentStarterPrompt(
-            title: "Generate music and sync to my timeline",
+            title: "生成音乐并同步",
             systemImage: "music.note",
             prompt: "Score my timeline with music. Inspect the edit's mood and pacing, generate music for the full timeline, and place it on an audio track aligned to the edit."
         ),
         AgentStarterPrompt(
-            title: "Organize my media into structured folders",
+            title: "整理媒体到文件夹",
             systemImage: "folder",
             prompt: "Organize my media into structured folders. Review all assets, create clearly named folders by role, scene, or type, move assets into them, and rename generic files when useful. Don't delete anything or change the timeline."
         ),
@@ -106,7 +106,7 @@ struct AgentPanelView: View {
         }
         .buttonStyle(.plain)
         .focusable(false)
-        .help("New chat")
+        .help("新对话")
     }
 
     @State private var showHistory = false
@@ -121,7 +121,7 @@ struct AgentPanelView: View {
         }
         .buttonStyle(.plain)
         .focusable(false)
-        .help("Chat history")
+        .help("对话历史")
         .popover(isPresented: $showHistory, arrowEdge: .top) {
             ChatHistoryList(
                 sessions: service.sessions.sorted { $0.updatedAt > $1.updatedAt },
@@ -161,7 +161,7 @@ struct AgentPanelView: View {
     @ViewBuilder
     private var byokIndicator: some View {
         if service.hasApiKey {
-            Text("using API key")
+            Text("使用自定义 API")
                 .font(.system(size: AppTheme.FontSize.xs).italic())
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .help("Streaming through your Anthropic API key (BYOK)")
@@ -277,11 +277,11 @@ struct AgentPanelView: View {
         let action: () -> Void
     }
 
-    private func errorCTA(for error: PalmierClientError?) -> ErrorCTA? {
+    private func errorCTA(for error: PratoClientError?) -> ErrorCTA? {
         guard let error else { return nil }
         switch error {
         case .unauthenticated:
-            return ErrorCTA(title: "Sign in") {
+            return ErrorCTA(title: "登录") {
                 SettingsWindowController.shared.show(tab: .account)
             }
         case .insufficientCredits:
@@ -297,7 +297,7 @@ struct AgentPanelView: View {
     private var emptyState: some View {
         if service.canStream {
             VStack(spacing: AppTheme.Spacing.smMd) {
-                Text("Ask anything, or start with:")
+                Text("输入任意内容，或从以下开始：")
                     .font(.system(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .multilineTextAlignment(.center)
@@ -325,11 +325,11 @@ struct AgentPanelView: View {
             }
             .buttonStyle(.plain)
 
-            Text("or use")
+            Text("或使用")
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
             Button(action: { SettingsWindowController.shared.show(tab: .agent) }) {
-                Text("your own Anthropic key")
+                Text("自定义模型 API")
                     .underline()
                     .foregroundStyle(AppTheme.Accent.primary)
             }
@@ -339,9 +339,9 @@ struct AgentPanelView: View {
     }
 
     private func missingKeyPrimaryAction(account: AccountService) -> String {
-        if !account.isSignedIn { return "Sign in" }
-        if !account.isPaid { return "Subscribe" }
-        return "Open Settings"
+        if !account.isSignedIn { return "登录" }
+        if !account.isPaid { return "订阅" }
+        return "打开设置"
     }
 
     private func scrollToBottom(_ proxy: ScrollViewProxy) {

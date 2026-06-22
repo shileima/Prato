@@ -9,7 +9,7 @@ struct TourOverlay: View {
     private let bookendWidth: CGFloat = 600
     private let margin: CGFloat = AppTheme.Spacing.xlXxl
 
-    private static let docsURL = URL(string: "https://palmier.io/docs")!
+    private static let docsURL = URL(string: "https://prato.io/docs")!
 
     var body: some View {
         if let step = tour.currentStep {
@@ -274,7 +274,7 @@ private enum TourAssets {
         guard let root = Bundle.main.resourceURL else { return nil }
         let candidates = [
             root.appendingPathComponent("Images/\(name).\(ext)"),
-            root.appendingPathComponent("PalmierPro_PalmierPro.bundle/Images/\(name).\(ext)"),
+            root.appendingPathComponent("PratoPro_PratoPro.bundle/Images/\(name).\(ext)"),
         ]
         for url in candidates where FileManager.default.fileExists(atPath: url.path) {
             return NSImage(contentsOf: url)

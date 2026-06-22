@@ -1,0 +1,112 @@
+/* Prato - 简体中文本地化 */
+
+/* App */
+"A video editor built for AI. Generate, and edit all in one place." = "专为 AI 打造的视频编辑器，一站式生成与编辑。";
+"Welcome to Prato" = "欢迎使用 Prato";
+"Sample Project" = "示例项目";
+"My Projects" = "我的项目";
+"Project" = "项目";
+"Project Activity" = "项目动态";
+"Untitled" = "未命名";
+
+/* Settings tabs */
+"Account" = "账户";
+"General" = "通用";
+"Models" = "模型";
+"Agent" = "智能体";
+"Storage" = "存储";
+"Account settings" = "账户设置";
+
+/* Settings - General */
+"Notifications" = "通知";
+"Privacy" = "隐私";
+"Restart Prato to apply this change." = "重启 Prato 以应用此更改。";
+
+/* Settings - Models */
+"Image" = "图像";
+"Video" = "视频";
+"Audio" = "音频";
+"Loading models…" = "正在加载模型…";
+"Model" = "模型";
+
+/* Settings - Agent */
+"Anthropic API Key" = "Anthropic API Key";
+"Used your own API key for the AI chat. Stored in your macOS Keychain." = "使用自己的 API Key 进行 AI 对话，安全存储于 macOS 钥匙串。";
+"Get Anthropic API key" = "获取 Anthropic API Key";
+"using API key" = "使用 API Key";
+"your own Anthropic key" = "你的 Anthropic Key";
+"MCP Server" = "MCP 服务器";
+"Lets external clients like Cursor, Claude Desktop, Claude Code, and Codex edit your timeline." = "允许 Cursor、Claude Desktop、Claude Code 等外部客户端编辑时间线。";
+"Prato exposes your open project as an MCP server. Connect any MCP clients to let it be your AI assistant." = "Prato 将当前项目作为 MCP 服务器对外开放，可连接任意 MCP 客户端。";
+"Setup instructions" = "配置说明";
+"Manual setup" = "手动配置";
+"Run this once in your terminal:" = "在终端运行一次：";
+"Running on " = "运行中：";
+"Stopped" = "已停止";
+
+/* Settings - Storage */
+"Saved playback previews, waveforms, and filmstrip thumbnails. Safe to clear; they'll rebuild as needed." = "已保存的播放预览、波形和缩略图。可安全清除，会在需要时自动重建。";
+"Saves a copy of this project with all media bundled inside, so it opens on any machine." = "将项目连同所有媒体打包保存，可在任何设备上打开。";
+"Cache" = "缓存";
+"Index" = "索引";
+"Indexes media on import so you can search it. Runs on-device." = "导入时为媒体建立索引以支持搜索，在本地运行。";
+
+/* Agent panel */
+"Ask anything, or start with:" = "输入任意内容，或从以下开始：";
+"Ask, or type @ to reference media" = "输入问题，或用 @ 引用媒体";
+"No conversations yet" = "暂无对话";
+"Agent Mode" = "智能体模式";
+"Include screenshot" = "包含截图";
+"References" = "引用";
+"PROMPT" = "提示词";
+"args" = "参数";
+
+/* Generation */
+"Generate Captions" = "生成字幕";
+"Generation Failed" = "生成失败";
+"No generations yet" = "暂无生成内容";
+"Subscribe to use AI generation." = "订阅后即可使用 AI 生成功能。";
+"Sign in to subscribe and use AI generation." = "登录并订阅以使用 AI 生成功能。";
+"Credits cover AI generation and chat." = "积分用于 AI 生成和对话。";
+"/ month" = "/ 月";
+
+/* Timeline / Editor */
+"No Tracks" = "暂无轨道";
+"Drop files here or import from disk" = "拖放文件至此或从磁盘导入";
+"Export" = "导出";
+"Exports your timeline as XML for use in other editors." = "将时间线导出为 XML 以供其他编辑器使用。";
+"Works with DaVinci Resolve, Premiere Pro, and Final Cut Pro." = "支持 DaVinci Resolve、Premiere Pro 和 Final Cut Pro。";
+"Text overlays, flips, and keyframe easing aren't included." = "文字叠加、翻转和关键帧缓动不包含在内。";
+"FPS" = "帧率";
+"Resolution" = "分辨率";
+"Keyframes" = "关键帧";
+"Clip" = "片段";
+"Clip Settings Mismatch" = "片段设置不匹配";
+"The clip you're adding has different settings than the current project." = "所添加的片段与当前项目的设置不同。";
+
+/* Media */
+"Media search" = "媒体搜索";
+"Media Offline" = "媒体离线";
+"File missing" = "文件丢失";
+"No media yet" = "暂无媒体";
+"Empty" = "空";
+"No matches" = "无匹配";
+
+/* Status */
+"Loading…" = "加载中…";
+"Failed" = "失败";
+"Retry" = "重试";
+"Retry Download" = "重新下载";
+
+/* Account */
+"Watch Tutorial" = "观看教程";
+"Full changelog" = "完整更新日志";
+"Thanks for the feedback." = "感谢您的反馈。";
+"We may email you for follow-up questions" = "我们可能会通过邮件跟进";
+"you@example.com — so we can reply" = "you@example.com — 以便我们回复";
+"The project will be moved to the Trash." = "项目将被移至废纸篓。";
+
+/* Search */
+"Search models" = "搜索模型";
+"or use" = "或使用";
+"AI" = "AI";

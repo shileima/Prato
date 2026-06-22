@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 enum ExportMode: String, CaseIterable, Identifiable {
     case video = "Video (.mp4)"
     case xml = "Timeline (.xml)"
-    case palmierProject = "Palmier Project (.palmier)"
+    case pratoProject = "Pratoject (.prato)"
 
     var id: String { rawValue }
 }
@@ -25,8 +25,8 @@ struct ExportView: View {
     @State private var codec: VideoCodec = .h264
     @State private var resolution: ExportResolution = .r1080p
     @State private var preview: NSImage?
-    @State private var palmierResult: String?
-    @State private var palmierSummary: (collect: Int, missing: Int, bytes: Int64) = (0, 0, 0)
+    @State private var pratoResult: String?
+    @State private var pratoSummary: (collect: Int, missing: Int, bytes: Int64) = (0, 0, 0)
 
     var body: some View {
         VStack(spacing: 0) {
@@ -47,7 +47,7 @@ struct ExportView: View {
         }
         .task {
             loadPreview()
-            palmierSummary = computePalmierSummary()
+            pratoSummary = computePratoSummary()
         }
     }
 
@@ -132,29 +132,29 @@ struct ExportView: View {
 
                 case .xml:
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-                        Text("Exports your timeline as XML for use in other editors.")
+                        Text("将时间线导出为 XML 以供其他编辑器使用。")
                             .font(.system(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.secondaryColor)
 
-                        Text("Works with DaVinci Resolve, Premiere Pro, and Final Cut Pro.")
+                        Text("支持 DaVinci Resolve、Premiere Pro 和 Final Cut Pro。")
                             .font(.system(size: AppTheme.FontSize.xs))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
 
-                        Text("Text overlays, flips, and keyframe easing aren't included.")
+                        Text("文字叠加、翻转和关键帧缓动不包含在内。")
                             .font(.system(size: AppTheme.FontSize.xs))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, AppTheme.Spacing.sm)
 
-                case .palmierProject:
+                case .pratoProject:
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-                        Text("Saves a copy of this project with all media bundled inside, so it opens on any machine.")
+                        Text("将项目连同所有媒体打包保存，可在任何设备上打开。")
                             .font(.system(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.secondaryColor)
 
-                        if palmierSummary.missing > 0 {
-                            Text("\(palmierSummary.missing) media file\(palmierSummary.missing == 1 ? "" : "s") missing — they'll be skipped.")
+                        if pratoSummary.missing > 0 {
+                            Text("\(pratoSummary.missing) media file\(pratoSummary.missing == 1 ? "" : "s") missing — they'll be skipped.")
                                 .font(.system(size: AppTheme.FontSize.xs))
                                 .foregroundStyle(AppTheme.Status.errorColor)
                         }
@@ -184,8 +184,8 @@ struct ExportView: View {
                     .padding(.top, AppTheme.Spacing.sm)
             }
 
-            if let palmierResult {
-                Text(palmierResult)
+            if let pratoResult {
+                Text(pratoResult)
                     .font(.caption)
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .padding(.top, AppTheme.Spacing.sm)
@@ -217,10 +217,10 @@ struct ExportView: View {
                     Text("\(Int(out.width))×\(Int(out.height))")
                 case .xml:
                     Text("\(editor.timeline.width)×\(editor.timeline.height)")
-                case .palmierProject:
+                case .pratoProject:
                     HStack(spacing: AppTheme.Spacing.xs) {
                         Image(systemName: "shippingbox")
-                        Text("~\(ByteCountFormatter.string(fromByteCount: palmierSummary.bytes, countStyle: .file))")
+                        Text("~\(ByteCountFormatter.string(fromByteCount: pratoSummary.bytes, countStyle: .file))")
                     }
                 }
             }
@@ -272,7 +272,7 @@ struct ExportView: View {
 
     private var exportFormat: ExportFormat {
         switch mode {
-        case .xml, .palmierProject: .xml   // palmierProject has its own path; never rendered
+        case .xml, .pratoProject: .xml   // pratoProject has its own path; never rendered
         case .video:
             switch codec {
             case .h264: .h264
@@ -282,8 +282,8 @@ struct ExportView: View {
         }
     }
 
-    /// Quick estimate for exporting a Palmier Project
-    private func computePalmierSummary() -> (collect: Int, missing: Int, bytes: Int64) {
+    /// Quick estimate for exporting a Pratoject
+    private func computePratoSummary() -> (collect: Int, missing: Int, bytes: Int64) {
         var collect = 0, missing = 0
         var bytes: Int64 = 0
         for entry in editor.mediaManifest.entries {
@@ -321,7 +321,7 @@ struct ExportView: View {
     }
 
     private func startExport() {
-        if mode == .palmierProject { startPalmierExport(); return }
+        if mode == .pratoProject { startPratoExport(); return }
         let format = exportFormat
         let panel = NSSavePanel()
         panel.allowedContentTypes = [
@@ -348,8 +348,8 @@ struct ExportView: View {
         }
     }
 
-    private func startPalmierExport() {
-        palmierResult = nil
+    private func startPratoExport() {
+        pratoResult = nil
         let panel = NSSavePanel()
         panel.allowedContentTypes = [UTType(Project.typeIdentifier) ?? .package]
         let base = editor.projectURL?.deletingPathExtension().lastPathComponent ?? Project.defaultProjectName
@@ -358,7 +358,7 @@ struct ExportView: View {
         panel.begin { response in
             guard response == .OK, let url = panel.url else { return }
             Task {
-                let report = await service.exportPalmierProject(
+                let report = await service.exportPratoProject(
                     timeline: editor.timeline,
                     manifest: editor.mediaManifest,
                     generationLog: editor.generationLog,
@@ -371,7 +371,7 @@ struct ExportView: View {
                     editor.showExportDialog = false
                 } else {
                     // Keep the dialog open so the user sees what couldn't be included.
-                    palmierResult = "Exported, but \(report.missing.count) media file\(report.missing.count == 1 ? "" : "s") were missing and couldn't be included."
+                    pratoResult = "Exported, but \(report.missing.count) media file\(report.missing.count == 1 ? "" : "s") were missing and couldn't be included."
                 }
             }
         }

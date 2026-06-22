@@ -22,7 +22,7 @@ extension MediaTab {
                             help: "Analyzing media so you can search it.",
                             progress: search.indexingProgress)
         case .failed where model.enabled:
-            statusButton(icon: "exclamationmark.triangle", label: "Retry") { model.download() }
+            statusButton(icon: "exclamationmark.triangle", label: "重试") { model.download() }
                 .help("Visual search model download failed. Check your connection and try again.")
         default:
             EmptyView()

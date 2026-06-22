@@ -15,7 +15,7 @@ struct ChatHistoryList: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if sessions.isEmpty {
-                Text("No conversations yet")
+                Text("暂无对话历史")
                     .font(.system(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(AppTheme.Spacing.md)

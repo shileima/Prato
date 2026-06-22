@@ -23,11 +23,11 @@ struct ModelsPane: View {
             q.isEmpty ? rows : rows.filter { $0.displayName.lowercased().contains(q) }
         }
         return [
-            Section(id: "image", title: "Image",
+            Section(id: "image", title: "图像",
                     rows: filtered(catalog.image.map { Row(id: $0.id, displayName: $0.displayName) })),
-            Section(id: "video", title: "Video",
+            Section(id: "video", title: "视频",
                     rows: filtered(catalog.video.map { Row(id: $0.id, displayName: $0.displayName) })),
-            Section(id: "audio", title: "Audio",
+            Section(id: "audio", title: "音频",
                     rows: filtered(catalog.audio.map { Row(id: $0.id, displayName: $0.displayName) })),
         ].filter { !$0.rows.isEmpty }
     }
@@ -37,7 +37,7 @@ struct ModelsPane: View {
             searchBar
 
             if sections.isEmpty {
-                Text(catalog.isLoaded ? "No models match \"\(query)\"." : "Loading models…")
+                Text(catalog.isLoaded ? "No models match \"\(query)\"." : "正在加载模型…")
                     .font(.system(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .padding(.top, AppTheme.Spacing.lg)
@@ -54,7 +54,7 @@ struct ModelsPane: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.mutedColor)
-            TextField("Search models", text: $query)
+            TextField("搜索模型", text: $query)
                 .textFieldStyle(.plain)
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.primaryColor)

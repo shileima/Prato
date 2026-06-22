@@ -86,7 +86,7 @@ private struct CopyMessageButton: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                Text(copied ? "Copied" : "Copy")
+                Text(copied ? "已复制" : "复制")
             }
             .font(.system(size: AppTheme.FontSize.xs))
             .foregroundStyle(AppTheme.Text.tertiaryColor)

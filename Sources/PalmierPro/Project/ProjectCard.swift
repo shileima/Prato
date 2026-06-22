@@ -34,7 +34,7 @@ struct ProjectCard: View {
                         VStack(spacing: AppTheme.Spacing.xs) {
                             Image(systemName: "questionmark.folder")
                                 .font(.system(size: AppTheme.FontSize.title1))
-                            Text("File missing")
+                            Text("文件丢失")
                                 .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
                         }
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
@@ -115,7 +115,7 @@ struct ProjectCard: View {
                 ProjectRegistry.shared.delete(entry.url)
             }
         } message: {
-            Text("The project will be moved to the Trash.")
+            Text("项目将被移至废纸篓。")
         }
         .task(id: entry.lastOpenedDate) { await loadThumbnail(for: entry.url) }
     }

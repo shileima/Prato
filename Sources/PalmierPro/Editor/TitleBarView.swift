@@ -32,7 +32,7 @@ struct TitleBarTrailingView: View {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: "square.and.arrow.up")
                     .offset(y: -1)
-                    Text("Export")
+                    Text("导出")
                 }
                 .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(AppTheme.Text.secondaryColor)

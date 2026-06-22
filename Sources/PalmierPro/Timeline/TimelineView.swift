@@ -704,11 +704,11 @@ final class TimelineView: NSView {
 
         // Timeline actions
         var timelineItems: [NSMenuItem] = []
-        let copyItem = NSMenuItem(title: "Copy", action: #selector(performCopyClips(_:)), keyEquivalent: "")
+        let copyItem = NSMenuItem(title: "拷贝", action: #selector(performCopyClips(_:)), keyEquivalent: "")
         copyItem.target = self
         timelineItems.append(copyItem)
         if editor.canPasteClips {
-            let pasteItem = NSMenuItem(title: "Paste", action: #selector(performPasteClips(_:)), keyEquivalent: "")
+            let pasteItem = NSMenuItem(title: "粘贴", action: #selector(performPasteClips(_:)), keyEquivalent: "")
             pasteItem.target = self
             pasteItem.representedObject = ["trackIndex": hit.trackIndex, "frame": clickFrame] as [String: Any]
             timelineItems.append(pasteItem)
@@ -767,7 +767,7 @@ final class TimelineView: NSView {
         let menu = NSMenu()
         if editor.canPasteClips,
            editor.timeline.tracks.indices.contains(trackIndex) {
-            let item = NSMenuItem(title: "Paste", action: #selector(performPasteClips(_:)), keyEquivalent: "")
+            let item = NSMenuItem(title: "粘贴", action: #selector(performPasteClips(_:)), keyEquivalent: "")
             item.target = self
             item.representedObject = ["trackIndex": trackIndex, "frame": frame] as [String: Any]
             menu.addItem(item)

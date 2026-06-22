@@ -11,11 +11,11 @@ enum SettingsTab: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .account: return "Account"
-        case .general: return "General"
-        case .models: return "Models"
-        case .agent: return "Agent"
-        case .storage: return "Storage"
+        case .account: return "账户"
+        case .general: return "通用"
+        case .models: return "模型"
+        case .agent: return "智能体"
+        case .storage: return "存储"
         }
     }
 
@@ -176,8 +176,8 @@ final class SettingsWindowController: NSWindowController {
         let window = NSWindow(contentViewController: hosting)
         window.setContentSize(NSSize(width: 980, height: 640))
         window.minSize = NSSize(width: 760, height: 480)
-        window.title = "Settings"
-        window.setFrameAutosaveName("PalmierProSettings-v2")
+        window.title = "设置"
+        window.setFrameAutosaveName("PratoProSettings-v2")
         window.appearance = NSAppearance(named: .darkAqua)
         window.backgroundColor = AppTheme.Background.base.withAlphaComponent(0.4)
         window.isOpaque = false

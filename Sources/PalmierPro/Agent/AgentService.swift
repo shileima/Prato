@@ -6,18 +6,26 @@ import Observation
 final class AgentService {
 
     private var apiKey: String = ""
+    private var customApiKey: String = ""
     private var apiKeyObserver: NSObjectProtocol?
+    private var customAPIObserver: NSObjectProtocol?
 
     init() {
         reloadAPIKey()
+        reloadCustomAPIKey()
         apiKeyObserver = NotificationCenter.default.addObserver(
             forName: .anthropicAPIKeyChanged,
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            MainActor.assumeIsolated {
-                self?.reloadAPIKey()
-            }
+            MainActor.assumeIsolated { self?.reloadAPIKey() }
+        }
+        customAPIObserver = NotificationCenter.default.addObserver(
+            forName: .customAPIConfigChanged,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated { self?.reloadCustomAPIKey() }
         }
     }
 
@@ -30,31 +38,48 @@ final class AgentService {
         }
     }
 
-    isolated deinit {
-        if let token = apiKeyObserver {
-            NotificationCenter.default.removeObserver(token)
+    private func reloadCustomAPIKey() {
+        Task { [weak self] in
+            let key = await Task.detached(priority: .utility) {
+                CustomAPIKeychain.loadAPIKey() ?? ""
+            }.value
+            self?.customApiKey = key
         }
+    }
+
+    isolated deinit {
+        if let token = apiKeyObserver { NotificationCenter.default.removeObserver(token) }
+        if let token = customAPIObserver { NotificationCenter.default.removeObserver(token) }
     }
 
     var hasApiKey: Bool { !apiKey.isEmpty }
 
+    // Checks synchronously so it works before the async reload completes
+    var hasCustomAPI: Bool { CustomAPIKeychain.isConfigured }
+
     var canStream: Bool {
-        if hasApiKey { return true }
+        if hasCustomAPI || hasApiKey { return true }
         let account = AccountService.shared
         return account.isSignedIn && account.hasCredits
     }
 
     var availableModels: [AnthropicModel] {
-        if hasApiKey { return AnthropicModel.allCases }
+        if hasApiKey || hasCustomAPI { return AnthropicModel.allCases }
         return AccountService.shared.isPaid ? [.sonnet46] : [.haiku45]
     }
 
     private func selectClient() -> (any AgentClient)? {
+        if hasCustomAPI {
+            let key = CustomAPIKeychain.loadAPIKey() ?? customApiKey
+            return OpenAICompatibleClient(
+                baseURL: CustomAPIKeychain.baseURL,
+                apiKey: key,
+                model: CustomAPIKeychain.model
+            )
+        }
         let chosen = effectiveModel
         if hasApiKey { return AnthropicClient(apiKey: apiKey, model: chosen) }
-        if AccountService.shared.isSignedIn {
-            return PalmierClient(model: chosen)
-        }
+        if AccountService.shared.isSignedIn { return PratoClient(model: chosen) }
         return nil
     }
 
@@ -78,7 +103,7 @@ final class AgentService {
     var currentSessionId: UUID?
     var messages: [AgentMessage] = []
     var isStreaming: Bool = false
-    var streamError: PalmierClientError?
+    var streamError: PratoClientError?
     var onSessionsChanged: (@MainActor () -> Void)?
 
     var draft: String = ""
@@ -383,7 +408,7 @@ final class AgentService {
             } catch is CancellationError {
                 dropEmptyAssistantTurn(id: assistantID)
                 break loop
-            } catch let err as PalmierClientError {
+            } catch let err as PratoClientError {
                 dropEmptyAssistantTurn(id: assistantID)
                 streamError = err
                 break loop

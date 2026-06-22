@@ -151,7 +151,7 @@ struct AIEditTab: View {
     private var replaceToggle: some View {
         scopeToggleRow(
             icon: "arrow.triangle.2.circlepath",
-            label: "Replace clip source",
+            label: "替换片段源",
             help: "Swap the clip's media when generation completes. Speed, volume, trim, and transform are preserved.",
             isOn: $replaceClipSource
         )
@@ -162,7 +162,7 @@ struct AIEditTab: View {
     private var trimmedClipToggle: some View {
         scopeToggleRow(
             icon: "scissors",
-            label: "Use trimmed portion only",
+            label: "仅使用裁剪部分",
             help: "Send only the visible clip range to the model, not the full source.",
             isOn: $useTrimmedClip
         )
@@ -171,7 +171,7 @@ struct AIEditTab: View {
     private var audioPlacementToggle: some View {
         scopeToggleRow(
             icon: "plus.rectangle.on.rectangle",
-            label: "Place on timeline",
+            label: "放置到时间线",
             help: "Add generated audio to an audio track at this clip's start.",
             isOn: $placeAudioOnTimeline
         )
@@ -269,7 +269,7 @@ struct AIEditTab: View {
             icon: kind.iconName,
             title: kind.title,
             description: kind.description,
-            triggerTitle: "Generate"
+            triggerTitle: "生成"
         )
     }
 

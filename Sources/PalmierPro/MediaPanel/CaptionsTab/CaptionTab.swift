@@ -30,7 +30,7 @@ struct CaptionTab: View {
     }
     private var automaticSourceSummary: String {
         if !selectedClipTargets.isEmpty { return "Selected Clips · \(selectedClipTargets.count)" }
-        return editor.captionTargets(ids: []).isEmpty ? "No audio" : "Auto"
+        return editor.captionTargets(ids: []).isEmpty ? "No audio" : "自动"
     }
     private var effectiveCount: Int {
         isAutoSource ? editor.captionTargets(ids: []).count : sourceClipIds.count
@@ -69,7 +69,7 @@ struct CaptionTab: View {
             }
             if isGenerating {
                 AppTheme.Background.surfaceColor.opacity(AppTheme.Opacity.prominent)
-                GeneratingOverlay(label: "Transcribing…", size: .preview)
+                GeneratingOverlay(label: "转写中…", size: .preview)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -87,19 +87,19 @@ struct CaptionTab: View {
         InspectorSection("Source") {
             InspectorRow(
                 icon: "waveform",
-                label: "Source",
+                label: "来源",
                 labelHelp: "Uses selected clips when available, otherwise all captionable audio. Choose a track to limit captions."
             ) { sourceMenu }
-            InspectorRow(icon: "globe", label: "Language") {
+            InspectorRow(icon: "globe", label: "语言") {
                 Menu {
-                    Button("Auto") { locale = nil }
+                    Button("自动") { locale = nil }
                     if !supportedLocales.isEmpty {
                         Divider()
                         ForEach(supportedLocales, id: \.identifier) { loc in
                             Button(languageName(loc)) { locale = loc }
                         }
                     }
-                } label: { menuValueLabel(locale.map(languageName) ?? "Auto") }
+                } label: { menuValueLabel(locale.map(languageName) ?? "自动") }
                 .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize().focusable(false)
             }
         }
@@ -116,7 +116,7 @@ struct CaptionTab: View {
             Divider()
 
             if captionTrackIndices.isEmpty {
-                Text("No Tracks")
+                Text("暂无轨道")
             } else {
                 ForEach(captionTrackIndices, id: \.self) { index in
                     if editor.timeline.tracks.indices.contains(index) {
@@ -155,10 +155,10 @@ struct CaptionTab: View {
 
     private var styleSection: some View {
         InspectorSection("Style") {
-            InspectorRow(icon: "character", label: "Font") {
+            InspectorRow(icon: "character", label: "字体") {
                 FontPickerField(current: style.fontName, onPreview: { style.fontName = $0 }, onChange: { style.fontName = $0 }, onCancel: {})
             }
-            InspectorRow(icon: "textformat.size", label: "Size") {
+            InspectorRow(icon: "textformat.size", label: "大小") {
                 ScrubbableNumberField(
                     value: style.fontSize,
                     range: AppTheme.Caption.minFontSize...AppTheme.Caption.maxFontSize,
@@ -167,10 +167,10 @@ struct CaptionTab: View {
                     onChanged: { style.fontSize = $0 }
                 ) { style.fontSize = $0 }
             }
-            InspectorRow(icon: "paintpalette", label: "Color") {
+            InspectorRow(icon: "paintpalette", label: "颜色") {
                 ColorField(displayColor: style.color.swiftUIColor, onUserChange: { style.color = TextStyle.RGBA($0) })
             }
-            InspectorRow(icon: "rectangle.fill", label: "Background") {
+            InspectorRow(icon: "rectangle.fill", label: "背景") {
                 HStack(spacing: AppTheme.Spacing.sm) {
                     ColorField(displayColor: style.background.color.swiftUIColor) {
                         style.background.color = TextStyle.RGBA($0)
@@ -184,7 +184,7 @@ struct CaptionTab: View {
                         .tint(AppTheme.Text.primaryColor.opacity(AppTheme.Opacity.strong))
                 }
             }
-            InspectorRow(icon: "textformat", label: "Case") {
+            InspectorRow(icon: "textformat", label: "大小写") {
                 Menu {
                     ForEach(EditorViewModel.CaptionCase.allCases, id: \.self) { c in
                         Button(c.label) { textCase = c }
@@ -199,7 +199,7 @@ struct CaptionTab: View {
                 }
                 .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize().focusable(false)
             }
-            InspectorRow(icon: "exclamationmark.bubble", label: "Censor profanity") {
+            InspectorRow(icon: "exclamationmark.bubble", label: "过滤不雅词") {
                 Toggle("", isOn: $censorProfanity)
                     .labelsHidden()
                     .toggleStyle(.switch)
@@ -224,23 +224,23 @@ struct CaptionTab: View {
         Menu {
             Button {
                 captionTask("remove filler words (um, uh, er, like, you know) from the captions, keeping each caption's timing unchanged.")
-            } label: { Label("Remove filler words", systemImage: "text.badge.minus") }
+            } label: { Label("移除填充词", systemImage: "text.badge.minus") }
             Button {
                 captionTask("fix any misspelled names, brand names, or technical jargon in the captions using the surrounding context, keeping timing unchanged.")
-            } label: { Label("Fix names & jargon", systemImage: "checkmark.bubble") }
+            } label: { Label("修正专有名词", systemImage: "checkmark.bubble") }
             Button {
                 captionTask("add relevant emoji to the captions, keeping the text and timing otherwise unchanged.")
-            } label: { Label("Add emoji", systemImage: "face.smiling") }
+            } label: { Label("添加 Emoji", systemImage: "face.smiling") }
             Menu {
                 ForEach(Self.translateLanguages, id: \.self) { language in
                     Button(language) {
                         captionTask("translate the captions to \(language), keeping each caption's timing unchanged.")
                     }
                 }
-            } label: { Label("Translate", systemImage: "globe") }
+            } label: { Label("翻译", systemImage: "globe") }
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
-                Text("Agent Mode")
+                Text("智能体模式")
                 Image(systemName: "chevron.down").font(.system(size: AppTheme.FontSize.xs))
             }
             .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
@@ -253,7 +253,7 @@ struct CaptionTab: View {
             .overlay(RoundedRectangle(cornerRadius: AppTheme.Radius.sm).strokeBorder(AppTheme.aiGradient.opacity(AppTheme.Opacity.medium), lineWidth: AppTheme.BorderWidth.thin))
         }
         .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).focusable(false)
-        .help("Let Agent create captions for you. Choose a predefined task, or ask Agent in the chat.")
+        .help("让智能体为你创建字幕，选择预设任务或在对话中提问。")
     }
 
     private func captionTask(_ task: String) {
@@ -363,7 +363,7 @@ struct CaptionTab: View {
             }
             HStack(spacing: AppTheme.Spacing.sm) {
                 Button(action: generate) {
-                    Text("Generate Captions")
+                    Text("生成字幕")
                         .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
                         .foregroundStyle(AppTheme.Background.baseColor)
                         .lineLimit(1)

@@ -157,8 +157,8 @@ final class AccountService {
             publishableKey: publishableKey,
             options: Clerk.Options(
                 redirectConfig: .init(
-                    redirectUrl: "palmier://callback",
-                    callbackUrlScheme: "palmier"
+                    redirectUrl: "prato://callback",
+                    callbackUrlScheme: "prato"
                 )
             )
         )
@@ -375,7 +375,7 @@ final class AccountService {
     ) async throws {
         guard let convex else {
             throw NSError(
-                domain: "Palmier.Feedback",
+                domain: "Prato.Feedback",
                 code: -1,
                 userInfo: [NSLocalizedDescriptionKey: "Backend not configured."]
             )

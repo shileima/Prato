@@ -1,8 +1,8 @@
 import Foundation
 
-/// Writes a self-contained `.palmier` package: every resolvable media reference is copied
+/// Writes a self-contained `.prato` package: every resolvable media reference is copied
 /// into the new bundle's `media/` directory and rewritten to a project-relative source
-enum PalmierProjectExporter {
+enum PratoProjectExporter {
 
     struct Report: Equatable {
         /// Entry ids that were `.external` and are now bundled.
@@ -27,7 +27,7 @@ enum PalmierProjectExporter {
         progress: (@Sendable (Double) -> Void)? = nil
     ) throws -> Report {
         let fm = FileManager.default
-        let staging = fm.temporaryDirectory.appendingPathComponent("palmier-export-\(UUID().uuidString)", isDirectory: true)
+        let staging = fm.temporaryDirectory.appendingPathComponent("prato-export-\(UUID().uuidString)", isDirectory: true)
         let mediaDir = staging.appendingPathComponent(Project.mediaDirectoryName, isDirectory: true)
         try fm.createDirectory(at: mediaDir, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: staging) }

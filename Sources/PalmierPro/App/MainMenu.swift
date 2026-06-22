@@ -19,16 +19,16 @@ enum MainMenuBuilder {
 
     private static func appMenu() -> NSMenuItem {
         let item = NSMenuItem()
-        let menu = NSMenu(title: "Palmier Pro")
-        menu.addItem(withTitle: "About Palmier Pro", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        let menu = NSMenu(title: "Prato")
+        menu.addItem(withTitle: "关于 Prato", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
         menu.addItem(.separator())
-        let updatesItem = NSMenuItem(title: "Check for Updates…", action: #selector(Updater.checkForUpdates(_:)), keyEquivalent: "")
+        let updatesItem = NSMenuItem(title: "检查更新…", action: #selector(Updater.checkForUpdates(_:)), keyEquivalent: "")
         updatesItem.target = Updater.shared
         menu.addItem(updatesItem)
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Settings…", action: #selector(AppDelegate.showSettings(_:)), keyEquivalent: ",")
+        menu.addItem(withTitle: "设置…", action: #selector(AppDelegate.showSettings(_:)), keyEquivalent: ",")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Quit Palmier Pro", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(withTitle: "退出 Prato", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         item.submenu = menu
         return item
     }
@@ -37,21 +37,21 @@ enum MainMenuBuilder {
 
     private static func fileMenu() -> NSMenuItem {
         let item = NSMenuItem()
-        let menu = NSMenu(title: "File")
-        menu.addItem(withTitle: "New", action: #selector(NSDocumentController.newDocument(_:)), keyEquivalent: "n")
-        menu.addItem(withTitle: "Open…", action: #selector(NSDocumentController.openDocument(_:)), keyEquivalent: "o")
+        let menu = NSMenu(title: "文件")
+        menu.addItem(withTitle: "新建", action: #selector(NSDocumentController.newDocument(_:)), keyEquivalent: "n")
+        menu.addItem(withTitle: "打开…", action: #selector(NSDocumentController.openDocument(_:)), keyEquivalent: "o")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Save", action: #selector(NSDocument.save(_:)), keyEquivalent: "s")
-        menu.addItem(withTitle: "Save As…", action: #selector(NSDocument.saveAs(_:)), keyEquivalent: "S")
+        menu.addItem(withTitle: "保存", action: #selector(NSDocument.save(_:)), keyEquivalent: "s")
+        menu.addItem(withTitle: "另存为…", action: #selector(NSDocument.saveAs(_:)), keyEquivalent: "S")
         menu.addItem(.separator())
 
-        let importItem = NSMenuItem(title: "Import Media…", action: #selector(EditorActions.importMedia(_:)), keyEquivalent: "i")
+        let importItem = NSMenuItem(title: "导入媒体…", action: #selector(EditorActions.importMedia(_:)), keyEquivalent: "i")
         importItem.keyEquivalentModifierMask = [.command]
         menu.addItem(importItem)
 
         menu.addItem(.separator())
 
-        let exportItem = NSMenuItem(title: "Export…", action: #selector(EditorActions.showExport(_:)), keyEquivalent: "e")
+        let exportItem = NSMenuItem(title: "导出…", action: #selector(EditorActions.showExport(_:)), keyEquivalent: "e")
         exportItem.keyEquivalentModifierMask = [.command]
         menu.addItem(exportItem)
 
@@ -63,31 +63,31 @@ enum MainMenuBuilder {
 
     private static func editMenu() -> NSMenuItem {
         let item = NSMenuItem()
-        let menu = NSMenu(title: "Edit")
-        menu.addItem(withTitle: "Undo", action: Selector(("undo:")), keyEquivalent: "z")
-        menu.addItem(withTitle: "Redo", action: Selector(("redo:")), keyEquivalent: "Z")
+        let menu = NSMenu(title: "编辑")
+        menu.addItem(withTitle: "撤销", action: Selector(("undo:")), keyEquivalent: "z")
+        menu.addItem(withTitle: "重做", action: Selector(("redo:")), keyEquivalent: "Z")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Cut", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
-        menu.addItem(withTitle: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
-        menu.addItem(withTitle: "Paste", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
-        menu.addItem(withTitle: "Select All", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
+        menu.addItem(withTitle: "剪切", action: #selector(NSText.cut(_:)), keyEquivalent: "x")
+        menu.addItem(withTitle: "拷贝", action: #selector(NSText.copy(_:)), keyEquivalent: "c")
+        menu.addItem(withTitle: "粘贴", action: #selector(NSText.paste(_:)), keyEquivalent: "v")
+        menu.addItem(withTitle: "全选", action: #selector(NSText.selectAll(_:)), keyEquivalent: "a")
         menu.addItem(.separator())
 
-        let splitItem = NSMenuItem(title: "Split at Playhead", action: #selector(EditorActions.splitAtPlayhead(_:)), keyEquivalent: "k")
+        let splitItem = NSMenuItem(title: "从播放头分割", action: #selector(EditorActions.splitAtPlayhead(_:)), keyEquivalent: "k")
         splitItem.keyEquivalentModifierMask = [.command]
         menu.addItem(splitItem)
 
-        let trimStartItem = NSMenuItem(title: "Trim Start to Playhead", action: #selector(EditorActions.trimStartToPlayhead(_:)), keyEquivalent: "q")
+        let trimStartItem = NSMenuItem(title: "修剪开头到播放头", action: #selector(EditorActions.trimStartToPlayhead(_:)), keyEquivalent: "q")
         trimStartItem.keyEquivalentModifierMask = []
         menu.addItem(trimStartItem)
 
-        let trimEndItem = NSMenuItem(title: "Trim End to Playhead", action: #selector(EditorActions.trimEndToPlayhead(_:)), keyEquivalent: "w")
+        let trimEndItem = NSMenuItem(title: "修剪结尾到播放头", action: #selector(EditorActions.trimEndToPlayhead(_:)), keyEquivalent: "w")
         trimEndItem.keyEquivalentModifierMask = []
         menu.addItem(trimEndItem)
 
         menu.addItem(.separator())
 
-        let deleteItem = NSMenuItem(title: "Delete", action: #selector(EditorActions.deleteSelectedClips(_:)), keyEquivalent: "\u{8}") // backspace
+        let deleteItem = NSMenuItem(title: "删除", action: #selector(EditorActions.deleteSelectedClips(_:)), keyEquivalent: "\u{8}") // backspace
         deleteItem.keyEquivalentModifierMask = []
         menu.addItem(deleteItem)
 
@@ -99,37 +99,37 @@ enum MainMenuBuilder {
 
     private static func viewMenu() -> NSMenuItem {
         let item = NSMenuItem()
-        let menu = NSMenu(title: "View")
+        let menu = NSMenu(title: "视图")
 
-        let mediaItem = NSMenuItem(title: "Media Panel", action: #selector(EditorActions.toggleMediaPanel(_:)), keyEquivalent: "0")
+        let mediaItem = NSMenuItem(title: "媒体面板", action: #selector(EditorActions.toggleMediaPanel(_:)), keyEquivalent: "0")
         mediaItem.keyEquivalentModifierMask = [.command]
         menu.addItem(mediaItem)
 
-        let inspectorItem = NSMenuItem(title: "Inspector", action: #selector(EditorActions.toggleInspectorPanel(_:)), keyEquivalent: "0")
+        let inspectorItem = NSMenuItem(title: "检查器", action: #selector(EditorActions.toggleInspectorPanel(_:)), keyEquivalent: "0")
         inspectorItem.keyEquivalentModifierMask = [.command, .option]
         menu.addItem(inspectorItem)
 
-        let agentItem = NSMenuItem(title: "Agent Panel", action: #selector(EditorActions.toggleAgentPanel(_:)), keyEquivalent: "a")
+        let agentItem = NSMenuItem(title: "智能体面板", action: #selector(EditorActions.toggleAgentPanel(_:)), keyEquivalent: "a")
         agentItem.keyEquivalentModifierMask = [.command, .option]
         menu.addItem(agentItem)
 
         menu.addItem(.separator())
 
-        let maximizeItem = NSMenuItem(title: "Maximize Focused Panel", action: #selector(EditorActions.toggleMaximizePanel(_:)), keyEquivalent: "`")
+        let maximizeItem = NSMenuItem(title: "最大化当前面板", action: #selector(EditorActions.toggleMaximizePanel(_:)), keyEquivalent: "`")
         maximizeItem.keyEquivalentModifierMask = []
         menu.addItem(maximizeItem)
 
         menu.addItem(.separator())
         menu.addItem(layoutSubmenuItem())
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Enter Full Screen", action: #selector(NSWindow.toggleFullScreen(_:)), keyEquivalent: "f")
+        menu.addItem(withTitle: "进入全屏", action: #selector(NSWindow.toggleFullScreen(_:)), keyEquivalent: "f")
         item.submenu = menu
         return item
     }
 
     private static func layoutSubmenuItem() -> NSMenuItem {
-        let item = NSMenuItem(title: "Layout", action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: "Layout")
+        let item = NSMenuItem(title: "布局", action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: "布局")
 
         let defaultItem = NSMenuItem(title: LayoutPreset.default.label, action: #selector(EditorActions.setLayoutDefault(_:)), keyEquivalent: "1")
         defaultItem.keyEquivalentModifierMask = [.command]
@@ -151,13 +151,13 @@ enum MainMenuBuilder {
 
     private static func helpMenu() -> NSMenuItem {
         let item = NSMenuItem()
-        let menu = NSMenu(title: "Help")
-        menu.addItem(withTitle: "Tutorial", action: #selector(AppDelegate.showTutorial(_:)), keyEquivalent: "")
+        let menu = NSMenu(title: "帮助")
+        menu.addItem(withTitle: "教程", action: #selector(AppDelegate.showTutorial(_:)), keyEquivalent: "")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Keyboard Shortcuts", action: #selector(AppDelegate.showKeyboardShortcuts(_:)), keyEquivalent: "?")
-        menu.addItem(withTitle: "MCP Instructions", action: #selector(AppDelegate.showMCPInstructions(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "键盘快捷键", action: #selector(AppDelegate.showKeyboardShortcuts(_:)), keyEquivalent: "?")
+        menu.addItem(withTitle: "MCP 配置说明", action: #selector(AppDelegate.showMCPInstructions(_:)), keyEquivalent: "")
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Send Feedback…", action: #selector(AppDelegate.showFeedback(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: "发送反馈…", action: #selector(AppDelegate.showFeedback(_:)), keyEquivalent: "")
         item.submenu = menu
         return item
     }

@@ -239,7 +239,7 @@ struct AssetThumbnailView: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: AppTheme.FontSize.mdLg))
                 .foregroundStyle(.red.opacity(AppTheme.Opacity.prominent))
-            Text("Failed")
+            Text("失败")
                 .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
             Text(error)
@@ -258,11 +258,11 @@ struct AssetThumbnailView: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: AppTheme.FontSize.mdLg))
                 .foregroundStyle(AppTheme.Status.errorColor)
-            Text("Media Offline")
+            Text("媒体离线")
                 .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
         }
-        .help("Palmier couldn't load this source file. It may be missing, on an ejected drive, or unreadable.")
+        .help("Prato couldn't load this source file. It may be missing, on an ejected drive, or unreadable.")
     }
 
     private func formatDuration(_ seconds: Double) -> String {

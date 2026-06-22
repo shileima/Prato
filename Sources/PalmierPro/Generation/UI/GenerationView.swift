@@ -441,7 +441,7 @@ struct GenerationView: View {
     private var catalogLoadingView: some View {
         VStack(spacing: AppTheme.Spacing.md) {
             ProgressView()
-            Text("Loading models…")
+            Text("加载模型中…")
                 .font(.system(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
         }
@@ -621,7 +621,7 @@ struct GenerationView: View {
 
     private var audioVideoStrip: some View {
         frameSlot(
-            label: "Source Video",
+            label: "源视频",
             asset: audioVideoSource,
             isTargeted: $audioVideoTargeted,
             accepting: [.video],
@@ -694,7 +694,7 @@ struct GenerationView: View {
         let tags = matchedRefTags
         return VStack(alignment: .leading, spacing: 0) {
             if tags.isEmpty {
-                Text("No matches")
+                Text("无匹配")
                     .font(.system(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(AppTheme.Spacing.md)
@@ -882,10 +882,10 @@ struct GenerationView: View {
 
     private var videoFrameStrip: some View {
         HStack(spacing: AppTheme.Spacing.xs) {
-            frameSlot(label: "First Frame", asset: firstFrame, isTargeted: $firstFrameTargeted,
+            frameSlot(label: "首帧", asset: firstFrame, isTargeted: $firstFrameTargeted,
                       onDrop: { firstFrame = $0 }, onClear: { firstFrame = nil })
             if videoModel.supportsLastFrame {
-                frameSlot(label: "Last Frame", asset: lastFrame, isTargeted: $lastFrameTargeted,
+                frameSlot(label: "尾帧", asset: lastFrame, isTargeted: $lastFrameTargeted,
                           onDrop: { lastFrame = $0 }, onClear: { lastFrame = nil })
             }
         }
@@ -927,7 +927,7 @@ struct GenerationView: View {
     private var videoReferenceSections: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             HStack(spacing: AppTheme.Spacing.xs) {
-                Text("References")
+                Text("参考素材")
                     .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(refCounterLabel)
@@ -1161,7 +1161,7 @@ struct GenerationView: View {
 
     private var imageReferenceStrip: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-            Text("References")
+            Text("参考素材")
                 .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
@@ -1237,7 +1237,7 @@ struct GenerationView: View {
     private var editVideoStrip: some View {
         HStack(spacing: AppTheme.Spacing.xs) {
             frameSlot(
-                label: "Source Video",
+                label: "源视频",
                 asset: sourceVideo,
                 isTargeted: $sourceVideoTargeted,
                 accepting: [.video],
@@ -1247,7 +1247,7 @@ struct GenerationView: View {
             )
             if videoModel.supportsReferences {
                 frameSlot(
-                    label: "Reference Image",
+                    label: "参考图像",
                     asset: imageReferences.first,
                     isTargeted: $motionReferenceTargeted,
                     accepting: [.image],

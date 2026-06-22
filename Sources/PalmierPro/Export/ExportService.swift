@@ -163,15 +163,15 @@ final class ExportService {
         isExporting = false
     }
 
-    /// Writes a self-contained `.palmier` bundle (all media collected internally).
+    /// Writes a self-contained `.prato` bundle (all media collected internally).
     @discardableResult
-    func exportPalmierProject(
+    func exportPratoProject(
         timeline: Timeline,
         manifest: MediaManifest,
         generationLog: GenerationLog,
         sourceProjectURL: URL?,
         outputURL: URL
-    ) async -> PalmierProjectExporter.Report? {
+    ) async -> PratoProjectExporter.Report? {
         isExporting = true
         progress = 0
         error = nil
@@ -179,8 +179,8 @@ final class ExportService {
 
         do {
             Log.export.notice(
-                "palmier export start url=\(outputURL.lastPathComponent)",
-                telemetry: "Palmier project export started",
+                "prato export start url=\(outputURL.lastPathComponent)",
+                telemetry: "Prato project export started",
                 data: [
                     "tracks": timeline.tracks.count,
                     "clips": timeline.tracks.reduce(0) { $0 + $1.clips.count },
@@ -189,7 +189,7 @@ final class ExportService {
                 ]
             )
             let report = try await Task.detached(priority: .userInitiated) {
-                try PalmierProjectExporter.export(
+                try PratoProjectExporter.export(
                     timeline: timeline, manifest: manifest, generationLog: generationLog,
                     sourceProjectURL: sourceProjectURL, to: outputURL,
                     progress: { p in Task { @MainActor in self.progress = p } }
@@ -197,16 +197,16 @@ final class ExportService {
             }.value
             progress = 1.0
             Log.export.notice(
-                "palmier export ok collected=\(report.collected.count) missing=\(report.missing.count)",
-                telemetry: "Palmier project export finished",
+                "prato export ok collected=\(report.collected.count) missing=\(report.missing.count)",
+                telemetry: "Prato project export finished",
                 data: ["collected": report.collected.count, "missing": report.missing.count]
             )
             return report
         } catch {
             self.error = Log.detail(error)
             Log.export.error(
-                "palmier export failed: \(Log.detail(error))",
-                telemetry: "Palmier project export failed",
+                "prato export failed: \(Log.detail(error))",
+                telemetry: "Prato project export failed",
                 data: ["error": Log.detail(error)]
             )
             return nil
