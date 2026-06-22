@@ -2,6 +2,7 @@ import Foundation
 
 enum BackendConfig {
     static let clerkPublishableKey: String? = string("PratoClerkPublishableKey")
+    static let clerkKeychainAccessGroup: String? = string("PratoClerkKeychainAccessGroup")
     static let convexDeploymentURL: URL? = string("PratoConvexDeploymentURL").flatMap { URL(string: $0) }
     static let convexHttpURL: URL? = string("PratoConvexHttpURL").flatMap { URL(string: $0) }
 

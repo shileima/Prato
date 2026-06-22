@@ -36,6 +36,9 @@ fi
 SIGNING_IDENTITY="${SIGNING_IDENTITY:-Developer ID Application: Palmier, Inc. (MMFLRC7562)}"
 NOTARY_PROFILE="${NOTARY_PROFILE:-palmier-notary}"
 SENTRY_DSN="${SENTRY_DSN:-}"
+PROVISION_PROFILE="${PROVISION_PROFILE:-$ROOT/scripts/Palmier_Pro_Developer_ID.provisionprofile}"
+ENTITLEMENTS="$ROOT/scripts/PalmierPro.entitlements"
+KEYCHAIN_ACCESS_GROUP="${KEYCHAIN_ACCESS_GROUP:-MMFLRC7562.io.palmier.pro}"
 RESOURCES="$ROOT/Sources/PalmierPro/Resources"
 APP="$ROOT/.build/PalmierPro.app"
 ZIP="$ROOT/.build/PalmierPro.zip"
@@ -71,9 +74,9 @@ inject_plist() {
 }
 
 echo "==> Injecting backend config into Info.plist"
-inject_plist PalmierClerkPublishableKey "${CLERK_PUBLISHABLE_KEY:-}"
-inject_plist PalmierConvexDeploymentURL "${CONVEX_DEPLOYMENT_URL:-}"
-inject_plist PalmierConvexHttpURL "${CONVEX_HTTP_URL:-}"
+inject_plist PratoClerkPublishableKey "${CLERK_PUBLISHABLE_KEY:-}"
+inject_plist PratoConvexDeploymentURL "${CONVEX_DEPLOYMENT_URL:-}"
+inject_plist PratoConvexHttpURL "${CONVEX_HTTP_URL:-}"
 cp "$RESOURCES/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 cp -R "$SPARKLE_FW" "$APP/Contents/Frameworks/Sparkle.framework"
 
@@ -156,8 +159,17 @@ codesign --force --options runtime --timestamp \
   --sign "$SIGNING_IDENTITY" \
   "$APP/Contents/Frameworks/Sparkle.framework"
 
+echo "==> Embedding provisioning profile + keychain access group"
+if [ ! -f "$PROVISION_PROFILE" ]; then
+  echo "!! provisioning profile not found at $PROVISION_PROFILE" >&2
+  exit 1
+fi
+cp "$PROVISION_PROFILE" "$APP/Contents/embedded.provisionprofile"
+inject_plist PalmierClerkKeychainAccessGroup "$KEYCHAIN_ACCESS_GROUP"
+
 echo "==> Codesigning main app"
 codesign --force --options runtime --timestamp \
+  --entitlements "$ENTITLEMENTS" \
   --sign "$SIGNING_IDENTITY" \
   "$APP"
 codesign --verify --strict --verbose=2 "$APP"
