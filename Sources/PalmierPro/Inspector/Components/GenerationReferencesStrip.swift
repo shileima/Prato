@@ -70,7 +70,7 @@ struct GenerationReferencesStrip: View {
                     Image(nsImage: thumb).resizable().aspectRatio(contentMode: .fit)
                 } else {
                     Image(systemName: asset.type.sfSymbolName)
-                        .font(.system(size: AppTheme.FontSize.mdLg))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.mdLg))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
             }
@@ -79,7 +79,7 @@ struct GenerationReferencesStrip: View {
             .overlay(RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
                 .strokeBorder(Color.white.opacity(AppTheme.Opacity.faint), lineWidth: AppTheme.BorderWidth.hairline))
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xxs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.mutedColor)
                 .lineLimit(1)
         }

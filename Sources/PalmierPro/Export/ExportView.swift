@@ -53,7 +53,7 @@ struct ExportView: View {
 
     private func panelHeader(_ title: String) -> some View {
         Text(title)
-            .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
             .tracking(AppTheme.Tracking.tight)
             .foregroundStyle(AppTheme.Text.primaryColor)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -71,7 +71,7 @@ struct ExportView: View {
                     .aspectRatio(contentMode: .fit)
             } else {
                 Image(systemName: "film")
-                    .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                     .foregroundStyle(AppTheme.Text.mutedColor)
             }
         }
@@ -133,15 +133,15 @@ struct ExportView: View {
                 case .xml:
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                         Text("将时间线导出为 XML 以供其他编辑器使用。")
-                            .font(.system(size: AppTheme.FontSize.sm))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.secondaryColor)
 
                         Text("支持 DaVinci Resolve、Premiere Pro 和 Final Cut Pro。")
-                            .font(.system(size: AppTheme.FontSize.xs))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
 
                         Text("文字叠加、翻转和关键帧缓动不包含在内。")
-                            .font(.system(size: AppTheme.FontSize.xs))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -150,12 +150,12 @@ struct ExportView: View {
                 case .pratoProject:
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                         Text("将项目连同所有媒体打包保存，可在任何设备上打开。")
-                            .font(.system(size: AppTheme.FontSize.sm))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.secondaryColor)
 
                         if pratoSummary.missing > 0 {
                             Text("\(pratoSummary.missing) media file\(pratoSummary.missing == 1 ? "" : "s") missing — they'll be skipped.")
-                                .font(.system(size: AppTheme.FontSize.xs))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                                 .foregroundStyle(AppTheme.Status.errorColor)
                         }
                     }
@@ -170,7 +170,7 @@ struct ExportView: View {
                     ProgressView(value: service.progress)
                         .progressViewStyle(.linear)
                     Text("\(Int(service.progress * 100))%")
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs))
                         .monospacedDigit()
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                 }
@@ -179,14 +179,14 @@ struct ExportView: View {
 
             if let error = service.error {
                 Text(error)
-                    .font(.caption)
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(.red)
                     .padding(.top, AppTheme.Spacing.sm)
             }
 
             if let pratoResult {
                 Text(pratoResult)
-                    .font(.caption)
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .padding(.top, AppTheme.Spacing.sm)
             }
@@ -224,7 +224,7 @@ struct ExportView: View {
                     }
                 }
             }
-            .font(.system(size: AppTheme.FontSize.xs))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
             .foregroundStyle(AppTheme.Text.mutedColor)
 
             Spacer()
@@ -246,7 +246,7 @@ struct ExportView: View {
     private func settingRow<Control: View>(label: String, @ViewBuilder control: () -> Control) -> some View {
         HStack {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.md))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
             Spacer()
             control()

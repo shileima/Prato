@@ -8,7 +8,7 @@ struct AccountPane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             if account.isLoading {
                 Text("加载中…")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             } else if account.isSignedIn {
                 signedInBody
@@ -18,7 +18,7 @@ struct AccountPane: View {
 
             if let error = account.lastError {
                 Text(error)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(.red)
             }
         }
@@ -43,7 +43,7 @@ struct AccountPane: View {
     private var unpaidSection: some View {
         section(title: "Subscription") {
             Text("订阅后即可使用 AI 生成功能。")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .fixedSize(horizontal: false, vertical: true)
 
@@ -73,7 +73,7 @@ struct AccountPane: View {
                 }
 
                 Text("积分用于 AI 生成和对话。")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -87,22 +87,22 @@ struct AccountPane: View {
 
             HStack(alignment: .firstTextBaseline, spacing: AppTheme.Spacing.xs) {
                 Text("$\(plan.effectiveMonthlyPriceUsd)")
-                    .font(.system(size: AppTheme.FontSize.xl, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xl, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 if plan.hasDiscount {
                     Text("$\(plan.monthlyPriceUsd)")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .strikethrough()
                 }
                 Text("/ 月")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
 
             if let credits = plan.monthlyBudgetCredits {
                 Text("\(credits.formatted()) credits / month")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .monospacedDigit()
             }
@@ -137,13 +137,13 @@ struct AccountPane: View {
     private var subscriptionSection: some View {
         section(title: "Subscription") {
             Text(account.tier.planLabel)
-                .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                 .foregroundStyle(AppTheme.Text.primaryColor)
 
             if account.account?.user.cancelAtPeriodEnd == true,
                let date = formattedPeriodEnd {
                 Text("Cancels \(date)")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(.orange)
             }
 
@@ -175,7 +175,7 @@ struct AccountPane: View {
 
             if let date = formattedPeriodEnd {
                 Text("Resets \(date)")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
         }
@@ -191,7 +191,7 @@ struct AccountPane: View {
             }
 
             Text("$\(TopOffLimits.minDollars)–$\(TopOffLimits.maxDollars) · Unused credits expire at your next billing date.")
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -200,7 +200,7 @@ struct AccountPane: View {
     @ViewBuilder
     private func cardCaption(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
     }
 
@@ -228,7 +228,7 @@ struct AccountPane: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             Text(title)
-                .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .textCase(.uppercase)
                 .tracking(AppTheme.Tracking.wide)
@@ -245,7 +245,7 @@ struct AccountPane: View {
     @ViewBuilder
     private var signedOutBody: some View {
         Text("登录并订阅以使用 AI 生成功能。")
-            .font(.system(size: AppTheme.FontSize.sm))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
             .fixedSize(horizontal: false, vertical: true)
 

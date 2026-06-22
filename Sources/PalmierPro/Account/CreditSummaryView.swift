@@ -36,7 +36,7 @@ struct CreditSummaryView: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text("\(left.formatted()) / \(budget.formatted())")
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm, weight: .medium))
                     .monospacedDigit()
                     .foregroundStyle(barColor(remaining))
                 Spacer()
@@ -50,10 +50,10 @@ struct CreditSummaryView: View {
     private func compactView(left: Int, budget: Int, remaining: Double) -> some View {
         HStack(spacing: AppTheme.Spacing.xs) {
             Image(systemName: "dollarsign.circle.fill")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(barColor(remaining))
             Text(left.formatted())
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs, weight: .medium))
                 .monospacedDigit()
                 .foregroundStyle(barColor(remaining))
         }
@@ -95,7 +95,7 @@ private struct CreditActionsPopover: View {
 
             if let error = account.lastError {
                 Text(error)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(.red)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -138,7 +138,7 @@ private struct CreditActionsPopover: View {
     @ViewBuilder
     private func sectionCaption(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
     }
 

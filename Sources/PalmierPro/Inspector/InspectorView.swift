@@ -36,10 +36,10 @@ struct InspectorView: View {
             // Plain header
             HStack(spacing: AppTheme.Spacing.xs) {
                 Image(systemName: editor.isMarqueeSelecting ? "slider.horizontal.3" : headerIcon)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(editor.isMarqueeSelecting ? "Inspector" : headerTitle)
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                 Spacer()
             }
@@ -72,7 +72,7 @@ struct InspectorView: View {
         VStack {
             Spacer()
             Text("\(editor.selectedClipIds.count) selected")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             Spacer()
         }
@@ -128,7 +128,7 @@ struct InspectorView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             Text(title.uppercased())
-                .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                 .tracking(AppTheme.Tracking.wide)
                 .foregroundStyle(AppTheme.Text.mutedColor)
             VStack(spacing: AppTheme.Spacing.sm) {
@@ -145,12 +145,12 @@ struct InspectorView: View {
     ) -> some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .fixedSize()
             Spacer()
             Text(value)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(1)
                 .truncationMode(truncate)
@@ -265,7 +265,7 @@ struct InspectorView: View {
                 } label: {
                     VStack(spacing: AppTheme.Spacing.xs) {
                         Text(title)
-                            .font(.system(size: AppTheme.FontSize.sm, weight: isActive ? .medium : .regular))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: isActive ? .medium : .regular))
                             .foregroundStyle(foreground)
                         Rectangle()
                             .fill(isActive ? foreground : AnyShapeStyle(Color.clear))
@@ -319,9 +319,9 @@ struct InspectorView: View {
             } label: {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: on ? "diamond.fill" : "diamond")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     Text("关键帧")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 }
                 .foregroundStyle(on ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
                 .padding(.horizontal, AppTheme.Spacing.smMd)
@@ -545,7 +545,7 @@ struct InspectorView: View {
                 }
             } label: {
                 Image(systemName: onKeyframe ? "diamond.fill" : "diamond")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(onKeyframe ? AppTheme.Accent.timecodeColor : AppTheme.Text.tertiaryColor)
                     .frame(width: KeyframesMetrics.stampButtonWidth, height: 18)
                     .contentShape(Rectangle())
@@ -570,7 +570,7 @@ struct InspectorView: View {
     ) -> some View {
         Button(action: action) {
             Image(systemName: systemName)
-                .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(width: KeyframesMetrics.navButtonWidth, height: 18)
                 .contentShape(Rectangle())
@@ -683,7 +683,7 @@ struct InspectorView: View {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     sectionTitleLabel(title: title)
                     Image(systemName: expanded ? "chevron.down" : "chevron.right")
-                        .font(.system(size: AppTheme.FontSize.xxs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                 }
                 .contentShape(Rectangle())
@@ -698,7 +698,7 @@ struct InspectorView: View {
 
     private func sectionTitleLabel(title: String) -> some View {
         Text(title.uppercased())
-            .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
             .tracking(AppTheme.Tracking.wide)
             .foregroundStyle(AppTheme.Text.mutedColor)
             .fixedSize()
@@ -707,7 +707,7 @@ struct InspectorView: View {
     private func resetButton(onReset: @escaping () -> Void, help: String?) -> some View {
         Button(action: onReset) {
             Image(systemName: "arrow.counterclockwise")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(width: AppTheme.IconSize.md, height: AppTheme.IconSize.md)
                 .hoverHighlight()
@@ -722,7 +722,7 @@ struct InspectorView: View {
     ) -> some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(1)
                 .fixedSize()
@@ -772,7 +772,7 @@ struct InspectorView: View {
     ) -> some View {
         Button(action: action) {
             Image(systemName: systemName)
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(isOn ? AppTheme.Accent.primary : AppTheme.Text.secondaryColor)
                 .frame(width: AppTheme.IconSize.md, height: AppTheme.IconSize.md)
                 .background(
@@ -831,10 +831,10 @@ struct InspectorView: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text(active.label)
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .medium).monospacedDigit())
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm, weight: .medium).monospacedDigit())
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                 Image(systemName: "chevron.down")
-                    .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             .padding(.horizontal, AppTheme.Spacing.sm)
@@ -943,7 +943,7 @@ struct InspectorView: View {
     private func assetIdentityHeader(_ asset: MediaAsset) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: AppTheme.Spacing.sm) {
             Text(asset.name)
-                .font(.system(size: AppTheme.FontSize.lg, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.lg, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .lineLimit(2)
                 .textSelection(.enabled)
@@ -956,7 +956,7 @@ struct InspectorView: View {
 
     private var aiBadge: some View {
         Text("AI")
-            .font(.system(size: AppTheme.FontSize.xxs, weight: .bold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .bold))
             .tracking(AppTheme.Tracking.wide)
             .foregroundStyle(AppTheme.aiGradient)
             .padding(.horizontal, AppTheme.Spacing.sm)
@@ -971,14 +971,14 @@ struct InspectorView: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Text("提示词")
-                    .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                     .tracking(AppTheme.Tracking.wide)
                     .foregroundStyle(AppTheme.Text.mutedColor)
                 Spacer()
                 PromptCopyButton(text: prompt)
             }
             Text(prompt)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .textSelection(.enabled)
                 .fixedSize(horizontal: false, vertical: true)
@@ -988,15 +988,15 @@ struct InspectorView: View {
     private func metadataRow(_ icon: String, label: String, value: String) -> some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.mutedColor)
                 .frame(width: AppTheme.IconSize.xs)
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             Spacer()
             Text(value)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(2)
                 .multilineTextAlignment(.trailing)
@@ -1091,7 +1091,7 @@ struct PromptCopyButton: View {
     var body: some View {
         Button(action: copy) {
             Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(copied ? AppTheme.Text.primaryColor : AppTheme.Text.mutedColor)
                 .contentTransition(.symbolEffect(.replace))
         }

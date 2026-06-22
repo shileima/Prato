@@ -310,7 +310,7 @@ final class VideoProject: NSDocument {
                 TourOverlay()
                     .environment(editorViewModel)
             }
-        let hostingController = NSHostingController(rootView: editorView.tint(AppTheme.Accent.primary))
+        let hostingController = NSHostingController(rootView: editorView.tint(AppTheme.Accent.primary).appTypography())
 
         let window = NSWindow(contentViewController: hostingController)
         window.setContentSize(AppTheme.Window.projectDefault)
@@ -443,7 +443,7 @@ final class VideoProject: NSDocument {
 
 extension NSWindow {
     func addTitlebarSwiftUI<V: View>(_ view: V, side: NSLayoutConstraint.Attribute, width: CGFloat) {
-        let host = NSHostingController(rootView: view.tint(AppTheme.Accent.primary))
+        let host = NSHostingController(rootView: view.tint(AppTheme.Accent.primary).appTypography())
         host.view.translatesAutoresizingMaskIntoConstraints = false
 
         let wrapper = CornerAdaptiveView()

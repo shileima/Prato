@@ -29,7 +29,7 @@ struct AgentMessageView: View {
             HStack {
                 Spacer(minLength: 48)
                 Text(texts.joined(separator: "\n"))
-                    .font(.body)
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .lineSpacing(3)
                     .padding(.horizontal, AppTheme.Spacing.lg)
@@ -88,7 +88,7 @@ private struct CopyMessageButton: View {
                 Image(systemName: copied ? "checkmark" : "doc.on.doc")
                 Text(copied ? "已复制" : "复制")
             }
-            .font(.system(size: AppTheme.FontSize.xs))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
         }
         .buttonStyle(.plain)
@@ -129,15 +129,15 @@ private struct ToolRunRow: View {
                             .frame(width: AppTheme.Spacing.md, height: AppTheme.Spacing.md)
                     } else {
                         Image(systemName: statusIcon)
-                            .font(.system(size: AppTheme.FontSize.xs))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                             .foregroundStyle(statusTint)
                     }
                     Text(name)
-                        .font(.system(size: AppTheme.FontSize.sm, weight: .medium, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm, weight: .medium))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .opacity(isRunning ? 0.7 : 1.0)
                     Image(systemName: "chevron.right")
-                        .font(.system(size: AppTheme.FontSize.micro, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.micro, weight: .semibold))
                         .rotationEffect(.degrees(expanded ? 90 : 0))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
@@ -150,7 +150,7 @@ private struct ToolRunRow: View {
                     argsSection
                     if let result { resultSection(result) }
                 }
-                .font(.system(size: AppTheme.FontSize.xs, design: .monospaced))
+                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(AppTheme.Spacing.md)
@@ -167,7 +167,7 @@ private struct ToolRunRow: View {
     @ViewBuilder
     private var argsSection: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
-            Text("args").font(.system(size: AppTheme.FontSize.xxs)).foregroundStyle(AppTheme.Text.mutedColor)
+            Text("args").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs)).foregroundStyle(AppTheme.Text.mutedColor)
             Text(prettyPrinted(inputJSON))
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -177,7 +177,7 @@ private struct ToolRunRow: View {
     private func resultSection(_ r: ToolRunResult) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text(r.isError ? "error" : "result")
-                .font(.system(size: AppTheme.FontSize.xxs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                 .foregroundStyle(r.isError ? .red.opacity(AppTheme.Opacity.prominent) : AppTheme.Text.mutedColor)
             ForEach(Array(r.content.enumerated()), id: \.offset) { _, block in
                 switch block {

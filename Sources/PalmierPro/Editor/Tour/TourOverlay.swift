@@ -72,13 +72,13 @@ struct TourOverlay: View {
         let index = tour.stepIndex ?? 0
         return VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             Text("Step \(index) of \(tour.spotlightCount)")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             Text(step.title)
-                .font(.system(size: AppTheme.FontSize.md, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
             Text(step.instruction)
-                .font(.system(size: AppTheme.FontSize.smMd))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .fixedSize(horizontal: false, vertical: true)
 
@@ -105,11 +105,11 @@ struct TourOverlay: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
                 Text(step.title)
-                    .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Text(step.instruction)
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -147,10 +147,10 @@ struct TourOverlay: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
                 Text(step.title)
-                    .font(.system(size: AppTheme.FontSize.title1, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title1, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Text(step.instruction)
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -175,15 +175,15 @@ struct TourOverlay: View {
         Button(action: action) {
             HStack(spacing: AppTheme.Spacing.md) {
                 Image(systemName: icon)
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Accent.primary)
                     .frame(width: AppTheme.IconSize.sm)
                 Text(title)
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
                 Image(systemName: "arrow.up.right")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
             }
             .padding(.vertical, AppTheme.Spacing.smMd)

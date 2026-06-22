@@ -82,7 +82,7 @@ struct MCPInstructionsPane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             sectionHeading("Overview")
             Text("Prato 将当前项目作为 MCP 服务器对外开放，可连接任意 MCP 客户端。")
-                .font(.system(size: AppTheme.FontSize.smMd))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -93,7 +93,7 @@ struct MCPInstructionsPane: View {
             sectionHeading("Server URL")
             HStack(spacing: AppTheme.Spacing.smMd) {
                 Text(mcpEndpoint)
-                    .font(.system(.callout, design: .monospaced))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .padding(.horizontal, AppTheme.Spacing.mdLg)
                     .padding(.vertical, AppTheme.Spacing.smMd)
@@ -151,7 +151,7 @@ struct MCPInstructionsPane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             sectionHeading("Connect from Claude Code", prominent: true)
             Text("在终端运行一次：")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             CodeBlockView(content: claudeCodeCommand)
         }
@@ -161,7 +161,7 @@ struct MCPInstructionsPane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             sectionHeading("Connect from Codex", prominent: true)
             Text("在终端运行一次：")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             CodeBlockView(content: codexCommand)
         }
@@ -171,7 +171,7 @@ struct MCPInstructionsPane: View {
 
     private func sectionHeading(_ text: String, prominent: Bool = false) -> some View {
         Text(text)
-            .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
             .foregroundStyle(prominent ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
             .textCase(.uppercase)
             .tracking(0.3)
@@ -181,9 +181,9 @@ struct MCPInstructionsPane: View {
         Button(action: action) {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Image(systemName: systemImage)
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .semibold))
                 Text(label)
-                    .font(.system(size: AppTheme.FontSize.smMd, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .medium))
             }
             .foregroundStyle(AppTheme.Text.primaryColor)
             .padding(.horizontal, AppTheme.Spacing.mdLg)
@@ -211,7 +211,7 @@ private struct CodeBlockView: View {
     var body: some View {
         HStack(alignment: .top, spacing: AppTheme.Spacing.smMd) {
             Text(content)
-                .font(.system(.caption, design: .monospaced))
+                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -241,10 +241,10 @@ private struct ManualFallback: View {
             Button(action: toggle) {
                 HStack(spacing: AppTheme.Spacing.sm) {
                     Image(systemName: "chevron.right")
-                        .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                         .rotationEffect(.degrees(expanded ? 90 : 0))
                     Text("手动配置")
-                        .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 }
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .contentShape(Rectangle())
@@ -254,7 +254,7 @@ private struct ManualFallback: View {
             if expanded {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
                     Text(intro)
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
                     CodeBlockView(content: code)
@@ -278,7 +278,7 @@ private struct CopyButton: View {
     var body: some View {
         Button(action: copy) {
             Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(copied ? AppTheme.Text.primaryColor : AppTheme.Text.secondaryColor)
                 .frame(width: AppTheme.IconSize.lg, height: AppTheme.IconSize.lg)
                 .hoverHighlight()

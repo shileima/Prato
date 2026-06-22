@@ -84,7 +84,7 @@ struct MediaPanelView: View {
             withAnimation(.easeInOut(duration: AppTheme.Anim.transition)) { panelTab = tab }
         } label: {
             Image(systemName: tab.icon)
-                .font(.system(size: AppTheme.FontSize.md, weight: selected ? AppTheme.FontWeight.semibold : AppTheme.FontWeight.medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: selected ? AppTheme.FontWeight.semibold : AppTheme.FontWeight.medium))
                 .foregroundStyle(selected ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
                 .frame(width: AppTheme.IconSize.lg, height: AppTheme.IconSize.lg)
                 .contentShape(RoundedRectangle(cornerRadius: AppTheme.Radius.sm))
@@ -110,7 +110,7 @@ struct MediaPanelView: View {
 
     private func hoverLabel(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
             .foregroundStyle(AppTheme.Text.primaryColor)
             .lineLimit(1)
             .fixedSize(horizontal: true, vertical: false)

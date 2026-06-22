@@ -45,7 +45,7 @@ struct HomeView: View {
             header
             SampleProjectsStrip()
             Text("我的项目")
-                .font(.system(size: AppTheme.FontSize.md, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .padding(.horizontal, AppTheme.Spacing.xlXxl)
                 .padding(.bottom, AppTheme.Spacing.sm)
@@ -103,7 +103,7 @@ private struct NewProjectCard: View {
                 .aspectRatio(5.0/4.0, contentMode: .fit)
                 .overlay {
                     Image(systemName: "plus")
-                        .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                 }
                 .clipped()
@@ -120,7 +120,7 @@ private struct NewProjectCard: View {
             .allowsHitTesting(false)
 
             Text("未命名")
-                .font(.system(size: AppTheme.FontSize.smMd, weight: .regular))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .regular))
                 .foregroundStyle(.white)
                 .lineLimit(1)
                 .padding(.horizontal, AppTheme.Spacing.md)
@@ -149,7 +149,7 @@ private struct WelcomeTitle: View {
 
     var body: some View {
         Text(title)
-            .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
             .tracking(AppTheme.Tracking.tight)
             .foregroundStyle(AppTheme.Text.primaryColor)
     }
@@ -214,7 +214,7 @@ final class HomeWindowController: NSWindowController {
     static let shared = HomeWindowController()
 
     private init() {
-        let hostingController = NSHostingController(rootView: HomeView().tint(AppTheme.Accent.primary))
+        let hostingController = NSHostingController(rootView: HomeView().tint(AppTheme.Accent.primary).appTypography())
         let window = NSWindow(contentViewController: hostingController)
         window.setContentSize(AppTheme.Window.homeDefault)
         window.minSize = AppTheme.Window.homeMin

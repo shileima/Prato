@@ -159,17 +159,17 @@ struct MediaTab: View {
         let tint = Color(nsColor: (editor.pendingSwapClip?.mediaType ?? .video).themeColor)
         return HStack(spacing: AppTheme.Spacing.sm) {
             Image(systemName: "arrow.left.arrow.right")
-                .font(.system(size: AppTheme.FontSize.smMd, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .semibold))
                 .foregroundStyle(tint)
             Text("Pick a replacement for \"\(editor.pendingSwapClipName ?? "clip")\"")
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .lineLimit(1)
                 .truncationMode(.middle)
             Spacer(minLength: AppTheme.Spacing.sm)
             Button("Cancel") { editor.cancelMediaSwap() }
                 .buttonStyle(.plain)
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
         }
         .padding(.horizontal, AppTheme.Spacing.mdLg)
@@ -185,10 +185,10 @@ struct MediaTab: View {
     private func toastBanner(_ message: String) -> some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: AppTheme.FontSize.smMd, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .semibold))
                 .foregroundStyle(AppTheme.Accent.timecodeColor)
             Text(message)
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -327,7 +327,7 @@ struct MediaTab: View {
             breadcrumbBar
         } else {
             Text(viewMode.title)
-                .font(.system(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -340,7 +340,7 @@ struct MediaTab: View {
                 ForEach(Array(breadcrumbItems.enumerated()), id: \.element.id) { idx, item in
                     if idx > 0 {
                         Image(systemName: "chevron.right")
-                            .font(.system(size: AppTheme.FontSize.xxs))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                             .foregroundStyle(AppTheme.Text.mutedColor)
                     }
                     breadcrumbChip(item: item, isLeaf: idx == breadcrumbItems.count - 1)
@@ -409,7 +409,7 @@ struct MediaTab: View {
             if !isLeaf { navigateToFolder(item.folderId) }
         } label: {
             Text(item.name)
-                .font(.system(size: AppTheme.FontSize.xs, weight: isLeaf ? .semibold : .regular))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: isLeaf ? .semibold : .regular))
                 .foregroundStyle(textColor)
                 .lineLimit(1)
                 .padding(.horizontal, AppTheme.Spacing.sm)
@@ -503,7 +503,7 @@ struct MediaTab: View {
 
     private var itemCountText: some View {
         Text(currentFolderItemCount == 1 ? "1 item" : "\(currentFolderItemCount) items")
-            .font(.system(size: AppTheme.FontSize.xs))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
             .foregroundStyle(AppTheme.Text.mutedColor)
             .monospacedDigit()
             .lineLimit(1)
@@ -513,16 +513,16 @@ struct MediaTab: View {
     private var searchField: some View {
         HStack(spacing: AppTheme.Spacing.xs) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             TextField("Search", text: $searchQuery)
                 .textFieldStyle(.plain)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.primaryColor)
             if !searchQuery.isEmpty {
                 Button { searchQuery = "" } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                 }
                 .buttonStyle(.plain)
@@ -606,7 +606,7 @@ struct MediaTab: View {
     ) -> some View {
         Menu(content: content) {
             Image(systemName: systemName)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(foregroundStyle)
                 .frame(width: AppTheme.IconSize.sm, height: AppTheme.IconSize.sm)
         }
@@ -712,17 +712,17 @@ struct MediaTab: View {
             Spacer()
 
             Image(systemName: "photo.on.rectangle.angled")
-                .font(.system(size: AppTheme.FontSize.display, weight: .light))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.display, weight: .light))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
             VStack(spacing: AppTheme.Spacing.xs) {
                 Text("暂无媒体")
-                    .font(.system(size: AppTheme.FontSize.title1, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title1, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
 
                 Text("拖放文件至此或从磁盘导入")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
 

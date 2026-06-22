@@ -23,7 +23,7 @@ struct UpdateOverlay: View {
     private var card: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             Text("What's New in v\(entry.version)")
-                .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                 .tracking(AppTheme.Tracking.tight)
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .fixedSize(horizontal: false, vertical: true)
@@ -38,7 +38,7 @@ struct UpdateOverlay: View {
                             Text("Full changelog")
                             Image(systemName: "arrow.up.right")
                         }
-                        .font(.system(size: AppTheme.FontSize.smMd))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
                     .buttonStyle(.plain)
@@ -76,7 +76,7 @@ struct UpdateOverlay: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             if let heading = section.heading, !heading.isEmpty {
                 Text(heading)
-                    .font(.system(size: AppTheme.FontSize.xl, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xl, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
             }
@@ -85,7 +85,7 @@ struct UpdateOverlay: View {
                     Text("•")
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     Text(item)
-                        .font(.system(size: AppTheme.FontSize.smMd))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }

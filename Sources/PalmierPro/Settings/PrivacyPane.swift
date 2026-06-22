@@ -21,10 +21,10 @@ struct PrivacyPane: View {
             if didChange {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: "arrow.clockwise")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     Text("重启应用以应用此更改。")
                 }
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .padding(.top, AppTheme.Spacing.xs)
             }

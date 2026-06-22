@@ -57,7 +57,7 @@ struct MentionPopover: View {
     private var contentArea: some View {
         if candidates.isEmpty {
             Text(query.isEmpty ? tab.emptyLabel : "No matches for \"\(query)\"")
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.mutedColor)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(AppTheme.Spacing.md)
@@ -112,7 +112,7 @@ struct MentionPopover: View {
         HStack(spacing: 0) {
             ForEach(MentionTab.allCases, id: \.self) { t in
                 Text(t.label)
-                    .font(.system(size: 10, weight: t == tab ? .semibold : .regular))
+                    .font(AppTheme.Typography.ui(size: 10, weight: t == tab ? .semibold : .regular))
                     .foregroundStyle(t == tab ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 5)
@@ -138,7 +138,7 @@ struct MentionPopover: View {
                     ZStack {
                         Rectangle().fill(.quaternary)
                         Image(systemName: asset.type.sfSymbolName)
-                            .font(.system(size: 10))
+                            .font(AppTheme.Typography.ui(size: 10))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
                 }
@@ -148,11 +148,11 @@ struct MentionPopover: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(asset.mentionDisplayName)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .lineLimit(1)
                 Text(asset.type.rawValue)
-                    .font(.system(size: 9))
+                    .font(AppTheme.Typography.ui(size: 9))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             Spacer()

@@ -16,7 +16,7 @@ struct ChatHistoryList: View {
         VStack(alignment: .leading, spacing: 0) {
             if sessions.isEmpty {
                 Text("暂无对话历史")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(AppTheme.Spacing.md)
             } else {
@@ -41,19 +41,19 @@ struct ChatHistoryList: View {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Text(session.title)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: isCurrent ? .semibold : .regular))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: isCurrent ? .semibold : .regular))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .lineLimit(1)
                 }
                 Text(Self.formatter.localizedString(for: session.updatedAt, relativeTo: Date()))
-                    .font(.system(size: 9))
+                    .font(AppTheme.Typography.ui(size: 9))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             Spacer()
             if !isCurrent {
                 Button { onDelete(session.id) } label: {
                     Image(systemName: "trash")
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                 }
                 .buttonStyle(.plain)

@@ -12,21 +12,21 @@ struct StoragePane: View {
             HStack(alignment: .top, spacing: AppTheme.Spacing.md) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                     Text("缓存")
-                        .font(.system(size: AppTheme.FontSize.md))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                     Text("已保存的播放预览、波形和缩略图，可安全清除，会在需要时自动重建。")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
                     HStack(spacing: AppTheme.Spacing.sm) {
                         Text(displayPath)
-                            .font(.system(size: AppTheme.FontSize.xs).monospaced())
+                            .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs).monospaced())
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                             .textSelection(.enabled)
                             .lineLimit(1)
                             .truncationMode(.middle)
                         Text(formattedSize)
-                            .font(.system(size: AppTheme.FontSize.xs).monospacedDigit())
+                            .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs).monospacedDigit())
                             .foregroundStyle(AppTheme.Text.secondaryColor)
                     }
                     .padding(.top, AppTheme.Spacing.xs)
@@ -54,10 +54,10 @@ struct StoragePane: View {
             HStack(alignment: .top, spacing: AppTheme.Spacing.md) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                     Text("媒体搜索")
-                        .font(.system(size: AppTheme.FontSize.md))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                     Text("导入时建立索引以支持搜索，在本地运行。")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -73,10 +73,10 @@ struct StoragePane: View {
 
             HStack(spacing: AppTheme.Spacing.sm) {
                 Text("索引")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(ByteCountFormatter.string(fromByteCount: indexBytes, countStyle: .file))
-                    .font(.system(size: AppTheme.FontSize.xs).monospacedDigit())
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs).monospacedDigit())
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                 Button("Clear index") { clearIndex() }
                     .controlSize(.small)
@@ -87,10 +87,10 @@ struct StoragePane: View {
             if modelBytes > 0 {
                 HStack(spacing: AppTheme.Spacing.sm) {
                     Text("模型")
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     Text("\(SearchIndexConfig.manifest.model) · \(ByteCountFormatter.string(fromByteCount: modelBytes, countStyle: .file))")
-                        .font(.system(size: AppTheme.FontSize.xs).monospacedDigit())
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs).monospacedDigit())
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                     Button("Remove model") { removeModel() }
                         .controlSize(.small)

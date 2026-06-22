@@ -442,7 +442,7 @@ struct GenerationView: View {
         VStack(spacing: AppTheme.Spacing.md) {
             ProgressView()
             Text("加载模型中…")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
         }
         .frame(maxWidth: .infinity)
@@ -476,7 +476,7 @@ struct GenerationView: View {
                     editor.showGenerationPanel = false
                 } label: {
                     Image(systemName: "xmark")
-                        .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .frame(width: AppTheme.IconSize.md, height: AppTheme.IconSize.md)
                         .hoverHighlight()
@@ -498,7 +498,7 @@ struct GenerationView: View {
 
                 if let dropError {
                     Text(dropError)
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .foregroundStyle(Color.orange)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .transition(.opacity)
@@ -661,7 +661,7 @@ struct GenerationView: View {
     private var promptArea: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $prompt)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.automatic)
                 .padding(.horizontal, AppTheme.Spacing.sm)
@@ -679,7 +679,7 @@ struct GenerationView: View {
 
             if prompt.isEmpty {
                 Text(promptPlaceholder)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(.horizontal, AppTheme.Spacing.md)
                     .padding(.top, AppTheme.Spacing.md)
@@ -695,17 +695,17 @@ struct GenerationView: View {
         return VStack(alignment: .leading, spacing: 0) {
             if tags.isEmpty {
                 Text("无匹配")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(AppTheme.Spacing.md)
             } else {
                 ForEach(Array(tags.enumerated()), id: \.element.id) { index, tag in
                     HStack(spacing: AppTheme.Spacing.sm) {
                         Text("@\(tag.label)")
-                            .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                             .foregroundStyle(AppTheme.Text.primaryColor)
                         Text(tag.kindLabel)
-                            .font(.system(size: AppTheme.FontSize.xxs))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                         Spacer(minLength: 0)
                     }
@@ -795,7 +795,7 @@ struct GenerationView: View {
     ) -> some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: text)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.automatic)
                 .padding(.horizontal, AppTheme.Spacing.sm)
@@ -803,7 +803,7 @@ struct GenerationView: View {
 
             if text.wrappedValue.isEmpty {
                 Text(placeholder)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(.horizontal, AppTheme.Spacing.md)
                     .padding(.top, AppTheme.Spacing.sm)
@@ -839,9 +839,9 @@ struct GenerationView: View {
     private var costEstimateLabel: some View {
         HStack(spacing: AppTheme.Spacing.xs) {
             Image(systemName: "dollarsign.circle.fill")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
             Text(estimatedCost.map { $0.formatted() } ?? "—")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs, weight: .medium))
                 .monospacedDigit()
                 .lineLimit(1)
         }
@@ -859,15 +859,15 @@ struct GenerationView: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Image(systemName: "person.wave.2")
-                    .font(.system(size: AppTheme.FontSize.xxs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(selectedVoice.isEmpty ? (audioModel.defaultVoice ?? "Voice") : selectedVoice)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 Image(systemName: "chevron.down")
-                    .font(.system(size: AppTheme.FontSize.micro, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.micro, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             .padding(.horizontal, AppTheme.Spacing.xs)
@@ -905,7 +905,7 @@ struct GenerationView: View {
                 } label: {
                     VStack(spacing: AppTheme.Spacing.xxs) {
                         Text(mode.rawValue)
-                            .font(.system(size: AppTheme.FontSize.xs, weight: framesRefsMode == mode ? .semibold : .medium))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: framesRefsMode == mode ? .semibold : .medium))
                             .foregroundStyle(framesRefsMode == mode
                                 ? AppTheme.Text.primaryColor
                                 : AppTheme.Text.tertiaryColor)
@@ -928,10 +928,10 @@ struct GenerationView: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text("参考素材")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Text(refCounterLabel)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs))
                     .monospacedDigit()
                     .foregroundStyle(AppTheme.Text.mutedColor)
             }
@@ -1120,7 +1120,7 @@ struct GenerationView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
             if let asset {
@@ -1138,7 +1138,7 @@ struct GenerationView: View {
                 .overlay(alignment: .topTrailing) {
                     Button { onClear() } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: AppTheme.FontSize.smMd))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                             .foregroundStyle(.white.opacity(AppTheme.Opacity.prominent))
                             .shadow(radius: 2)
                             .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
@@ -1162,7 +1162,7 @@ struct GenerationView: View {
     private var imageReferenceStrip: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text("参考素材")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
             LazyVGrid(
@@ -1198,7 +1198,7 @@ struct GenerationView: View {
                 ZStack {
                     Rectangle().fill(.quaternary)
                     Image(systemName: asset.type.sfSymbolName)
-                        .font(.system(size: AppTheme.FontSize.mdLg))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.mdLg))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
             }
@@ -1210,7 +1210,7 @@ struct GenerationView: View {
         .overlay(alignment: .bottomLeading) {
             if let tag {
                 Text(tag)
-                    .font(.system(size: AppTheme.FontSize.xxs, weight: .medium))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xxs, weight: .medium))
                     .monospacedDigit()
                     .foregroundStyle(.white)
                     .padding(.horizontal, AppTheme.Spacing.xs)
@@ -1222,7 +1222,7 @@ struct GenerationView: View {
         .overlay(alignment: .topTrailing) {
             Button { onRemove() } label: {
                 Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(.white.opacity(AppTheme.Opacity.prominent))
                     .shadow(radius: 2)
                     .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
@@ -1268,7 +1268,7 @@ struct GenerationView: View {
         onDrop: @escaping (MediaAsset) -> Void
     ) -> some View {
         Image(systemName: iconName)
-            .font(.system(size: AppTheme.FontSize.smMd))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
             .foregroundStyle(isTargeted.wrappedValue ? AppTheme.Accent.primary : AppTheme.Text.mutedColor)
             .frame(width: AppTheme.GenerationPanel.referenceTileWidth, height: AppTheme.GenerationPanel.referenceTileHeight)
             .background(
@@ -1300,7 +1300,7 @@ struct GenerationView: View {
             else if !account.isMisconfigured { Task { await account.signInWithGoogle() } }
         } label: {
             Image(systemName: aiAllowed ? "arrow.up" : "person.crop.circle")
-                .font(.system(size: AppTheme.FontSize.sm, weight: .bold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .bold))
                 .frame(width: AppTheme.IconSize.sm, height: AppTheme.IconSize.sm)
         }
         .buttonStyle(.glassProminent)
@@ -1325,7 +1325,7 @@ struct GenerationView: View {
                     withAnimation(.easeInOut(duration: AppTheme.Anim.hover)) { selectedType = type }
                 } label: {
                     Image(systemName: type.icon)
-                        .font(.system(size: AppTheme.FontSize.smMd, weight: selectedType == type ? .semibold : .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: selectedType == type ? .semibold : .medium))
                         .foregroundStyle(selectedType == type ? type.accentColor : AppTheme.Text.tertiaryColor)
                         .frame(width: AppTheme.IconSize.xl + AppTheme.Spacing.lg, height: AppTheme.IconSize.md)
                     .background(
@@ -1383,12 +1383,12 @@ struct GenerationView: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text(currentModelName)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 Image(systemName: "chevron.down")
-                    .font(.system(size: AppTheme.FontSize.micro, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.micro, weight: .semibold))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             .padding(.horizontal, AppTheme.Spacing.xs)
@@ -1405,13 +1405,13 @@ struct GenerationView: View {
         Button { showSettingsPopover.toggle() } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text(settingsSummary)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if supportsAudioToggle {
                     Image(systemName: generateAudio ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                        .font(.system(size: AppTheme.FontSize.xxs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
             }
@@ -1452,7 +1452,7 @@ struct GenerationView: View {
             if selectedType == .audio && audioModel.supportsInstrumental {
                 Toggle("Instrumental", isOn: $instrumental)
                     .controlSize(.small)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
             if selectedType == .video, videoModel.audioDiscountRate != nil {
@@ -1460,7 +1460,7 @@ struct GenerationView: View {
                 let savings = discount.map { Int(((1 - $0) * 100).rounded()) }
                 Toggle("Generate audio", isOn: $generateAudio)
                     .controlSize(.small)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .help(savings.map { "Turn off to save \($0)% on generation cost." } ?? "Turn off to skip audio generation.")
             }
@@ -1472,7 +1472,7 @@ struct GenerationView: View {
     private func settingsPicker<T: Hashable>(_ label: String, selection: Binding<T>, options: [T], format: @escaping (T) -> String) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             if options.count <= 5 {
                 Picker("", selection: selection) {
@@ -1488,7 +1488,7 @@ struct GenerationView: View {
                             selection.wrappedValue = option
                         } label: {
                             Text(format(option))
-                                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                                 .foregroundStyle(selection.wrappedValue == option ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 4)

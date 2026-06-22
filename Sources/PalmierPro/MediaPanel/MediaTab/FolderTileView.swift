@@ -24,14 +24,14 @@ struct FolderTileView: View {
                 RoundedRectangle(cornerRadius: AppTheme.Radius.sm)
                     .fill(Color(white: 1.0, opacity: AppTheme.Opacity.subtle))
                 Image(systemName: "folder.fill")
-                    .font(.system(size: AppTheme.FontSize.display, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.display, weight: .light))
                     .foregroundStyle(AppTheme.Accent.primary.opacity(0.85))
                 if childCount > 0 {
                     VStack {
                         HStack {
                             Spacer()
                             Text("\(childCount)")
-                                .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                                 .foregroundStyle(.white)
                                 .monospacedDigit()
                                 .padding(.horizontal, AppTheme.Spacing.sm)
@@ -56,7 +56,7 @@ struct FolderTileView: View {
             ZStack(alignment: .leading) {
                 if isRenaming {
                     TextField("Folder", text: $renameDraft)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .textFieldStyle(.plain)
                         .lineLimit(1)
                         .focused($isRenameFieldFocused)
@@ -67,7 +67,7 @@ struct FolderTileView: View {
                         .onExitCommand { onCancelRename() }
                 } else {
                     Text(folder.name)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .lineLimit(1)
                         .truncationMode(.middle)
                         .foregroundStyle(AppTheme.Text.primaryColor)

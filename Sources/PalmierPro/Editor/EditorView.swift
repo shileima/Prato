@@ -334,6 +334,7 @@ final class EditorSplitViewController: PaddedDividerSplitViewController {
         let hc = NSHostingController(
             rootView: content
                 .environment(editor)
+                .appTypography()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .background(AppTheme.Background.surfaceColor)
                 .clipShape(panelShell)

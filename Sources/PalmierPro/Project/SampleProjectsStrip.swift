@@ -21,9 +21,9 @@ struct SampleProjectsStrip: View {
             } label: {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Text("示例项目")
-                        .font(.system(size: AppTheme.FontSize.md, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .semibold))
                     Image(systemName: "chevron.right")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                         .rotationEffect(.degrees(isExpanded ? 90 : 0))
                     Spacer()
                 }
@@ -103,7 +103,7 @@ private struct SampleCard: View {
             .allowsHitTesting(false)
 
             Text(sample.title)
-                .font(.system(size: AppTheme.FontSize.smMd, weight: .regular))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .regular))
                 .foregroundStyle(.white)
                 .lineLimit(1)
                 .padding(.horizontal, AppTheme.Spacing.md)
@@ -140,9 +140,9 @@ private struct SampleCard: View {
             if download.failed {
                 VStack(spacing: AppTheme.Spacing.xs) {
                     Image(systemName: "arrow.clockwise")
-                        .font(.system(size: AppTheme.FontSize.lg, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.lg, weight: .semibold))
                     Text("重试")
-                        .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 }
                 .foregroundStyle(AppTheme.Text.primaryColor)
             } else {
@@ -167,7 +167,7 @@ private struct SampleCard: View {
             AppTheme.Background.placeholderColor
                 .overlay {
                     Image(systemName: "film")
-                        .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                         .foregroundStyle(AppTheme.Text.mutedColor)
                 }
         }

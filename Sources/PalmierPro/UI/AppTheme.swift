@@ -197,6 +197,36 @@ enum AppTheme {
         static let bold: Font.Weight = .bold
     }
 
+    // MARK: - UI typography (Prata)
+
+    enum Typography {
+        static let familyName = "Prata"
+        static let postScriptName = "Prata-Regular"
+
+        static func ui(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+            Font.custom(familyName, size: size).weight(weight)
+        }
+
+        static func mono(size: CGFloat, weight: Font.Weight = .regular) -> Font {
+            .system(size: size, weight: weight, design: .monospaced)
+        }
+
+        static func uiNS(size: CGFloat, weight: NSFont.Weight = .regular) -> NSFont {
+            guard let font = NSFont(name: postScriptName, size: size) else {
+                return NSFont.systemFont(ofSize: size, weight: weight)
+            }
+            guard weight >= .semibold else { return font }
+            return NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
+        }
+
+        static func applyTypography(to menu: NSMenu) {
+            menu.font = uiNS(size: FontSize.md)
+            for item in menu.items {
+                item.submenu.map { applyTypography(to: $0) }
+            }
+        }
+    }
+
     // MARK: - Tracking (letter-spacing)
 
     enum Tracking {
@@ -290,6 +320,10 @@ enum AppTheme {
 extension View {
     func shadow(_ style: AppTheme.ShadowStyle) -> some View {
         shadow(color: style.color, radius: style.radius, x: style.x, y: style.y)
+    }
+
+    func appTypography() -> some View {
+        environment(\.font, AppTheme.Typography.ui(size: AppTheme.FontSize.md))
     }
 
     func panelHeaderBar() -> some View {

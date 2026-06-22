@@ -65,7 +65,7 @@ extension MediaTab {
                     ZStack {
                         Rectangle().fill(.quaternary)
                         Image(systemName: asset.type.sfSymbolName)
-                            .font(.title2)
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2))
                             .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
                 }
@@ -80,7 +80,7 @@ extension MediaTab {
 
             if count > 1 {
                 Text("\(count)")
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .bold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .bold))
                     .foregroundStyle(.white)
                     .padding(.horizontal, AppTheme.Spacing.sm)
                     .padding(.vertical, AppTheme.Spacing.xxs)

@@ -56,7 +56,7 @@ struct AgentPane: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             HStack {
                 Text("自定义模型 API")
-                    .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
                 Toggle("", isOn: $customEnabled)
@@ -66,7 +66,7 @@ struct AgentPane: View {
                     .onChange(of: customEnabled) { _, _ in applyCustomSettings() }
             }
             Text("接入 OpenAI 兼容 API（支持 Claude、Gemini、DeepSeek 等），优先级高于 Anthropic Key。")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -77,11 +77,11 @@ struct AgentPane: View {
             // Base URL
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text("API 地址")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 TextField("https://api.openai.com/v1", text: $customBaseURL)
                     .textFieldStyle(.plain)
-                    .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .padding(.horizontal, AppTheme.Spacing.md)
                     .padding(.vertical, AppTheme.Spacing.smMd)
@@ -99,13 +99,13 @@ struct AgentPane: View {
             // API Key
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text("API Key")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 HStack(spacing: AppTheme.Spacing.sm) {
                     SecureField(customHasKey ? customMaskedKey : "sk-...", text: $customDraftKey)
                         .textFieldStyle(.plain)
                         .focused($customKeyFocused)
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .onSubmit(saveCustomAPIKey)
                         .padding(.horizontal, AppTheme.Spacing.md)
@@ -126,7 +126,7 @@ struct AgentPane: View {
                     } else if customHasKey {
                         Button(action: removeCustomAPIKey) {
                             Image(systemName: "trash")
-                                .font(.system(size: AppTheme.FontSize.md))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                                 .foregroundStyle(AppTheme.Text.secondaryColor)
                                 .frame(width: AppTheme.IconSize.md, height: AppTheme.IconSize.md)
                         }
@@ -140,11 +140,11 @@ struct AgentPane: View {
             // Model name
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text("模型名称")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 TextField("claude-opus-4-6", text: $customModel)
                     .textFieldStyle(.plain)
-                    .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .padding(.horizontal, AppTheme.Spacing.md)
                     .padding(.vertical, AppTheme.Spacing.smMd)
@@ -178,11 +178,11 @@ struct AgentPane: View {
                 case .testing: EmptyView()
                 case .success(let msg):
                     Label(msg, systemImage: "checkmark.circle.fill")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(.green)
                 case .failure(let msg):
                     Label(msg, systemImage: "xmark.circle.fill")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(.red)
                         .lineLimit(2)
                 }
@@ -201,10 +201,10 @@ struct AgentPane: View {
             HStack {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                     Text("直连生成 API")
-                        .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                     Text("绕过 Prato，通过自定义 API 直接生成图片。复用上方的 API 地址和 Key。")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -220,11 +220,11 @@ struct AgentPane: View {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                     Text("图片生成模型")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     TextField("dall-e-3", text: $directImageModel)
                         .textFieldStyle(.plain)
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .padding(.horizontal, AppTheme.Spacing.md)
                         .padding(.vertical, AppTheme.Spacing.smMd)
@@ -241,11 +241,11 @@ struct AgentPane: View {
 
                 VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                     Text("视频生成模型")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     TextField("MiniMax-Hailuo-2.3", text: $directVideoModel)
                         .textFieldStyle(.plain)
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .padding(.horizontal, AppTheme.Spacing.md)
                         .padding(.vertical, AppTheme.Spacing.smMd)
@@ -276,11 +276,11 @@ struct AgentPane: View {
                     case .testing: EmptyView()
                     case .success(let msg):
                         Label(msg, systemImage: "checkmark.circle.fill")
-                            .font(.system(size: AppTheme.FontSize.sm))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                             .foregroundStyle(.green)
                     case .failure(let msg):
                         Label(msg, systemImage: "xmark.circle.fill")
-                            .font(.system(size: AppTheme.FontSize.sm))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                             .foregroundStyle(.red)
                             .lineLimit(2)
                     }
@@ -332,12 +332,12 @@ struct AgentPane: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text("Anthropic API Key")
-                .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                 .foregroundStyle(AppTheme.Text.primaryColor)
 
             HStack(alignment: .firstTextBaseline, spacing: AppTheme.Spacing.sm) {
                 Text("使用自己的 API Key 进行 AI 对话，安全存储于 macOS 钥匙串。")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -345,9 +345,9 @@ struct AgentPane: View {
                     HStack(spacing: 2) {
                         Text("获取 Anthropic API Key")
                         Image(systemName: "arrow.up.right")
-                            .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                     }
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Accent.primary)
                 }
                 .buttonStyle(.plain)
@@ -367,7 +367,7 @@ struct AgentPane: View {
         SecureField(placeholder, text: $draft)
             .textFieldStyle(.plain)
             .focused($isFocused)
-            .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+            .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
             .foregroundStyle(AppTheme.Text.primaryColor)
             .onSubmit(save)
             .padding(.horizontal, AppTheme.Spacing.md)
@@ -400,7 +400,7 @@ struct AgentPane: View {
         } else if hasKey {
             Button(action: remove) {
                 Image(systemName: "trash")
-                    .font(.system(size: AppTheme.FontSize.md))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .frame(width: AppTheme.IconSize.md, height: AppTheme.IconSize.md)
             }
@@ -519,12 +519,12 @@ struct AgentPane: View {
     private var mcpHeader: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
             Text("MCP 服务器")
-                .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                 .foregroundStyle(AppTheme.Text.primaryColor)
 
             HStack(alignment: .firstTextBaseline, spacing: AppTheme.Spacing.sm) {
                 Text("允许 Cursor、Claude Desktop、Claude Code 等外部客户端编辑时间线。")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -532,9 +532,9 @@ struct AgentPane: View {
                     HStack(spacing: 2) {
                         Text("配置说明")
                         Image(systemName: "arrow.up.right")
-                            .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                     }
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Accent.primary)
                 }
                 .buttonStyle(.plain)
@@ -555,7 +555,7 @@ struct AgentPane: View {
                         Text("运行中：")
                             .foregroundStyle(AppTheme.Text.secondaryColor)
                         Text("127.0.0.1:\(String(MCPService.port))")
-                            .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                            .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.primaryColor)
                     }
                 } else {
@@ -563,7 +563,7 @@ struct AgentPane: View {
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
             }
-            .font(.system(size: AppTheme.FontSize.sm))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
 
             Spacer()
 

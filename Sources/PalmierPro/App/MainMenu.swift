@@ -12,6 +12,7 @@ enum MainMenuBuilder {
         mainMenu.addItem(editMenu())
         mainMenu.addItem(viewMenu())
         mainMenu.addItem(helpMenu())
+        AppTheme.Typography.applyTypography(to: mainMenu)
         return mainMenu
     }
 

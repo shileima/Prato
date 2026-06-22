@@ -10,10 +10,10 @@ struct SidebarRowButton: View {
         Button(action: action) {
             HStack(spacing: AppTheme.Spacing.smMd) {
                 Image(systemName: systemImage)
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .frame(width: AppTheme.Spacing.lgXl)
                 Text(label)
-                    .font(.system(size: AppTheme.FontSize.md))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, AppTheme.Spacing.smMd)

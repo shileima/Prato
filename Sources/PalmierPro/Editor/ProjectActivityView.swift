@@ -18,12 +18,12 @@ struct ProjectActivityView: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             HStack {
                 Text("项目动态")
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
                 if !entries.isEmpty {
                     Text("\(CostEstimator.format(total)) used")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs, weight: .medium))
                         .monospacedDigit()
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
@@ -31,7 +31,7 @@ struct ProjectActivityView: View {
 
             if entries.isEmpty {
                 Text("暂无生成内容")
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, AppTheme.Spacing.sm)
@@ -53,22 +53,22 @@ struct ProjectActivityView: View {
     private func row(_ entry: GenerationLogEntry) -> some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Image(systemName: entry.sfSymbolName)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(width: AppTheme.IconSize.xs)
             Text(CostEstimator.format(entry.costCredits))
-                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs, weight: .medium))
                 .monospacedDigit()
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: 68, alignment: .leading)
             Text(entry.modelDisplayName)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(1)
                 .truncationMode(.middle)
             Spacer(minLength: AppTheme.Spacing.xs)
             Text(relativeTime(entry.createdAt))
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.mutedColor)
                 .lineLimit(1)
         }
@@ -89,7 +89,7 @@ struct ProjectActivityButton: View {
     var body: some View {
         Button(action: { isPresented.toggle() }) {
             Image(systemName: "clock.arrow.circlepath")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: AppTheme.IconSize.lg, height: AppTheme.IconSize.lg)
                 .hoverHighlight()

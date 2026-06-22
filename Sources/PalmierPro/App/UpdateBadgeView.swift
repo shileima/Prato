@@ -10,7 +10,7 @@ struct UpdateBadgeView: View {
                     updater.checkForUpdates(nil)
                 } label: {
                     Text(badgeLabel)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .lineLimit(1)
                         .fixedSize(horizontal: true, vertical: false)
@@ -26,7 +26,7 @@ struct UpdateBadgeView: View {
                     updater.dismissUpdate()
                 } label: {
                     Image(systemName: "xmark")
-                        .font(.system(size: AppTheme.FontSize.micro, weight: .bold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.micro, weight: .bold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .padding(.leading, AppTheme.Spacing.xxs)
                         .padding(.trailing, AppTheme.Spacing.xs)

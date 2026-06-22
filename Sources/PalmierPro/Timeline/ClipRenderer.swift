@@ -600,7 +600,7 @@ enum ClipRenderer {
         let text = "\(name)  \(timecode)"
 
         let baseAttrs: [NSAttributedString.Key: Any] = [
-            .font: NSFont.systemFont(ofSize: AppTheme.FontSize.xs, weight: .medium),
+            .font: AppTheme.Typography.uiNS(size: AppTheme.FontSize.xs, weight: .medium),
             .foregroundColor: AppTheme.Text.primary,
         ]
         let attributed = NSMutableAttributedString(string: text, attributes: baseAttrs)
@@ -627,7 +627,7 @@ enum ClipRenderer {
     private static func drawOffsetBadge(frames: Int, in rect: NSRect, context: CGContext) {
         let text = frames > 0 ? "+\(frames)" : "\(frames)"
         let attrs: [NSAttributedString.Key: Any] = [
-            .font: NSFont.systemFont(ofSize: AppTheme.FontSize.xs, weight: .semibold),
+            .font: AppTheme.Typography.uiNS(size: AppTheme.FontSize.xs, weight: .semibold),
             .foregroundColor: NSColor.white,
         ]
         let str = NSAttributedString(string: text, attributes: attrs)

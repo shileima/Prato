@@ -12,7 +12,7 @@ struct InspectorSection<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.smMd) {
             Text(title.uppercased())
-                .font(.system(size: AppTheme.FontSize.xxs, weight: AppTheme.FontWeight.semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: AppTheme.FontWeight.semibold))
                 .tracking(AppTheme.Tracking.wide)
                 .foregroundStyle(AppTheme.Text.mutedColor)
             VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {

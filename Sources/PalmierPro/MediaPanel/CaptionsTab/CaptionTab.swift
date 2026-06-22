@@ -192,9 +192,9 @@ struct CaptionTab: View {
                 } label: {
                     HStack(spacing: AppTheme.Spacing.xxs) {
                         Text(textCase.label)
-                        Image(systemName: "chevron.up.chevron.down").font(.system(size: AppTheme.FontSize.xxs))
+                        Image(systemName: "chevron.up.chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                     }
-                    .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
                 .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize().focusable(false)
@@ -241,9 +241,9 @@ struct CaptionTab: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text("智能体模式")
-                Image(systemName: "chevron.down").font(.system(size: AppTheme.FontSize.xs))
+                Image(systemName: "chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
             }
-            .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
             .foregroundStyle(AppTheme.aiGradient)
             .lineLimit(1)
             .fixedSize()
@@ -270,9 +270,9 @@ struct CaptionTab: View {
     private func menuValueLabel(_ text: String) -> some View {
         HStack(spacing: AppTheme.Spacing.xxs) {
             Text(text)
-            Image(systemName: "chevron.up.chevron.down").font(.system(size: AppTheme.FontSize.xxs))
+            Image(systemName: "chevron.up.chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
         }
-        .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
+        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
         .foregroundStyle(AppTheme.Text.tertiaryColor)
         .lineLimit(1)
     }
@@ -339,7 +339,7 @@ struct CaptionTab: View {
     private func posField(_ label: String, value: CGFloat, onChange: @escaping (CGFloat) -> Void) -> some View {
         HStack(spacing: AppTheme.Spacing.xxs) {
             Text(label)
-                .font(.system(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
             ScrubbableNumberField(
                 value: Double(value),
@@ -356,7 +356,7 @@ struct CaptionTab: View {
         VStack(spacing: AppTheme.Spacing.sm) {
             if let note {
                 Text(note)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Status.errorColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
@@ -364,7 +364,7 @@ struct CaptionTab: View {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Button(action: generate) {
                     Text("生成字幕")
-                        .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
                         .foregroundStyle(AppTheme.Background.baseColor)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity)

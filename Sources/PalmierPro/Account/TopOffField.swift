@@ -13,14 +13,14 @@ struct TopOffField<Trailing: View>: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Text("$")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                 TextField("", value: $dollars, format: .number)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 56)
                     .disabled(account.isBuyingCredits)
                 Text(credits == 1 ? "= 1 credit" : "= \(credits.formatted()) credits")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                     .monospacedDigit()
                     .foregroundStyle(
                         isValid

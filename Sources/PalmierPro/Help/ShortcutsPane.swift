@@ -77,7 +77,7 @@ struct ShortcutsPane: View {
             ForEach(groups, id: \.title) { group in
                 VStack(alignment: .leading, spacing: 8) {
                     Text(group.title)
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: 10, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .textCase(.uppercase)
                         .tracking(0.3)
@@ -86,13 +86,13 @@ struct ShortcutsPane: View {
                         ForEach(group.shortcuts, id: \.0) { shortcut, description in
                             HStack(alignment: .firstTextBaseline, spacing: 10) {
                                 Text(shortcut)
-                                    .font(.system(.caption2, design: .monospaced))
+                                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xxs))
                                     .foregroundStyle(AppTheme.Text.primaryColor)
                                     .fontWeight(.semibold)
                                     .frame(width: Self.shortcutKeyColumnWidth, alignment: .leading)
 
                                 Text(description)
-                                    .font(.system(size: 11))
+                                    .font(AppTheme.Typography.ui(size: 11))
                                     .foregroundStyle(AppTheme.Text.secondaryColor)
                                     .fixedSize(horizontal: true, vertical: false)
                             }

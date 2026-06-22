@@ -52,10 +52,10 @@ struct HelpView: View {
         return Button(action: { selectedTab = tab }) {
             HStack(spacing: 10) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: 12, weight: .medium))
                     .frame(width: 16)
                 Text(tab.rawValue)
-                    .font(.system(size: AppTheme.FontSize.md, weight: isActive ? .medium : .regular))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: isActive ? .medium : .regular))
                 Spacer()
             }
             .foregroundStyle(isActive ? AppTheme.Text.primaryColor : AppTheme.Text.secondaryColor)
@@ -72,7 +72,7 @@ struct HelpView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(selectedTab.rawValue)
-                    .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
@@ -96,7 +96,7 @@ final class HelpWindowController: NSWindowController {
     private var hosting: NSHostingController<AnyView>?
 
     private init() {
-        let initialView = HelpView().tint(AppTheme.Accent.primary)
+        let initialView = HelpView().tint(AppTheme.Accent.primary).appTypography()
         let hosting = NSHostingController(rootView: AnyView(initialView))
         let window = NSWindow(contentViewController: hosting)
         window.setContentSize(NSSize(width: 900, height: 560))

@@ -103,7 +103,7 @@ private struct SettingsDetail: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(tab.label)
-                    .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Spacer()
@@ -145,10 +145,10 @@ struct SettingsToggleRow: View {
         HStack(alignment: .top, spacing: AppTheme.Spacing.md) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                 Text(title)
-                    .font(.system(size: AppTheme.FontSize.md))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Text(subtitle)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -171,7 +171,7 @@ final class SettingsWindowController: NSWindowController {
     private var hosting: NSHostingController<AnyView>?
 
     private init() {
-        let initialView = SettingsView().tint(AppTheme.Accent.primary)
+        let initialView = SettingsView().tint(AppTheme.Accent.primary).appTypography()
         let hosting = NSHostingController(rootView: AnyView(initialView))
         let window = NSWindow(contentViewController: hosting)
         window.setContentSize(NSSize(width: 980, height: 640))

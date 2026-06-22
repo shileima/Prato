@@ -11,7 +11,7 @@ struct MarkdownText: View {
                 switch block {
                 case .prose(let attr):
                     Text(attr)
-                        .font(.body)
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                         .lineSpacing(AppTheme.Spacing.xs)
                         .textSelection(.enabled)
@@ -22,12 +22,12 @@ struct MarkdownText: View {
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
                         if let language, !language.isEmpty {
                             Text(language)
-                                .font(.system(size: AppTheme.FontSize.xxs, weight: .medium, design: .monospaced))
+                                .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xxs, weight: .medium))
                                 .foregroundStyle(AppTheme.Text.mutedColor)
                                 .textCase(.uppercase)
                         }
                         Text(code)
-                            .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                            .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                             .foregroundStyle(AppTheme.Text.primaryColor)
                             .textSelection(.enabled)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -43,7 +43,7 @@ struct MarkdownText: View {
                         GridRow {
                             ForEach(Array(header.enumerated()), id: \.offset) { idx, cell in
                                 Text(cell)
-                                    .font(.body.weight(.semibold))
+                                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .semibold))
                                     .foregroundStyle(AppTheme.Text.primaryColor)
                                     .textSelection(.enabled)
                                     .gridColumnAlignment(columnAlign(alignments, at: idx))
@@ -54,7 +54,7 @@ struct MarkdownText: View {
                             GridRow {
                                 ForEach(Array(row.enumerated()), id: \.offset) { _, cell in
                                     Text(cell)
-                                        .font(.body)
+                                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                                         .foregroundStyle(AppTheme.Text.primaryColor)
                                         .textSelection(.enabled)
                                 }

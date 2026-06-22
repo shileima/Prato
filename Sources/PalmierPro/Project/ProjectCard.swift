@@ -23,7 +23,7 @@ struct ProjectCard: View {
                             .aspectRatio(contentMode: .fill)
                     } else {
                         Image(systemName: "film")
-                            .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                             .foregroundStyle(AppTheme.Text.mutedColor)
                     }
                 }
@@ -33,9 +33,9 @@ struct ProjectCard: View {
 
                         VStack(spacing: AppTheme.Spacing.xs) {
                             Image(systemName: "questionmark.folder")
-                                .font(.system(size: AppTheme.FontSize.title1))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title1))
                             Text("文件丢失")
-                                .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         }
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     }
@@ -59,12 +59,12 @@ struct ProjectCard: View {
 
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                 Text(entry.name)
-                    .font(.system(size: AppTheme.FontSize.smMd, weight: .regular))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .regular))
                     .foregroundStyle(entry.isAccessible ? .white : AppTheme.Text.mutedColor)
                     .lineLimit(1)
 
                 Text(Self.relativeString(for: entry.createdDate))
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(.white.opacity(AppTheme.Opacity.medium))
             }
             .padding(.horizontal, AppTheme.Spacing.md)
@@ -75,7 +75,7 @@ struct ProjectCard: View {
             if isHovered {
                 Button { showDeleteConfirmation = true } label: {
                     Image(systemName: "trash.fill")
-                        .font(.system(size: AppTheme.FontSize.smMd, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .semibold))
                         .foregroundStyle(.red)
                         .frame(width: AppTheme.IconSize.lgXl, height: AppTheme.IconSize.lgXl)
                         .glassEffect(.regular, in: .circle)

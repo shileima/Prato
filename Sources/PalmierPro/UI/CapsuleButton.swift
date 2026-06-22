@@ -36,7 +36,7 @@ struct CapsuleButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .font(.system(size: fontSize, weight: .medium))
+                .font(AppTheme.Typography.ui(size: fontSize, weight: .medium))
                 .foregroundStyle(foreground)
                 .padding(.horizontal, hPadding)
                 .padding(.vertical, vPadding)

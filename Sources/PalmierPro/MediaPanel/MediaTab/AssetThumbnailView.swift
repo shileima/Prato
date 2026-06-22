@@ -38,7 +38,7 @@ struct AssetThumbnailView: View {
             ZStack(alignment: .leading) {
                 if isRenaming {
                     TextField("Name", text: $renameDraft)
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .textFieldStyle(.plain)
                         .lineLimit(1)
                         .focused($isRenameFieldFocused)
@@ -49,7 +49,7 @@ struct AssetThumbnailView: View {
                         .onExitCommand { isRenaming = false }
                 } else {
                     Text(asset.name)
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .lineLimit(1)
                         .truncationMode(.middle)
                         .foregroundStyle(isSelected ? AppTheme.Text.primaryColor : AppTheme.Text.secondaryColor)
@@ -162,7 +162,7 @@ struct AssetThumbnailView: View {
                     .aspectRatio(contentMode: .fit)
             } else {
                 Image(systemName: asset.type.sfSymbolName)
-                    .font(.system(size: AppTheme.FontSize.xl))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xl))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
         }
@@ -202,7 +202,7 @@ struct AssetThumbnailView: View {
         if isHovering && !asset.isGenerating && !isSwapPickMode {
             Button { editor.agentService.attachMention(for: asset) } label: {
                 Image(systemName: "bubble.left")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
             }
@@ -217,7 +217,7 @@ struct AssetThumbnailView: View {
 
     private var sourceBadge: some View {
         Text("AI")
-            .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
             .foregroundStyle(AppTheme.aiGradient)
             .padding(.horizontal, AppTheme.Spacing.sm)
             .padding(.vertical, AppTheme.Spacing.xxs)
@@ -226,7 +226,7 @@ struct AssetThumbnailView: View {
 
     private var durationBadge: some View {
         Text(formatDuration(asset.duration))
-            .font(.system(size: AppTheme.FontSize.xxs, weight: .medium))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .medium))
             .foregroundStyle(.white)
             .monospacedDigit()
             .padding(.horizontal, AppTheme.Spacing.sm)
@@ -237,13 +237,13 @@ struct AssetThumbnailView: View {
     private func failedThumbnail(error: String) -> some View {
         VStack(spacing: AppTheme.Spacing.xxs) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: AppTheme.FontSize.mdLg))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.mdLg))
                 .foregroundStyle(.red.opacity(AppTheme.Opacity.prominent))
             Text("失败")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
             Text(error)
-                .font(.system(size: AppTheme.FontSize.xxs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .multilineTextAlignment(.center)
                 .lineLimit(3)
@@ -256,10 +256,10 @@ struct AssetThumbnailView: View {
     private var missingThumbnail: some View {
         VStack(spacing: AppTheme.Spacing.xxs) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: AppTheme.FontSize.mdLg))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.mdLg))
                 .foregroundStyle(AppTheme.Status.errorColor)
             Text("媒体离线")
-                .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
         }
         .help("Prato couldn't load this source file. It may be missing, on an ejected drive, or unreadable.")

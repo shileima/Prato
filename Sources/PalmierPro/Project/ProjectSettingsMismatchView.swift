@@ -7,11 +7,11 @@ struct ProjectSettingsMismatchView: View {
     var body: some View {
         VStack(spacing: AppTheme.Spacing.xl) {
             Text("片段设置不匹配")
-                .font(.system(size: AppTheme.FontSize.xl, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xl, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
 
             Text("所添加的片段与当前项目的设置不同。")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .multilineTextAlignment(.center)
 
@@ -19,32 +19,32 @@ struct ProjectSettingsMismatchView: View {
                 GridRow {
                     Text("")
                     Text("项目")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                     Text("Clip")
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
                 GridRow {
                     Text("FPS")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                     Text("\(editor.timeline.fps)")
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                     Text("\(mismatch.clipFPS)")
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(mismatch.clipFPS != editor.timeline.fps ? .orange : AppTheme.Text.primaryColor)
                 }
                 GridRow {
                     Text("Resolution")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                     Text("\(editor.timeline.width) x \(editor.timeline.height)")
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.primaryColor)
                     Text("\(mismatch.clipWidth) x \(mismatch.clipHeight)")
-                        .font(.system(size: AppTheme.FontSize.sm, design: .monospaced))
+                        .font(AppTheme.Typography.mono(size: AppTheme.FontSize.sm))
                         .foregroundStyle(resolutionMismatch ? .orange : AppTheme.Text.primaryColor)
                 }
             }

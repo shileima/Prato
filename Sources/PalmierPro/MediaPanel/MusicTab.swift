@@ -158,9 +158,9 @@ struct MusicTab: View {
     private func menuValueLabel(_ text: String) -> some View {
         HStack(spacing: AppTheme.Spacing.xxs) {
             Text(text)
-            Image(systemName: "chevron.up.chevron.down").font(.system(size: AppTheme.FontSize.xxs))
+            Image(systemName: "chevron.up.chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
         }
-        .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
+        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
         .foregroundStyle(AppTheme.Text.tertiaryColor)
         .lineLimit(1)
     }
@@ -175,9 +175,9 @@ struct MusicTab: View {
                 } label: {
                     HStack(spacing: AppTheme.Spacing.xxs) {
                         Text(model?.displayName ?? "None")
-                        Image(systemName: "chevron.up.chevron.down").font(.system(size: AppTheme.FontSize.xxs))
+                        Image(systemName: "chevron.up.chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                     }
-                    .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .lineLimit(1)
                 }
@@ -191,7 +191,7 @@ struct MusicTab: View {
             TextField(model?.promptLabel ?? "", text: $prompt, axis: .vertical)
                 .textFieldStyle(.plain)
                 .lineLimit(2...5)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.primaryColor)
                 .padding(AppTheme.Spacing.smMd)
                 .background(
@@ -209,7 +209,7 @@ struct MusicTab: View {
         VStack(spacing: AppTheme.Spacing.sm) {
             if let note = note ?? validationNote {
                 Text(note)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Status.errorColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .fixedSize(horizontal: false, vertical: true)
@@ -217,7 +217,7 @@ struct MusicTab: View {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Button(action: generate) {
                     Text(generateLabel)
-                        .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
                         .foregroundStyle(AppTheme.Background.baseColor)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity)
@@ -241,7 +241,7 @@ struct MusicTab: View {
 
     private func valueText(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.medium))
             .foregroundStyle(AppTheme.Text.tertiaryColor)
             .lineLimit(1)
     }
@@ -268,9 +268,9 @@ struct MusicTab: View {
         } label: {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Text("智能体模式")
-                Image(systemName: "chevron.down").font(.system(size: AppTheme.FontSize.xs))
+                Image(systemName: "chevron.down").font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
             }
-            .font(.system(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
+            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: AppTheme.FontWeight.semibold))
             .foregroundStyle(AppTheme.aiGradient)
             .lineLimit(1)
             .fixedSize()

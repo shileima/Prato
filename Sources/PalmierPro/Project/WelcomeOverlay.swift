@@ -23,11 +23,11 @@ struct WelcomeOverlay: View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.lg) {
             VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
                 Text("欢迎使用 Prato")
-                    .font(.system(size: AppTheme.FontSize.title2, weight: .light))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.title2, weight: .light))
                     .tracking(AppTheme.Tracking.tight)
                     .foregroundStyle(AppTheme.Text.primaryColor)
                 Text("专为 AI 打造的视频编辑器，一站式生成与编辑。")
-                    .font(.system(size: AppTheme.FontSize.smMd))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .fixedSize(horizontal: false, vertical: true)
             }

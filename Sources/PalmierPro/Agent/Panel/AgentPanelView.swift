@@ -100,7 +100,7 @@ struct AgentPanelView: View {
     private var newTabButton: some View {
         Button { service.newChat() } label: {
             Image(systemName: "plus")
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
         }
@@ -111,11 +111,26 @@ struct AgentPanelView: View {
 
     @State private var showHistory = false
     @State private var isScrolledFromBottom = false
+    @State private var scrollBottomTask: Task<Void, Never>?
+
+    private struct ScrollEpoch: Equatable {
+        var messageCount: Int
+        var isStreaming: Bool
+        var lastBlockCount: Int
+    }
+
+    private var scrollEpoch: ScrollEpoch {
+        ScrollEpoch(
+            messageCount: service.messages.count,
+            isStreaming: service.isStreaming,
+            lastBlockCount: service.messages.last?.blocks.count ?? 0
+        )
+    }
 
     private var historyButton: some View {
         Button { showHistory.toggle() } label: {
             Image(systemName: "clock.arrow.circlepath")
-                .font(.system(size: AppTheme.FontSize.sm, weight: .medium))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .medium))
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
         }
@@ -145,10 +160,10 @@ struct AgentPanelView: View {
             } label: {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Text(service.effectiveModel.displayName)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                         .foregroundStyle(AppTheme.Text.secondaryColor)
                     Image(systemName: "chevron.down")
-                        .font(.system(size: AppTheme.FontSize.micro, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.micro, weight: .semibold))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                 }
             }
@@ -162,7 +177,7 @@ struct AgentPanelView: View {
     private var byokIndicator: some View {
         if service.hasApiKey {
             Text("使用自定义 API")
-                .font(.system(size: AppTheme.FontSize.xs).italic())
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs).italic())
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
                 .help("Streaming through your Anthropic API key (BYOK)")
         }
@@ -181,24 +196,21 @@ struct AgentPanelView: View {
     }
 
     private var messageList: some View {
-        Group {
-            if service.messages.isEmpty && !service.isStreaming {
-                VStack(spacing: AppTheme.Spacing.smMd) {
-                    emptyState
-                    errorBanner
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .padding(.horizontal, AppTheme.Spacing.lgXl)
-            } else {
-                scrollingMessages
-            }
-        }
+        scrollingMessages
     }
 
     private var scrollingMessages: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: AppTheme.Spacing.xl) {
+                    if service.messages.isEmpty && !service.isStreaming {
+                        VStack(spacing: AppTheme.Spacing.smMd) {
+                            emptyState
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 280)
+                        .padding(.top, AppTheme.Spacing.xxl)
+                    }
+
                     let results = toolResults
                     ForEach(service.messages) { msg in
                         AgentMessageView(message: msg, toolResults: results)
@@ -209,6 +221,9 @@ struct AgentPanelView: View {
                     }
                     errorBanner
                         .padding(.top, AppTheme.Spacing.sm)
+                    Color.clear
+                        .frame(height: 1)
+                        .id("chat-bottom")
                 }
                 .padding(.horizontal, AppTheme.Spacing.lgXl)
                 .padding(.top, Layout.panelHeaderHeight + AppTheme.Spacing.sm)
@@ -222,10 +237,14 @@ struct AgentPanelView: View {
                 let distance = geo.contentSize.height - geo.contentOffset.y - geo.containerSize.height
                 return distance > 80
             } action: { _, newValue in
-                withAnimation(.easeOut(duration: 0.15)) { isScrolledFromBottom = newValue }
+                isScrolledFromBottom = newValue
             }
-            .onChange(of: service.messages.count) { _, _ in scrollToBottom(proxy) }
-            .onChange(of: service.isStreaming) { _, _ in scrollToBottom(proxy) }
+            .onChange(of: scrollEpoch) { _, _ in
+                scheduleScrollToBottom(proxy)
+            }
+            .onAppear {
+                scheduleScrollToBottom(proxy)
+            }
             .overlay(alignment: .bottomTrailing) {
                 if isScrolledFromBottom {
                     scrollToBottomButton(proxy: proxy)
@@ -242,7 +261,7 @@ struct AgentPanelView: View {
             scrollToBottom(proxy)
         } label: {
             Image(systemName: "arrow.down")
-                .font(.system(size: AppTheme.FontSize.smMd, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: AppTheme.IconSize.lgXl, height: AppTheme.IconSize.lgXl)
                 .glassEffect(.regular, in: .circle)
@@ -257,13 +276,13 @@ struct AgentPanelView: View {
         if let err = service.streamError {
             HStack(alignment: .firstTextBaseline, spacing: AppTheme.Spacing.sm) {
                 Text(err.localizedDescription)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(.red)
                     .multilineTextAlignment(.leading)
                 if let cta = errorCTA(for: err) {
                     Button(action: cta.action) {
                         Text(cta.title)
-                            .font(.system(size: AppTheme.FontSize.xs, weight: .medium))
+                            .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .medium))
                     }
                     .buttonStyle(.capsule(.secondary))
                     .controlSize(.small)
@@ -298,7 +317,7 @@ struct AgentPanelView: View {
         if service.canStream {
             VStack(spacing: AppTheme.Spacing.smMd) {
                 Text("输入任意内容，或从以下开始：")
-                    .font(.system(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
                     .multilineTextAlignment(.center)
                 VStack(spacing: AppTheme.Spacing.xs) {
@@ -335,7 +354,7 @@ struct AgentPanelView: View {
             }
             .buttonStyle(.plain)
         }
-        .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
     }
 
     private func missingKeyPrimaryAction(account: AccountService) -> String {
@@ -344,16 +363,21 @@ struct AgentPanelView: View {
         return "打开设置"
     }
 
-    private func scrollToBottom(_ proxy: ScrollViewProxy) {
-        if service.isStreaming {
-            withAnimation(.easeOut(duration: 0.15)) {
-                proxy.scrollTo("streaming-indicator", anchor: .bottom)
-            }
-        } else if let last = service.messages.last {
-            withAnimation(.easeOut(duration: 0.15)) {
-                proxy.scrollTo(last.id, anchor: .bottom)
+    private func scheduleScrollToBottom(_ proxy: ScrollViewProxy) {
+        scrollBottomTask?.cancel()
+        scrollBottomTask = Task { @MainActor in
+            await Task.yield()
+            guard !Task.isCancelled else { return }
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction) {
+                proxy.scrollTo("chat-bottom", anchor: .bottom)
             }
         }
+    }
+
+    private func scrollToBottom(_ proxy: ScrollViewProxy) {
+        scheduleScrollToBottom(proxy)
     }
 
     private var footer: some View {
@@ -409,11 +433,11 @@ private struct AgentStarterPromptButton: View {
         Button(action: action) {
             HStack(spacing: AppTheme.Spacing.sm) {
                 Image(systemName: starterPrompt.systemImage)
-                    .font(.system(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .frame(width: AppTheme.IconSize.smMd, height: AppTheme.IconSize.smMd)
                 Text(starterPrompt.title)
-                    .font(.system(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.smMd, weight: AppTheme.FontWeight.medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -449,14 +473,14 @@ private struct ChatTabView: View {
             VStack(spacing: AppTheme.Spacing.xs) {
                 HStack(spacing: AppTheme.Spacing.xs) {
                     Text(displayTitle)
-                        .font(.system(size: AppTheme.FontSize.xs, weight: isActive ? .semibold : .regular))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: isActive ? .semibold : .regular))
                         .foregroundStyle(isActive ? AppTheme.Text.primaryColor : AppTheme.Text.mutedColor)
                         .lineLimit(1)
                         .fixedSize()
                     if hovering || isActive {
                         Button(action: onClose) {
                             Image(systemName: "xmark")
-                                .font(.system(size: AppTheme.FontSize.xxs, weight: .medium))
+                                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .medium))
                                 .foregroundStyle(AppTheme.Text.mutedColor)
                                 .frame(width: AppTheme.Spacing.mdLg, height: AppTheme.Spacing.mdLg)
                         }

@@ -31,7 +31,7 @@ extension MediaTab {
                 }
                 if visualHits.isEmpty, spokenHits.isEmpty, nameMatches.isEmpty {
                     Text("No matches for “\(trimmedSearchQuery)”")
-                        .font(.system(size: AppTheme.FontSize.sm))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .frame(maxWidth: .infinity)
                         .padding(.top, AppTheme.Spacing.xl)
@@ -65,15 +65,15 @@ extension MediaTab {
             HStack(spacing: AppTheme.Spacing.xs) {
                 if collapsible {
                     Image(systemName: "chevron.down")
-                        .font(.system(size: AppTheme.FontSize.xxs, weight: .semibold))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs, weight: .semibold))
                         .rotationEffect(.degrees(isCollapsed ? -90 : 0))
                 }
                 Image(systemName: icon)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 Text(title)
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                 Text("\(count)")
-                    .font(.system(size: AppTheme.FontSize.xs).monospacedDigit())
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xs).monospacedDigit())
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                 Spacer()
             }
@@ -102,12 +102,12 @@ extension MediaTab {
                 .frame(maxWidth: .infinity)
                 .clipShape(RoundedRectangle(cornerRadius: AppTheme.Radius.sm))
             Text(asset?.name ?? "")
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(1)
             if !isImage {
                 Text("\(timecode(range.lowerBound))–\(timecode(range.upperBound))")
-                    .font(.system(size: AppTheme.FontSize.xxs).monospacedDigit())
+                    .font(AppTheme.Typography.mono(size: AppTheme.FontSize.xxs).monospacedDigit())
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             }
         }
@@ -146,11 +146,11 @@ extension MediaTab {
                 .clipShape(RoundedRectangle(cornerRadius: AppTheme.Radius.sm))
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                 Text(hit.text)
-                    .font(.system(size: AppTheme.FontSize.xs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .lineLimit(3)
                 Text("\(asset?.name ?? "") · \(timecode(hit.start))")
-                    .font(.system(size: AppTheme.FontSize.xxs))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xxs))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .lineLimit(1)
             }
@@ -181,7 +181,7 @@ extension MediaTab {
             .frame(maxWidth: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: AppTheme.Radius.sm))
             Text(asset.name)
-                .font(.system(size: AppTheme.FontSize.xs))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .lineLimit(1)
         }

@@ -45,7 +45,7 @@ struct ToolbarView: View {
             HStack(spacing: AppTheme.Spacing.xs) {
                 Image(systemName: "minus.magnifyingglass")
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 // Log-mapped so slider travel is uniform per zoom factor
                 let zoomBinding = Binding(
                     get: { log(editor.zoomScale) },
@@ -57,7 +57,7 @@ struct ToolbarView: View {
                     .frame(width: 100)
                 Image(systemName: "plus.magnifyingglass")
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
             }
         }
         .padding(.horizontal, AppTheme.Spacing.md)
@@ -67,7 +67,7 @@ struct ToolbarView: View {
     private func toolbarButton(_ systemName: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: systemName)
-                .font(.system(size: AppTheme.FontSize.md))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: 24, height: 24)
                 .hoverHighlight()
@@ -88,7 +88,7 @@ struct ToolbarView: View {
         let isActive = editor.toolMode == mode
         return Button { editor.toolMode = mode } label: {
             Image(systemName: systemName)
-                .font(.system(size: AppTheme.FontSize.md))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 .foregroundStyle(isActive ? AppTheme.Text.primaryColor : AppTheme.Text.tertiaryColor)
                 .frame(width: 24, height: 24)
                 .hoverHighlight(isActive: isActive)
@@ -100,7 +100,7 @@ struct ToolbarView: View {
     private func textGlyphButton(_ glyph: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(glyph)
-                .font(.system(size: 17, weight: .bold, design: .serif))
+                .font(AppTheme.Typography.ui(size: 17, weight: .bold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: 24, height: 24)
                 .hoverHighlight()
@@ -112,7 +112,7 @@ struct ToolbarView: View {
     private func bracketButton(_ bracket: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(bracket)
-                .font(.system(size: 16, weight: .semibold, design: .monospaced))
+                .font(AppTheme.Typography.mono(size: 16, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.secondaryColor)
                 .frame(width: 24, height: 24)
                 .hoverHighlight()

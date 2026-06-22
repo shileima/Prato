@@ -88,7 +88,7 @@ struct AgentInputBox<LeadingTools: View>: View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $draft)
                 .id(textEditorID)
-                .font(.body)
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.never)
                 .padding(.horizontal, AppTheme.Spacing.mdLg)
@@ -96,11 +96,8 @@ struct AgentInputBox<LeadingTools: View>: View {
                 .padding(.bottom, AppTheme.Spacing.xs)
                 .focused($focused)
                 .frame(minHeight: 32, maxHeight: 64)
-                .onChange(of: draft) { old, new in
+                .onChange(of: draft) { _, new in
                     updateMentionQuery(from: new)
-                    if !old.isEmpty && new.isEmpty {
-                        textEditorID = UUID()
-                    }
                 }
                 .onPasteCommand(of: [.fileURL, .image, .png, .jpeg, .tiff], perform: handlePaste)
                 .onKeyPress(phases: [.down, .repeat]) { press in handleKey(press) }
@@ -113,7 +110,7 @@ struct AgentInputBox<LeadingTools: View>: View {
 
             if draft.isEmpty {
                 Text("输入问题，或用 @ 引用媒体")
-                    .font(.body)
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                     .foregroundStyle(AppTheme.Text.mutedColor)
                     .padding(.horizontal, AppTheme.Spacing.lgXl)
                     .padding(.top, AppTheme.Spacing.mdLg)
@@ -133,6 +130,7 @@ struct AgentInputBox<LeadingTools: View>: View {
                 GlassEffectContainer(spacing: AppTheme.Spacing.xs) {
                     sendStopButton
                 }
+                .animation(nil, value: isSending)
             }
             .padding(.horizontal, AppTheme.Spacing.sm)
             .padding(.vertical, AppTheme.Spacing.sm)
@@ -144,7 +142,7 @@ struct AgentInputBox<LeadingTools: View>: View {
         if isSending {
             Button(action: onCancel) {
                 Image(systemName: "stop.fill")
-                    .font(.system(size: AppTheme.FontSize.xs, weight: .bold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .bold))
                     .frame(width: AppTheme.IconSize.sm, height: AppTheme.IconSize.sm)
             }
             .buttonStyle(.glass)
@@ -157,7 +155,7 @@ struct AgentInputBox<LeadingTools: View>: View {
         } else {
             Button(action: onSend) {
                 Image(systemName: "arrow.up")
-                    .font(.system(size: AppTheme.FontSize.sm, weight: .bold))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm, weight: .bold))
                     .frame(width: AppTheme.IconSize.sm, height: AppTheme.IconSize.sm)
             }
             .buttonStyle(.glassProminent)

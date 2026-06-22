@@ -6,7 +6,7 @@ final class TimelineHeaderView: NSView {
 
     private static let headerBg = AppTheme.Background.surface.cgColor
     private static let labelAttrs: [NSAttributedString.Key: Any] = [
-        .font: NSFont.systemFont(ofSize: AppTheme.FontSize.sm, weight: .medium),
+        .font: AppTheme.Typography.uiNS(size: AppTheme.FontSize.sm, weight: .medium),
         .foregroundColor: AppTheme.Text.secondary,
     ]
 

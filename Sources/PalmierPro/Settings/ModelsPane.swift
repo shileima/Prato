@@ -38,7 +38,7 @@ struct ModelsPane: View {
 
             if sections.isEmpty {
                 Text(catalog.isLoaded ? "No models match \"\(query)\"." : "正在加载模型…")
-                    .font(.system(size: AppTheme.FontSize.sm))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
                     .padding(.top, AppTheme.Spacing.lg)
             } else {
@@ -52,11 +52,11 @@ struct ModelsPane: View {
     private var searchBar: some View {
         HStack(spacing: AppTheme.Spacing.sm) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.mutedColor)
             TextField("搜索模型", text: $query)
                 .textFieldStyle(.plain)
-                .font(.system(size: AppTheme.FontSize.sm))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.sm))
                 .foregroundStyle(AppTheme.Text.primaryColor)
         }
         .padding(.horizontal, AppTheme.Spacing.md)
@@ -74,7 +74,7 @@ struct ModelsPane: View {
     private func sectionView(_ section: Section) -> some View {
         VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
             Text(section.title.uppercased())
-                .font(.system(size: AppTheme.FontSize.xs, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs, weight: .semibold))
                 .tracking(AppTheme.Tracking.tight)
                 .foregroundStyle(AppTheme.Text.tertiaryColor)
 
@@ -102,7 +102,7 @@ struct ModelsPane: View {
     private func modelRow(_ row: Row) -> some View {
         HStack(spacing: AppTheme.Spacing.md) {
             Text(row.displayName)
-                .font(.system(size: AppTheme.FontSize.md))
+                .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md))
                 .foregroundStyle(AppTheme.Text.primaryColor)
             Spacer(minLength: AppTheme.Spacing.lg)
             Toggle("", isOn: Binding(

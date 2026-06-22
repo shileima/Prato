@@ -37,17 +37,17 @@ struct UserAvatar: View {
     private var foreground: some View {
         if account.isSignedIn {
             Text(account.displayInitial)
-                .font(.system(size: fontSize, weight: .semibold))
+                .font(AppTheme.Typography.ui(size: fontSize, weight: .semibold))
                 .foregroundStyle(AppTheme.Text.primaryColor)
         } else {
             switch signedOutStyle {
             case .filledCircle:
                 Image(systemName: "person.fill")
-                    .font(.system(size: fontSize))
+                    .font(AppTheme.Typography.ui(size: fontSize))
                     .foregroundStyle(AppTheme.Text.tertiaryColor)
             case .bareSymbol:
                 Image(systemName: "person.crop.circle")
-                    .font(.system(size: diameter))
+                    .font(AppTheme.Typography.ui(size: diameter))
                     .foregroundStyle(AppTheme.Text.secondaryColor)
             }
         }
@@ -113,13 +113,13 @@ struct IdentityStrip: View {
 
             VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                 Text(account.displayPrimaryText)
-                    .font(.system(size: AppTheme.FontSize.md, weight: .medium))
+                    .font(AppTheme.Typography.ui(size: AppTheme.FontSize.md, weight: .medium))
                     .foregroundStyle(AppTheme.Text.primaryColor)
                     .lineLimit(1)
                     .truncationMode(.middle)
                 if let secondary = account.displaySecondaryText {
                     Text(secondary)
-                        .font(.system(size: AppTheme.FontSize.xs))
+                        .font(AppTheme.Typography.ui(size: AppTheme.FontSize.xs))
                         .foregroundStyle(AppTheme.Text.tertiaryColor)
                         .lineLimit(1)
                         .truncationMode(.middle)
